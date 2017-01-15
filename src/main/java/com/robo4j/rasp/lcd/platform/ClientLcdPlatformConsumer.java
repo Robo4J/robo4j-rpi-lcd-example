@@ -74,6 +74,7 @@ public class ClientLcdPlatformConsumer implements AgentConsumer, Callable<Boolea
         final boolean isValue = commandEmpty(command.getValue());
         SimpleLoggingUtil.debug(getClass(), "IsValue: " + isValue + ", command: " + command.getType().getName());
         SimpleLoggingUtil.debug(getClass(), "direction: " + command.getType());
+        //TODO: continue here
         switch (command.getType()) {
             case BUTTON_UP:
             case BUTTON_DOWN:
@@ -94,6 +95,7 @@ public class ClientLcdPlatformConsumer implements AgentConsumer, Callable<Boolea
         return value.equals(ConstantUtil.EMPTY_STRING);
     }
 
+    /* to be replace */
     private void basicInitiation() throws IOException, I2CFactory.UnsupportedBusNumberException {
         final ILCD lcd = new RealLCD();
         lcd.setText("Robo4J.io LCD!\nSocket & up/down...");
