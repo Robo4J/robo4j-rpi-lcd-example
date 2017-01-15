@@ -1,10 +1,13 @@
 ## Robo4J-rpi-lcd-example
-Simple RasbpberryPi / Arduino demo client. The client is the tank platform.
+Robo4J RasbpberryPi LCD Demo example
 
-The platform supports following movements: forward, backward, left, right.
-The client provides http server.
+...UNDER CONSTRUCTION...
 
-The internal sever is accessiable on the port 8025 and supports POST 
+Example offers full LCD control by using button or using socket communication over
+HTTP.
+
+
+The internal sever is accessible on the port 8025 and supports POST
 request where no authentication is not required.
 
 example : <CLIENT_BRICK_IP>:8025
@@ -13,8 +16,8 @@ POST reuest:
 
 { 
   "commands" : [
-     {"name"  : "stop",
-     "target" : "platform"
+     {"name"  : "up",
+     "target" : "lcd_unit"
      }
   ]
 }
