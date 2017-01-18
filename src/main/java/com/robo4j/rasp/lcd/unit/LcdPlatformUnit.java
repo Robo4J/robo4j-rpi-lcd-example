@@ -20,10 +20,11 @@
 package com.robo4j.rasp.lcd.unit;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ConcurrentModificationException;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.ExecutionException;
@@ -32,6 +33,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import com.robo4j.commons.agent.AgentConsumer;
 import com.robo4j.commons.agent.AgentProducer;
@@ -44,10 +46,14 @@ import com.robo4j.commons.command.AdafruitLcdCommandEnum;
 import com.robo4j.commons.command.GenericCommand;
 import com.robo4j.commons.command.RoboUnitCommand;
 import com.robo4j.commons.logging.SimpleLoggingUtil;
+import com.robo4j.commons.registry.UnitProducerRegistry;
 import com.robo4j.commons.unit.DefaultUnit;
+import com.robo4j.commons.unit.UnitProducer;
 import com.robo4j.core.platform.ClientPlatformException;
 import com.robo4j.rasp.lcd.platform.ClientLcdPlatformConsumer;
 import com.robo4j.rasp.lcd.platform.ClientLcdPlatformProducer;
+import com.robo4j.rasp.lcd.producers.LcdButtonProducer;
+import com.robo4j.rasp.lcd.producers.SocketHttpProducer;
 import com.robo4j.rpi.unit.RpiUnit;
 
 /**
@@ -62,17 +68,18 @@ import com.robo4j.rpi.unit.RpiUnit;
 
 @RoboUnit(id = LcdPlatformUnit.UNIT_NAME,
         system = LcdPlatformUnit.SYSTEM_NAME,
-        producer = LcdPlatformUnit.PRODUCER_NAME,
+        producer = {SocketHttpProducer.ID, LcdButtonProducer.ID},
         consumer = "lcd_display")
 public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
 
     private static final int AGENT_PLATFORM_POSITION = 0;
     static final String UNIT_NAME = "lcdUnit";
     static final String SYSTEM_NAME = "lcdBrick";
-    static final String PRODUCER_NAME = "default";
+    static final String[] PRODUCER_NAME = {SocketHttpProducer.ID, LcdButtonProducer.ID};
     static final String CONSUMER_NAME = "adafruitLCD";
 
     private volatile LinkedBlockingQueue<GenericCommand<AdafruitLcdCommandEnum>> commandQueue;
+    private volatile Set<UnitProducer> unitProducers;
 
     public LcdPlatformUnit() {
         SimpleLoggingUtil.debug(getClass(), "Constructor: LcdUnit");
@@ -110,8 +117,25 @@ public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
             SimpleLoggingUtil.print(getClass(), "LcdRpi: INIT");
             final Exchanger<GenericCommand<AdafruitLcdCommandEnum>> lcdExchanger = new Exchanger<>();
 
+            SimpleLoggingUtil.debug(getClass(), "Constructor: construct LCD unit producers");
+            UnitProducerRegistry unitProducerRegistry = UnitProducerRegistry.getInstance();
+            if(unitProducerRegistry.isActive()){
+                unitProducers = new HashSet<>();
+                Stream.of(PRODUCER_NAME).forEach(producerName -> {
+                    UnitProducer tmpProducer = unitProducerRegistry.getByName(producerName);
+                    ((DefaultUnit)tmpProducer).init(null);
+                    ((DefaultUnit)tmpProducer).setExecutor(executorForAgents);
+                    SimpleLoggingUtil.debug(getClass(), "adding Unit Producer: " + tmpProducer);
+                    unitProducers.add(tmpProducer);
+                });
+            }
+
+
             this.agents.add(createAgent("lcdPlatformAgent", new ClientLcdPlatformProducer(commandQueue, lcdExchanger),
                     new ClientLcdPlatformConsumer(executorForAgents, lcdExchanger)));
+
+
+
 
             if (!agents.isEmpty()) {
                 active.set(true);
@@ -158,12 +182,12 @@ public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
 
     @Override
     public String[] getProducerName() {
-        return new String[] { PRODUCER_NAME };
+        return  PRODUCER_NAME ;
     }
 
     @Override
     public String getConsumerName() {
-        return Arrays.asList(CONSUMER_NAME).toString();
+        return CONSUMER_NAME;
     }
 
 }

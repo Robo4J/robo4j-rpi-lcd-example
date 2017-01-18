@@ -20,8 +20,8 @@
 package com.robo4j.rasp.lcd;
 
 import com.robo4j.commons.control.RoboSystemConfig;
-import com.robo4j.commons.enums.RegistryTypeEnum;
 import com.robo4j.commons.logging.SimpleLoggingUtil;
+import com.robo4j.commons.registry.RegistryTypeEnum;
 import com.robo4j.commons.registry.RoboRegistry;
 import com.robo4j.core.Robo4jBrick;
 import com.robo4j.core.client.enums.RequestStatusEnum;
@@ -53,7 +53,8 @@ public class RpiLcdControlMain {
     @SuppressWarnings(value = "unchecked")
     public RpiLcdControlMain() {
         SimpleLoggingUtil.print(getClass(), "SERVER starts...");
-        Robo4jBrick robo4jBrick = new Robo4jBrick(getClass(), false);
+        boolean test = false;
+        Robo4jBrick robo4jBrick = new Robo4jBrick(getClass(), test);
         final RoboRegistry<RoboRegistry, RoboSystemConfig> systemServiceRegistry = robo4jBrick
                 .getRegistryByType(RegistryTypeEnum.SERVICES);
         SimpleLoggingUtil.debug(getClass(), "systemServiceRegistry: " + systemServiceRegistry.getRegistry().entrySet()
@@ -65,19 +66,18 @@ public class RpiLcdControlMain {
         robo4jBrick.submit(new RequestProcessorCallable(null));
 
         try (ServerSocket server = new ServerSocket(PORT)) {
-
             final RequestProcessorFactory factory = RequestProcessorFactory.getInstance();
-
             while (active.get()) {
                 Socket request = server.accept();
                 Future<RequestStatusEnum> result = robo4jBrick.submit(new RequestProcessorCallable(request));
+                SimpleLoggingUtil.debug(getClass(), "RESULT result: " + result);
                 switch (result.get()) {
                     case ACTIVE:
                         break;
                     case NONE:
                         break;
                     case EXIT:
-                        SimpleLoggingUtil.debug(getClass(), "IS EXIT: " + result);
+                        SimpleLoggingUtil.debug(getClass(), "IS EXIT: " + result.get());
                         active.set(false);
                         break;
                     default:
