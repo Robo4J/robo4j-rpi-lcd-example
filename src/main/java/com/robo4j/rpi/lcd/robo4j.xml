@@ -1,0 +1,45 @@
+<robo4j>
+	<roboUnit id="lcd">
+		<class>com.robo4j.rpi.lcd.AdafruitLcdUnit</class>
+		<properties>
+			<property>
+				<key>bus</key>
+				<value>1</value>
+			</property>
+			<property>
+				<key>address</key>
+				<!-- 0x20 hex -->
+				<value>32</value>
+			</property>
+		</properties>
+	</roboUnit>
+
+	<roboUnit id="buttons">
+		<class>com.robo4j.rpi.lcd.ButtonUnit</class>
+		<properties>
+			<property>
+				<key>bus</key>
+				<value>1</value>
+			</property>
+			<property>
+				<key>address</key>
+				<!-- 0x20 hex -->
+				<value>32</value>
+			</property>
+			<property>
+				<key>target</key>
+				<value>controller</value>
+			</property>
+		</properties>
+	</roboUnit>
+
+	<roboUnit id="controller">
+		<class>com.robo4j.rpi.lcd.Controller</class>
+		<properties>
+			<property>
+				<key>target</key>
+				<value>lcd</value>
+			</property>
+		</properties>
+	</roboUnit>
+</robo4j>
