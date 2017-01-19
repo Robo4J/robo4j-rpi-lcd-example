@@ -73,14 +73,14 @@ import com.robo4j.rpi.unit.RpiUnit;
 
 @RoboUnit(id = LcdPlatformUnit.UNIT_NAME,
         system = LcdPlatformUnit.SYSTEM_NAME,
-        producer = {LcdButtonProducer.ID, SocketHttpProducer.ID},
+        producer = {SocketHttpProducer.ID, LcdButtonProducer.ID},
         consumer = "lcd_display")
 public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
 
     private static final int AGENT_PLATFORM_POSITION = 0;
     static final String UNIT_NAME = "lcdUnit";
     static final String SYSTEM_NAME = "lcdBrick";
-    static final String[] PRODUCER_NAME = {LcdButtonProducer.ID, SocketHttpProducer.ID};
+    static final String[] PRODUCER_NAME = {SocketHttpProducer.ID, LcdButtonProducer.ID};
     static final String CONSUMER_NAME = "adafruitLCD";
 
     private volatile LinkedBlockingQueue<GenericCommand<AdafruitLcdCommandEnum>> commandQueue;
