@@ -19,15 +19,6 @@
 
 package com.robo4j.rasp.lcd;
 
-import com.robo4j.commons.control.RoboSystemConfig;
-import com.robo4j.commons.logging.SimpleLoggingUtil;
-import com.robo4j.commons.registry.RegistryTypeEnum;
-import com.robo4j.commons.registry.RoboRegistry;
-import com.robo4j.core.Robo4jBrick;
-import com.robo4j.core.client.enums.RequestStatusEnum;
-import com.robo4j.core.client.request.RequestProcessorCallable;
-import com.robo4j.core.client.request.RequestProcessorFactory;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -36,6 +27,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+
+import com.robo4j.commons.control.RoboSystemConfig;
+import com.robo4j.commons.logging.SimpleLoggingUtil;
+import com.robo4j.commons.registry.RegistryTypeEnum;
+import com.robo4j.commons.registry.RoboRegistry;
+import com.robo4j.core.Robo4jBrick;
+import com.robo4j.core.client.enums.RequestStatusEnum;
+import com.robo4j.core.client.request.RequestProcessorCallable;
+import com.robo4j.core.client.request.RequestProcessorFactory;
 
 /**
  * @author Miro Wengner (@miragemiko)

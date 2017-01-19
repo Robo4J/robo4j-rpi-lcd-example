@@ -19,6 +19,11 @@
 
 package com.robo4j.rasp.lcd.producers;
 
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.function.Function;
+
 import com.robo4j.commons.agent.AgentConsumer;
 import com.robo4j.commons.agent.AgentProducer;
 import com.robo4j.commons.agent.AgentStatus;
@@ -29,11 +34,6 @@ import com.robo4j.commons.command.RoboUnitCommand;
 import com.robo4j.commons.logging.SimpleLoggingUtil;
 import com.robo4j.commons.unit.DefaultUnit;
 import com.robo4j.commons.unit.UnitProducer;
-
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.function.Function;
 
 /**
  * @author Miro Wengner (@miragemiko)

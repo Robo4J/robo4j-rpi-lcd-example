@@ -37,7 +37,18 @@ import com.robo4j.commons.logging.SimpleLoggingUtil;
 import com.robo4j.commons.unit.DefaultUnit;
 import com.robo4j.commons.unit.UnitProducer;
 import com.robo4j.core.platform.ClientPlatformException;
-import com.robo4j.hw.rpi.i2c.adafruitlcd.*;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.AutoScrollDemo;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.Button;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.ButtonListener;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.ButtonPressedObserver;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.ColorDemo;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.CursorDemo;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.DisplayDemo;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.ExitTest;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.HelloWorldTest;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.ILCD;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.LCDTest;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.ScrollTest;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.impl.RealLCD;
 
 /**

@@ -19,15 +19,15 @@
 
 package com.robo4j.rasp.lcd.platform;
 
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import com.robo4j.commons.agent.AgentProducer;
 import com.robo4j.commons.command.AdafruitLcdCommandEnum;
 import com.robo4j.commons.command.GenericCommand;
 import com.robo4j.commons.concurrent.CoreBusQueue;
 import com.robo4j.commons.logging.SimpleLoggingUtil;
 import com.robo4j.core.platform.ClientPlatformException;
-
-import java.util.concurrent.Exchanger;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Miro Wengner (@miragemiko)
