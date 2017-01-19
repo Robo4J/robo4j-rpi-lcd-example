@@ -19,55 +19,55 @@
 
 package com.robo4j.rasp.lcd.producers;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
-import com.pi4j.io.i2c.I2CFactory;
 import com.robo4j.commons.agent.AgentConsumer;
 import com.robo4j.commons.agent.AgentProducer;
 import com.robo4j.commons.agent.AgentStatus;
 import com.robo4j.commons.agent.GenericAgent;
 import com.robo4j.commons.agent.ProcessAgent;
 import com.robo4j.commons.annotation.RoboUnitProducer;
+import com.robo4j.commons.command.AdafruitLcdCommandEnum;
+import com.robo4j.commons.command.GenericCommand;
 import com.robo4j.commons.command.RoboUnitCommand;
 import com.robo4j.commons.logging.SimpleLoggingUtil;
 import com.robo4j.commons.unit.DefaultUnit;
+import com.robo4j.commons.unit.GenericUnit;
 import com.robo4j.commons.unit.UnitProducer;
-import com.robo4j.core.platform.ClientPlatformException;
+import com.robo4j.core.client.command.ClientCommandProperties;
+import com.robo4j.core.util.ConstantUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.*;
-import com.robo4j.hw.rpi.i2c.adafruitlcd.impl.RealLCD;
 
 /**
  * @author Miro Wengner (@miragemiko)
  * @since 18.01.2017
  */
 
-//TODO: implement extends DefaultUnit<UnitProducer>
 @RoboUnitProducer(id = LcdButtonProducer.ID)
-public class LcdButtonProducer extends DefaultUnit<UnitProducer> implements UnitProducer {
+public class LcdButtonProducer extends DefaultUnit<UnitProducer> implements UnitProducer, GeneralLcdProducer {
 
     public final static String ID = "lcd_buttons";
-    private static final LCDTest[] STAGES_TEST = { new HelloWorldTest(),
-            new ScrollTest(), new CursorDemo(), new DisplayDemo(),
-            new ColorDemo(), new AutoScrollDemo(), new ExitTest() };
-
-    private int currentTest = -1;
-    private ILCD lcd;
+    private volatile GenericUnit genericUnit;
+    private volatile ILCD lcd;
     private String name;
 
     public LcdButtonProducer() {
         this.name = ID;
-        try {
-            lcd = new RealLCD();
-            lcd.setText("Robo4J.io LCD!\nSocket & up/down...");
+        this.active = new AtomicBoolean(false);
+    }
 
-            basicInitiation(lcd);
-        } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
-            SimpleLoggingUtil.error(getClass(), "error: " + e);
-        }
+    @Override
+    public void setParentUnit(GenericUnit genericUnit) {
+        this.genericUnit = genericUnit;
+    }
+
+    @Override
+    public void setLcdPlate(ILCD lcd){
+        this.lcd = lcd;
     }
 
     @Override
@@ -77,18 +77,45 @@ public class LcdButtonProducer extends DefaultUnit<UnitProducer> implements Unit
 
     @Override
     public Map<RoboUnitCommand, Function<ProcessAgent, AgentStatus>> initLogic() {
-        SimpleLoggingUtil.debug(getClass(), "INIT LOGIC");
+        ButtonPressedObserver observer = new ButtonPressedObserver(lcd);
+        observer.addButtonListener((Button button) -> {
+            SimpleLoggingUtil.debug(getClass(), "Button Press: " + button + " lcd: " + lcd);
+            switch (button) {
+                case UP:
+                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_UP));
+                    break;
+                case DOWN:
+                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_DOWN));
+                    break;
+                case RIGHT:
+                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_RIGHT));
+                    break;
+                case LEFT:
+                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_LEFT));
+                    break;
+                case SELECT:
+                     genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_SET));
+                    break;
+                default:
+                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.EXIT));
+            }
+        });
+
         return null;
+    }
+
+    private GenericCommand<AdafruitLcdCommandEnum> getLcdCommand(final AdafruitLcdCommandEnum command){
+        final ClientCommandProperties properties = new ClientCommandProperties(0);
+        return new GenericCommand<>(properties, command, "", ConstantUtil.DEFAULT_PRIORITY);
     }
 
     @Override
     public UnitProducer init(Object o) {
-        SimpleLoggingUtil.debug(getClass(), "INIT");
+        SimpleLoggingUtil.debug(getClass(), "INIT STARTED : " + executorForAgents);
         if (Objects.nonNull(executorForAgents)) {
-            if (!agents.isEmpty()) {
-                active.set(true);
-                logic = initLogic();
-            }
+            active.set(true);
+            logic = initLogic();
+            SimpleLoggingUtil.debug(getClass(), "INIT finished");
         }
 
         return this;
@@ -107,6 +134,7 @@ public class LcdButtonProducer extends DefaultUnit<UnitProducer> implements Unit
 
     @Override
     public boolean process(RoboUnitCommand roboUnitCommand) {
+        SimpleLoggingUtil.debug(getClass(), "process", roboUnitCommand.toString());
         return false;
     }
 
@@ -135,57 +163,4 @@ public class LcdButtonProducer extends DefaultUnit<UnitProducer> implements Unit
         return name;
     }
 
-    /* to be replace */
-    private void basicInitiation(final ILCD lcd) throws IOException, I2CFactory.UnsupportedBusNumberException {
-        ButtonPressedObserver observer = new ButtonPressedObserver(lcd);
-        observer.addButtonListener(new ButtonListener() {
-            @Override
-            public void onButtonPressed(Button button) {
-                try {
-                    switch (button) {
-                        case UP:
-                            currentTest = --currentTest < 0 ? 0 : currentTest;
-                            lcd.clear();
-                            lcd.setText(String.format("#%d:%s\nPress SET to run!",
-                                    currentTest, STAGES_TEST[currentTest].getName()));
-                            break;
-                        case DOWN:
-                            currentTest = ++currentTest > (STAGES_TEST.length - 1) ? STAGES_TEST.length - 1
-                                    : currentTest;
-                            lcd.clear();
-                            lcd.setText(String.format("#%d:%s\nPress SET to run!",
-                                    currentTest, STAGES_TEST[currentTest].getName()));
-                            break;
-                        case RIGHT:
-                            lcd.scrollDisplay(RealLCD.Direction.LEFT);
-                            break;
-                        case LEFT:
-                            lcd.scrollDisplay(RealLCD.Direction.RIGHT);
-                            break;
-                        case SELECT:
-                            runTest(currentTest);
-                            break;
-                        default:
-                            lcd.clear();
-                            lcd.setText(String.format(
-                                    "Button %s\nis not in use...",
-                                    button.toString()));
-                    }
-                } catch (IOException e) {
-                    throw new ClientPlatformException("LCD communication", e);
-                }
-            }
-
-            private void runTest(int currentTest) {
-                LCDTest test = STAGES_TEST[currentTest];
-                SimpleLoggingUtil.debug(getClass(), "Running test " + test.getName());
-                try {
-                    test.run(lcd);
-                } catch (IOException e) {
-                    throw new ClientPlatformException("LCD Communication ", e);
-                }
-            }
-        });
-
-    }
 }
