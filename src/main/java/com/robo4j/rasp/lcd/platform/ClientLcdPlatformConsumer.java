@@ -49,18 +49,19 @@ import com.robo4j.hw.rpi.i2c.adafruitlcd.impl.RealLCD;
 public class ClientLcdPlatformConsumer implements AgentConsumer, Callable<Boolean> {
 
     private static int currentTest = -1;
-    private ILCD lcd;
 
     private static final LCDTest[] STAGES_TEST = { new HelloWorldTest(),
             new ScrollTest(), new CursorDemo(), new DisplayDemo(),
             new ColorDemo(), new AutoScrollDemo(), new ExitTest() };
 
+    private volatile ILCD lcd;
     private ExecutorService executor;
     private Exchanger<GenericCommand<AdafruitLcdCommandEnum>> exchanger;
 
 
-    public ClientLcdPlatformConsumer(final ExecutorService executor,
+    public ClientLcdPlatformConsumer(final ILCD lcd, final ExecutorService executor,
                                   final Exchanger<GenericCommand<AdafruitLcdCommandEnum>> exchanger) {
+        this.lcd = lcd;
         this.executor = executor;
         this.exchanger = exchanger;
         SimpleLoggingUtil.debug(getClass(), "INIT");
@@ -74,11 +75,8 @@ public class ClientLcdPlatformConsumer implements AgentConsumer, Callable<Boolea
     @Override
     public Boolean call() throws Exception {
         final GenericCommand<AdafruitLcdCommandEnum> command = exchanger.exchange(null);
-        final boolean isValue = commandEmpty(command.getValue());
-        SimpleLoggingUtil.debug(getClass(), "IsValue: " + isValue + ", command: " + command.getType().getName());
-        SimpleLoggingUtil.debug(getClass(), "direction: " + command.getType());
-        //TODO: continue here
-        SimpleLoggingUtil.debug(getClass(), "MAGIC COMMAND : " + command);
+        SimpleLoggingUtil.debug(getClass(), "COMMAND : " + command);
+        SimpleLoggingUtil.debug(getClass(), "COMMAND poss : " + currentTest);
         switch (command.getType()) {
             case BUTTON_UP:
                 currentTest = --currentTest < 0 ? 0 : currentTest;

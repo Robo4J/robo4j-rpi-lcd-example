@@ -19,6 +19,7 @@
 
 package com.robo4j.rasp.lcd.unit;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.HashSet;
@@ -35,6 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import com.pi4j.io.i2c.I2CFactory;
 import com.robo4j.commons.agent.AgentConsumer;
 import com.robo4j.commons.agent.AgentProducer;
 import com.robo4j.commons.agent.AgentStatus;
@@ -50,8 +52,11 @@ import com.robo4j.commons.registry.UnitProducerRegistry;
 import com.robo4j.commons.unit.DefaultUnit;
 import com.robo4j.commons.unit.UnitProducer;
 import com.robo4j.core.platform.ClientPlatformException;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.ILCD;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.impl.RealLCD;
 import com.robo4j.rasp.lcd.platform.ClientLcdPlatformConsumer;
 import com.robo4j.rasp.lcd.platform.ClientLcdPlatformProducer;
+import com.robo4j.rasp.lcd.producers.GeneralLcdProducer;
 import com.robo4j.rasp.lcd.producers.LcdButtonProducer;
 import com.robo4j.rasp.lcd.producers.SocketHttpProducer;
 import com.robo4j.rpi.unit.RpiUnit;
@@ -80,6 +85,7 @@ public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
 
     private volatile LinkedBlockingQueue<GenericCommand<AdafruitLcdCommandEnum>> commandQueue;
     private volatile Set<UnitProducer> unitProducers;
+    private volatile ILCD lcd;
 
     public LcdPlatformUnit() {
         SimpleLoggingUtil.debug(getClass(), "Constructor: LcdUnit");
@@ -110,37 +116,52 @@ public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
 
     @Override
     public RpiUnit init(Object input) {
+
+        SimpleLoggingUtil.debug(getClass(), "LclPlatform INIT");
         if (Objects.nonNull(executorForAgents)) {
             this.agents = new ArrayList<>();
             this.active = new AtomicBoolean(false);
             this.commandQueue = new LinkedBlockingQueue<>();
-            SimpleLoggingUtil.print(getClass(), "LcdRpi: INIT");
             final Exchanger<GenericCommand<AdafruitLcdCommandEnum>> lcdExchanger = new Exchanger<>();
 
-            SimpleLoggingUtil.debug(getClass(), "Constructor: construct LCD unit producers");
+            try {
+                lcd = new RealLCD();
+                lcd.reset();
+                lcd.clear();
+                lcd.setText("Robo4J.io LCD!\nSocket & up/down...");
+            } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
+                SimpleLoggingUtil.error(getClass(), "error " + e);
+            }
+
+            SimpleLoggingUtil.debug(getClass(), "init Agent");
+            this.agents.add(createAgent("lcdPlatformAgent", new ClientLcdPlatformProducer(commandQueue, lcdExchanger),
+                    new ClientLcdPlatformConsumer(lcd, executorForAgents, lcdExchanger)));
+
+
+            if (!agents.isEmpty() && !active.get()) {
+                SimpleLoggingUtil.debug(getClass(), "UNIT IS ACTIVE");
+                active.set(true);
+                logic = initLogic();
+            }
+
             UnitProducerRegistry unitProducerRegistry = UnitProducerRegistry.getInstance();
             if(unitProducerRegistry.isActive()){
                 unitProducers = new HashSet<>();
                 Stream.of(PRODUCER_NAME).forEach(producerName -> {
                     UnitProducer tmpProducer = unitProducerRegistry.getByName(producerName);
-                    ((DefaultUnit)tmpProducer).init(null);
+                    GeneralLcdProducer tmp = (GeneralLcdProducer)tmpProducer;
+                    tmp.setParentUnit(this);
+                    tmp.setLcdPlate(lcd);
+
                     ((DefaultUnit)tmpProducer).setExecutor(executorForAgents);
+                    ((DefaultUnit)tmpProducer).init(null);
                     SimpleLoggingUtil.debug(getClass(), "adding Unit Producer: " + tmpProducer);
                     unitProducers.add(tmpProducer);
                 });
             }
 
 
-            this.agents.add(createAgent("lcdPlatformAgent", new ClientLcdPlatformProducer(commandQueue, lcdExchanger),
-                    new ClientLcdPlatformConsumer(executorForAgents, lcdExchanger)));
 
-
-
-
-            if (!agents.isEmpty()) {
-                active.set(true);
-                logic = initLogic();
-            }
         }
 
         return this;
@@ -151,14 +172,17 @@ public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
     public boolean process(RoboUnitCommand command) {
         try {
             GenericCommand<AdafruitLcdCommandEnum> processCommand = (GenericCommand<AdafruitLcdCommandEnum>) command;
-            SimpleLoggingUtil.debug(getClass(), "LcdPlatform Command: " + command);
+            SimpleLoggingUtil.debug(getClass(), "LCD Platform UNIT process command: " + command);
             commandQueue.put(processCommand);
             ProcessAgent platformAgent = (ProcessAgent) agents.get(AGENT_PLATFORM_POSITION);
             platformAgent.setActive(true);
+
             platformAgent.getExecutor().execute((Runnable) platformAgent.getProducer());
+
             final Future<Boolean> engineActive = platformAgent.getExecutor()
                     .submit((Callable<Boolean>) platformAgent.getConsumer());
             try {
+
                 platformAgent.setActive(engineActive.get());
             } catch (InterruptedException | ConcurrentModificationException | ExecutionException e) {
                 throw new ClientPlatformException("SOMETHING ERROR CYCLE COMMAND= ", e);

@@ -19,9 +19,15 @@
 
 package com.robo4j.rasp.lcd.producers;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
 import com.robo4j.commons.agent.AgentConsumer;
@@ -33,7 +39,11 @@ import com.robo4j.commons.annotation.RoboUnitProducer;
 import com.robo4j.commons.command.RoboUnitCommand;
 import com.robo4j.commons.logging.SimpleLoggingUtil;
 import com.robo4j.commons.unit.DefaultUnit;
+import com.robo4j.commons.unit.GenericUnit;
 import com.robo4j.commons.unit.UnitProducer;
+import com.robo4j.core.client.enums.RequestStatusEnum;
+import com.robo4j.core.client.request.RequestProcessorCallable;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.ILCD;
 
 /**
  * @author Miro Wengner (@miragemiko)
@@ -41,36 +51,69 @@ import com.robo4j.commons.unit.UnitProducer;
  */
 
 @RoboUnitProducer(id = SocketHttpProducer.ID)
-public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements UnitProducer {
+public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements UnitProducer, GeneralLcdProducer {
 
+    private static final int PORT = 8025;
     public final static String ID = "socket_http";
 
     private String name;
 
     public SocketHttpProducer() {
-
         this.name = ID;
+        this.active = new AtomicBoolean(false);
     }
+
+    //TODO : this unit currently doesn't need reference -> will be refactored
+    @Override
+    public void setParentUnit(GenericUnit genericUnit) {
+    }
+
+    public void setLcdPlate(ILCD tmpLcd){
+    }
+
 
     @Override
     protected GenericAgent createAgent(String s, AgentProducer agentProducer, AgentConsumer agentConsumer) {
         return null;
     }
 
+
     @Override
     public Map<RoboUnitCommand, Function<ProcessAgent, AgentStatus>> initLogic() {
-        SimpleLoggingUtil.debug(getClass(), "INIT LOGIC");
+        this.executorForAgents.submit(() -> {
+            SimpleLoggingUtil.debug(getClass(), "INIT LOGIC on PORT : " + PORT);
+            try (ServerSocket server = new ServerSocket(PORT)) {
+                while (active.get()) {
+                    Socket request = server.accept();
+                    Future<RequestStatusEnum> result = executorForAgents.submit(new RequestProcessorCallable(request));
+                    SimpleLoggingUtil.debug(getClass(), "RESULT result: " + result.get());
+                    switch (result.get()) {
+                        case ACTIVE:
+                            break;
+                        case NONE:
+                            break;
+                        case EXIT:
+                            SimpleLoggingUtil.debug(getClass(), "IS EXIT: " + result.get());
+                            active.set(false);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            } catch (InterruptedException | ExecutionException | IOException e) {
+                SimpleLoggingUtil.print(getClass(), "SERVER CLOSED");
+            }
+        });
         return null;
     }
 
     @Override
     public UnitProducer init(Object o) {
-        SimpleLoggingUtil.debug(getClass(), "INIT");
+        SimpleLoggingUtil.debug(getClass(), "INIT STARTED : " + executorForAgents);
         if (Objects.nonNull(executorForAgents)) {
-            if (!agents.isEmpty()) {
-                active.set(true);
-                logic = initLogic();
-            }
+            active.set(true);
+            logic = initLogic();
+            SimpleLoggingUtil.debug(getClass(), "INIT finished");
         }
 
         return this;
@@ -89,6 +132,7 @@ public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements Uni
 
     @Override
     public boolean process(RoboUnitCommand roboUnitCommand) {
+        SimpleLoggingUtil.debug(getClass(), "process command: " + roboUnitCommand);
         return false;
     }
 

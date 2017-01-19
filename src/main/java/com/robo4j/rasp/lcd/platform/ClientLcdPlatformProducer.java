@@ -52,10 +52,10 @@ public class ClientLcdPlatformProducer implements AgentProducer, Runnable{
 
     @Override
     public void run() {
-
         GenericCommand<AdafruitLcdCommandEnum> command = null;
         try {
             command = commandQueue.take();
+            SimpleLoggingUtil.debug(getClass(), "MAIN Producer command: " + command);
             exchanger.exchange(command);
         } catch (InterruptedException e) {
             throw new ClientPlatformException("LcdPlatform PRODUCER e", e);
