@@ -75,15 +75,12 @@ public class ClientLcdPlatformConsumer implements AgentConsumer, Callable<Boolea
     @Override
     public Boolean call() throws Exception {
         final GenericCommand<AdafruitLcdCommandEnum> command = exchanger.exchange(null);
-        SimpleLoggingUtil.debug(getClass(), "MAGIC COMMAND : " + command);
-        SimpleLoggingUtil.debug(getClass(), "MAGIC COMMAND : " + currentTest);
+        SimpleLoggingUtil.debug(getClass(), "COMMAND : " + command);
+        SimpleLoggingUtil.debug(getClass(), "COMMAND poss : " + currentTest);
         switch (command.getType()) {
             case BUTTON_UP:
                 currentTest = --currentTest < 0 ? 0 : currentTest;
                 lcd.clear();
-
-                SimpleLoggingUtil.debug(getClass(), "UP: " + String.format("#%d:%s\nPress SET to run!",
-                        currentTest, STAGES_TEST[currentTest].getName()));
                 lcd.setText(String.format("#%d:%s\nPress SET to run!",
                         currentTest, STAGES_TEST[currentTest].getName()));
                 return true;
@@ -91,8 +88,6 @@ public class ClientLcdPlatformConsumer implements AgentConsumer, Callable<Boolea
                 currentTest = ++currentTest > (STAGES_TEST.length - 1) ? STAGES_TEST.length - 1
                         : currentTest;
                 lcd.clear();
-                SimpleLoggingUtil.debug(getClass(), "DOWN: " + String.format("#%d:%s\nPress SET to run!",
-                        currentTest, STAGES_TEST[currentTest].getName()));
                 lcd.setText(String.format("#%d:%s\nPress SET to run!",
                         currentTest, STAGES_TEST[currentTest].getName()));
                 return true;

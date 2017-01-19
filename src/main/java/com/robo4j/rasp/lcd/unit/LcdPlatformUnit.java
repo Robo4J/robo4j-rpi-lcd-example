@@ -124,10 +124,10 @@ public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
             this.commandQueue = new LinkedBlockingQueue<>();
             final Exchanger<GenericCommand<AdafruitLcdCommandEnum>> lcdExchanger = new Exchanger<>();
 
-            SimpleLoggingUtil.debug(getClass(), "Constructor: construct LCD unit producers");
-
             try {
                 lcd = new RealLCD();
+                lcd.reset();
+                lcd.clear();
                 lcd.setText("Robo4J.io LCD!\nSocket & up/down...");
             } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
                 SimpleLoggingUtil.error(getClass(), "error " + e);
@@ -138,7 +138,8 @@ public class LcdPlatformUnit extends DefaultUnit<RpiUnit> implements RpiUnit {
                     new ClientLcdPlatformConsumer(lcd, executorForAgents, lcdExchanger)));
 
 
-            if (!agents.isEmpty()) {
+            if (!agents.isEmpty() && !active.get()) {
+                SimpleLoggingUtil.debug(getClass(), "UNIT IS ACTIVE");
                 active.set(true);
                 logic = initLogic();
             }

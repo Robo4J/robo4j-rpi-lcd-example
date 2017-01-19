@@ -80,28 +80,30 @@ public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements Uni
 
     @Override
     public Map<RoboUnitCommand, Function<ProcessAgent, AgentStatus>> initLogic() {
-        SimpleLoggingUtil.debug(getClass(), "INIT LOGIC on PORT : " + PORT);
-        try (ServerSocket server = new ServerSocket(PORT)) {
-            while (active.get()) {
-                Socket request = server.accept();
-                Future<RequestStatusEnum> result = executorForAgents.submit(new RequestProcessorCallable(request));
-                SimpleLoggingUtil.debug(getClass(), "RESULT result: " + result.get());
-                switch (result.get()) {
-                    case ACTIVE:
-                        break;
-                    case NONE:
-                        break;
-                    case EXIT:
-                        SimpleLoggingUtil.debug(getClass(), "IS EXIT: " + result.get());
-                        active.set(false);
-                        break;
-                    default:
-                        break;
+        this.executorForAgents.submit(() -> {
+            SimpleLoggingUtil.debug(getClass(), "INIT LOGIC on PORT : " + PORT);
+            try (ServerSocket server = new ServerSocket(PORT)) {
+                while (active.get()) {
+                    Socket request = server.accept();
+                    Future<RequestStatusEnum> result = executorForAgents.submit(new RequestProcessorCallable(request));
+                    SimpleLoggingUtil.debug(getClass(), "RESULT result: " + result.get());
+                    switch (result.get()) {
+                        case ACTIVE:
+                            break;
+                        case NONE:
+                            break;
+                        case EXIT:
+                            SimpleLoggingUtil.debug(getClass(), "IS EXIT: " + result.get());
+                            active.set(false);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+            } catch (InterruptedException | ExecutionException | IOException e) {
+                SimpleLoggingUtil.print(getClass(), "SERVER CLOSED");
             }
-        } catch (InterruptedException | ExecutionException | IOException e) {
-            SimpleLoggingUtil.print(getClass(), "SERVER CLOSED");
-        }
+        });
         return null;
     }
 
