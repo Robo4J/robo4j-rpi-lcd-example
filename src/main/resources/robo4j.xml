@@ -34,7 +34,7 @@
 	</roboUnit>
 
 	<roboUnit id="controller">
-		<class>com.robo4j.rpi.lcd.Controller</class>
+		<class>com.robo4j.rpi.lcd.controllers.LcdExampleController</class>
 		<properties>
 			<property>
 				<key>target</key>

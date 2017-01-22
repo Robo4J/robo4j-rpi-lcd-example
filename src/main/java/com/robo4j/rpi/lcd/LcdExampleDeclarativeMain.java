@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import com.robo4j.commons.io.RoboContext;
 import com.robo4j.core.RoboBuilderException;
+import com.robo4j.core.client.util.ClientClassLoader;
 import com.robo4j.core.system.RoboBuilder;
 
 /**
@@ -29,7 +30,7 @@ import com.robo4j.core.system.RoboBuilder;
  */
 public class LcdExampleDeclarativeMain {
 	public static void main(String[] args) throws RoboBuilderException, IOException {
-		RoboBuilder builder = new RoboBuilder().add(LcdExampleDeclarativeMain.class.getResourceAsStream("robo4j.xml"));
+		RoboBuilder builder = new RoboBuilder().add(ClientClassLoader.getInstance().getResource("robo4j.xml"));
 		RoboContext ctx = builder.build();
 		ctx.start();
 		ctx.sendMessage("lcd", "Robo4J: Welcome!\nPress Up/Down!");

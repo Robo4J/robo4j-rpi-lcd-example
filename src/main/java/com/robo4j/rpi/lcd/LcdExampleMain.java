@@ -21,6 +21,7 @@ import java.util.Map;
 
 import com.robo4j.core.system.RoboSystem;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
+import com.robo4j.rpi.lcd.controllers.LcdExampleController;
 
 /**
  * Demo using Robo4J to send messages from the buttons on an Adafruit 2x16 LCD
@@ -42,7 +43,7 @@ public class LcdExampleMain {
 		properties.put(I2CRoboUnit.PROPERTY_KEY_BUS, String.valueOf(AdafruitLcd.DEFAULT_BUS));
 		buttons.initialize(properties);
 
-		Controller ctrl = new Controller(system, "controller");
+		LcdExampleController ctrl = new LcdExampleController(system, "controller");
 		ctrl.initialize(createSingleValueProps("target", "lcd"));
 
 		AdafruitLcdUnit lcd = new AdafruitLcdUnit(system, "lcd");

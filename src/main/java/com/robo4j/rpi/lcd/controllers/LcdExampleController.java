@@ -14,24 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd;
-
-import java.io.IOException;
-import java.util.Map;
+package com.robo4j.rpi.lcd.controllers;
 
 import com.robo4j.commons.io.RoboContext;
 import com.robo4j.commons.io.RoboResult;
 import com.robo4j.commons.logging.SimpleLoggingUtil;
 import com.robo4j.commons.unit.RoboUnit;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
+import com.robo4j.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.rpi.lcd.ButtonUnit;
 import com.robo4j.rpi.lcd.ButtonUnit.Messages;
+import com.robo4j.rpi.lcd.LcdMessage;
 import com.robo4j.rpi.lcd.examples.AbstractDemo;
 import com.robo4j.rpi.lcd.examples.ColorDemo;
 import com.robo4j.rpi.lcd.examples.DisplayDemo;
 import com.robo4j.rpi.lcd.examples.LcdDemo;
 import com.robo4j.rpi.lcd.examples.ScrollDemo;
-import com.robo4j.rpi.lcd.LcdMessage;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit} and the {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.
@@ -39,12 +40,12 @@ import com.robo4j.rpi.lcd.LcdMessage;
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
-public class Controller extends RoboUnit<String> {
+public class LcdExampleController extends RoboUnit<String> {
 	private static int currentTest = -1;
 	private final static LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo() };
 	private String target;
 
-	public Controller(RoboContext context, String id) {
+	public LcdExampleController(RoboContext context, String id) {
 		super(context, id);
 	}
 
