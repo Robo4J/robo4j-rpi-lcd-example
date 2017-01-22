@@ -1,23 +1,18 @@
 ## Robo4J-rpi-lcd-example
 Robo4J RasbpberryPi LCD Demo example
 
-...UNDER CONSTRUCTION...
+Example using Robo4J to send messages between the buttons and LCD in an Adafruit 2x16 LCD shield, as well as sending messages to the LCD over a REST API.
 
-Example offers full LCD control by using button or using socket communication over
-HTTP.
+The internal sever is accessible on the port 8025 and supports POST requests (no authentication required).
 
+example : <ROBO4J_IP>:8025
 
-The internal sever is accessible on the port 8025 and supports POST
-request where no authentication is not required.
-
-example : <CLIENT_BRICK_IP>:8025
-
-POST reuest: 
+POST request: 
 
 { 
   "commands" : [
      {"name"  : "up",
-     "target" : "lcd_unit"
+     "target" : "lcd"
      }
   ]
 }
@@ -25,16 +20,15 @@ POST reuest:
 POST response: No Information about POST
 
 ## Building from Source
-The Robo4j framework uses a [Gradle][] building system
+The Robo4j framework uses [Gradle][] to build.
 It's required to create fatJar file and run.
-
 
 ## Requirements
 * [Java JDK 8][]
-* [Robo4j.io][] :: version: alfa-0.2
+* [Robo4j.io][] :: version: alpha-0.3
 
 ## Staying in Touch
-Follow [@robo4j][] or authors: [@miragemiko] , [@hirt][]
+Follow [@robo4j][] or authors: [@miragemiko][] , [@hirt][]
 on Twitter. In-depth articles can be found at [Robo4j.io][] or [miragemiko blog][]
 
 ## License
