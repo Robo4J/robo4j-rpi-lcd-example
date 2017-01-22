@@ -36,6 +36,7 @@ public class LcdExampleDeclarativeMain {
 
 		System.out.println("Press enter to quit!");
 		System.in.read();
+		ctx.shutdown();
 	}
 
 }

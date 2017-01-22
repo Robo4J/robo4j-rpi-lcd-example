@@ -57,6 +57,7 @@ public class LcdExampleMain {
 
 		System.out.println("Press enter to quit!");
 		System.in.read();
+		system.shutdown();
 	}
 
 	public static Map<String, String> createSingleValueProps(String key, String value) {
