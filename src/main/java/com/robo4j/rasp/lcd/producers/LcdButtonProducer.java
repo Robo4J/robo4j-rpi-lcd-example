@@ -53,7 +53,7 @@ import com.robo4j.hw.rpi.i2c.adafruitlcd.ILCD;
 public class LcdButtonProducer extends DefaultUnit<UnitProducer> implements UnitProducer, GeneralLcdProducer {
 
     public final static String ID = "lcd_buttons";
-    private volatile GenericUnit genericUnit;
+    private volatile GenericUnit parentUnit;
     private volatile ILCD lcd;
     private String name;
 
@@ -64,7 +64,7 @@ public class LcdButtonProducer extends DefaultUnit<UnitProducer> implements Unit
 
     @Override
     public void setParentUnit(GenericUnit genericUnit) {
-        this.genericUnit = genericUnit;
+        this.parentUnit = genericUnit;
     }
 
     @Override
@@ -84,22 +84,22 @@ public class LcdButtonProducer extends DefaultUnit<UnitProducer> implements Unit
             SimpleLoggingUtil.debug(getClass(), "Button Press: " + button + " lcd: " + lcd);
             switch (button) {
                 case UP:
-                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_UP));
+                    parentUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_UP));
                     break;
                 case DOWN:
-                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_DOWN));
+                    parentUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_DOWN));
                     break;
                 case RIGHT:
-                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_RIGHT));
+                    parentUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_RIGHT));
                     break;
                 case LEFT:
-                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_LEFT));
+                    parentUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_LEFT));
                     break;
                 case SELECT:
-                     genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_SET));
+                     parentUnit.process(getLcdCommand(AdafruitLcdCommandEnum.BUTTON_SET));
                     break;
                 default:
-                    genericUnit.process(getLcdCommand(AdafruitLcdCommandEnum.EXIT));
+                    parentUnit.process(getLcdCommand(AdafruitLcdCommandEnum.EXIT));
             }
         });
 
