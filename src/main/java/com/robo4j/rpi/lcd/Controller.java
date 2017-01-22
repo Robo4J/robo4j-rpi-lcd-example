@@ -19,10 +19,10 @@ package com.robo4j.rpi.lcd;
 import java.io.IOException;
 import java.util.Map;
 
+import com.robo4j.commons.io.RoboContext;
+import com.robo4j.commons.io.RoboResult;
 import com.robo4j.commons.logging.SimpleLoggingUtil;
-import com.robo4j.core.RoboContext;
-import com.robo4j.core.RoboResult;
-import com.robo4j.core.RoboUnit;
+import com.robo4j.commons.unit.RoboUnit;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
 import com.robo4j.rpi.lcd.ButtonUnit;
 import com.robo4j.rpi.lcd.ButtonUnit.Messages;

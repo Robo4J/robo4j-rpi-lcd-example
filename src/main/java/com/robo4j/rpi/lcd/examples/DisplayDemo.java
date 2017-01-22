@@ -20,7 +20,7 @@ package com.robo4j.rpi.lcd.examples;
 
 import java.io.IOException;
 
-import com.robo4j.core.RoboContext;
+import com.robo4j.commons.io.RoboContext;
 import com.robo4j.rpi.lcd.LcdMessage;
 import com.robo4j.rpi.lcd.LcdMessageType;
 
@@ -37,7 +37,7 @@ public class DisplayDemo extends AbstractDemo implements LcdDemo {
 	}
 
 	@Override
-	public void run(RoboContext ctx) throws IOException {		
+	public void run(RoboContext ctx) throws IOException {
 		sendLcdMessage(ctx, CLEAR);
 		sendLcdMessage(ctx, new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Turning off/on\ndisplay 10 times!"));
 		sleep(1000);
