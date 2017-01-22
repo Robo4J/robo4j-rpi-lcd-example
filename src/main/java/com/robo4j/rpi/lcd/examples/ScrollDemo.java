@@ -56,6 +56,6 @@ public class ScrollDemo extends  AbstractDemo {
 			sleep(100);
 			sendLcdMessage(ctx, right);
 		}
-		sendLcdMessage(ctx, new LcdMessage("\nDone!             "));
+		sendLcdMessage(ctx, new LcdMessage("Scroller Demo:\nDone!             "));
 	}
 }

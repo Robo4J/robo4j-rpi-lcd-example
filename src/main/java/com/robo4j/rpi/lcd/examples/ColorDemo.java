@@ -52,6 +52,6 @@ public class ColorDemo extends AbstractDemo {
 			sleep(1000);
 		}
 		sendLcdMessage(ctx, CLEAR);
-		sendLcdMessage(ctx, new LcdMessage("Backlight Test:\nDone!", Color.ON));
+		sendLcdMessage(ctx, new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
 	}
 }
