@@ -46,7 +46,8 @@ import com.robo4j.core.client.request.RequestProcessorCallable;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 
 /**
- * @author Miro Wengner (@miragemiko)
+ * @author Marcus Hirt (@hirt)
+ * @author Miroslav Wengner (@miragemiko)
  * @since 18.01.2017
  */
 

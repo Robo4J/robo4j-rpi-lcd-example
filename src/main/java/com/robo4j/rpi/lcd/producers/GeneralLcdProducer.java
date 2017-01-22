@@ -23,7 +23,8 @@ import com.robo4j.commons.unit.GenericUnit;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 
 /**
- * @author Miro Wengner (@miragemiko)
+ * @author Marcus Hirt (@hirt)
+ * @author Miroslav Wengner (@miragemiko)
  * @since 19.01.2017
  */
 public interface GeneralLcdProducer {

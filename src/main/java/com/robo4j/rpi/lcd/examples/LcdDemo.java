@@ -26,7 +26,8 @@ import java.io.IOException;
 /**
  * The interface for the demos.
  * 
- * @author Marcus Hirt
+ * @author Marcus Hirt (@hirt)
+ * @author Miroslav Wengner (@miragemiko)
  */
 public interface LcdDemo {
 	String getName();

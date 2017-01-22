@@ -27,7 +27,8 @@ import com.robo4j.rpi.lcd.LcdMessageType;
 /**
  * Simply turns off and on the display a few times.
  * 
- * @author Marcus Hirt
+ * @author Marcus Hirt (@hirt)
+ * @author Miroslav Wengner (@miragemiko)
  */
 public class DisplayDemo extends AbstractDemo implements LcdDemo {
 

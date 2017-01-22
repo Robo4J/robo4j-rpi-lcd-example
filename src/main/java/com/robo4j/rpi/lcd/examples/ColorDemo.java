@@ -27,7 +27,8 @@ import com.robo4j.rpi.lcd.LcdMessage;
 /**
  * This demo should cycle through the background colors.
  * 
- * @author Marcus Hirt
+ * @author Marcus Hirt (@hirt)
+ * @author Miroslav Wengner (@miragemiko)
  */
 public class ColorDemo extends AbstractDemo {
 

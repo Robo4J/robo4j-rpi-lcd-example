@@ -27,6 +27,7 @@ import com.robo4j.core.system.RoboBuilder;
  * Variant initialized from XML. Is the same as {@link LcdExampleMain}.
  * 
  * @author Marcus Hirt (@hirt)
+ * @author Miroslav Wengner (@miragemiko)
  */
 public class LcdExampleDeclarativeMain {
 	public static void main(String[] args) throws RoboBuilderException, IOException {

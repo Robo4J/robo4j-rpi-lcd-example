@@ -32,6 +32,7 @@ import com.robo4j.rpi.lcd.controllers.LcdExampleController;
  * @see AdafruitLcd
  * 
  * @author Marcus Hirt (@hirt)
+ * @author Miroslav Wengner (@miragemiko)
  */
 public class LcdExampleMain {
 	public static void main(String[] args) throws Exception {

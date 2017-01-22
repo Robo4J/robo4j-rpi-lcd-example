@@ -25,7 +25,8 @@ import java.io.IOException;
 /**
  * This one really doesn't anything but clean up and exit.
  * 
- * @author Marcus Hirt
+ * @author Marcus Hirt (@hirt)
+ * @author Miroslav Wengner (@miragemiko)
  */
 public class ExitDemo extends AbstractDemo {
 
