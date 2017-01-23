@@ -114,6 +114,8 @@ public class LcdExampleController extends RoboUnit<String> {
 		sendLcdMessage(getContext(), AbstractDemo.CLEAR);
 		sendLcdMessage(getContext(), AbstractDemo.TURN_OFF);
 		sendLcdMessage(getContext(), AbstractDemo.STOP);
+		super.shutdown();
+		System.exit(0);
 	}
 
 }
