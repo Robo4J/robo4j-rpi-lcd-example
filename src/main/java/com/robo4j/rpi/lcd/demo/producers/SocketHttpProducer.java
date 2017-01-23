@@ -17,7 +17,7 @@
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.robo4j.rpi.lcd.producers;
+package com.robo4j.rpi.lcd.demo.producers;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -30,17 +30,17 @@ import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
-import com.robo4j.commons.agent.AgentConsumer;
-import com.robo4j.commons.agent.AgentProducer;
-import com.robo4j.commons.agent.AgentStatus;
-import com.robo4j.commons.agent.GenericAgent;
-import com.robo4j.commons.agent.ProcessAgent;
-import com.robo4j.commons.annotation.RoboUnitProducer;
-import com.robo4j.commons.command.RoboUnitCommand;
-import com.robo4j.commons.logging.SimpleLoggingUtil;
-import com.robo4j.commons.unit.DefaultUnit;
-import com.robo4j.commons.unit.GenericUnit;
-import com.robo4j.commons.unit.UnitProducer;
+import com.robo4j.core.agent.AgentConsumer;
+import com.robo4j.core.agent.AgentProducer;
+import com.robo4j.core.agent.AgentStatus;
+import com.robo4j.core.agent.GenericAgent;
+import com.robo4j.core.agent.ProcessAgent;
+import com.robo4j.core.annotation.RoboUnitProducer;
+import com.robo4j.core.command.RoboUnitCommand;
+import com.robo4j.core.logging.SimpleLoggingUtil;
+import com.robo4j.core.unit.DefaultUnit;
+import com.robo4j.core.unit.GenericUnit;
+import com.robo4j.core.unit.UnitProducer;
 import com.robo4j.core.client.enums.RequestStatusEnum;
 import com.robo4j.core.client.request.RequestProcessorCallable;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
