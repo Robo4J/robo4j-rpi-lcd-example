@@ -28,6 +28,7 @@ import com.robo4j.rpi.lcd.LcdMessage;
 import com.robo4j.rpi.lcd.examples.AbstractDemo;
 import com.robo4j.rpi.lcd.examples.ColorDemo;
 import com.robo4j.rpi.lcd.examples.DisplayDemo;
+import com.robo4j.rpi.lcd.examples.ExitDemo;
 import com.robo4j.rpi.lcd.examples.LcdDemo;
 import com.robo4j.rpi.lcd.examples.ScrollDemo;
 
@@ -42,7 +43,7 @@ import java.util.Map;
  */
 public class LcdExampleController extends RoboUnit<String> {
 	private static int currentTest = -1;
-	private final static LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo() };
+	private final static LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(), new ExitDemo() };
 	private String target;
 
 	public LcdExampleController(RoboContext context, String id) {
@@ -105,6 +106,14 @@ public class LcdExampleController extends RoboUnit<String> {
 
 	protected void sendLcdMessage(RoboContext ctx, String message) {
 		ctx.getRoboUnit("controller").sendMessage(target, new LcdMessage(message));
+	}
+
+	@Override
+	public void shutdown() {
+		System.out.println("Clearing and shutting off display...");
+		sendLcdMessage(getContext(), AbstractDemo.CLEAR);
+		sendLcdMessage(getContext(), AbstractDemo.TURN_OFF);
+		sendLcdMessage(getContext(), AbstractDemo.STOP);
 	}
 
 }

@@ -41,14 +41,7 @@ public class ExitDemo extends AbstractDemo {
 	 */
 	@Override
 	public void run(RoboContext ctx) throws IOException {
-		System.out.println("Clearing and shutting off display...");
-		sendLcdMessage(ctx, CLEAR);
-		sendLcdMessage(ctx, TURN_OFF);
-		sendLcdMessage(ctx, STOP);
-		System.out.println("Shutting down Robo4J...");
 		ctx.shutdown();
-		System.out.println("Exiting...");
-		System.exit(0);	
 	}
 
 }
