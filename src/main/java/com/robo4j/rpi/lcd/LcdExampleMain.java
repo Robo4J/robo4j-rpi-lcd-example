@@ -19,7 +19,7 @@ package com.robo4j.rpi.lcd;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.robo4j.core.system.RoboSystem;
+import com.robo4j.core.RoboSystem;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.controllers.LcdExampleController;
 

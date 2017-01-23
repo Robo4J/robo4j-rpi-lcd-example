@@ -20,7 +20,7 @@ package com.robo4j.rpi.lcd.examples;
 
 import java.io.IOException;
 
-import com.robo4j.commons.io.RoboContext;
+import com.robo4j.core.RoboContext;
 import com.robo4j.rpi.lcd.LcdMessage;
 import com.robo4j.rpi.lcd.LcdMessageType;
 
