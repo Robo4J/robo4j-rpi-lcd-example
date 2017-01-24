@@ -36,22 +36,25 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
 import com.robo4j.units.rpi.lcd.ButtonUnit.Messages;
 
 /**
- * This controller binds together the standard {@link AdafruitLcdUnit} and the {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.
+ * This controller binds together the standard {@link AdafruitLcdUnit} and the
+ * {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
 public class LcdExampleController extends RoboUnit<String> {
 	private static int currentTest = -1;
-	private final static LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(), new ExitDemo() };
+	private final static LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
+			new ExitDemo() };
 	private String target;
 
 	public LcdExampleController(RoboContext context, String id) {
 		super(context, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public RoboResult<?> onMessage(Object message) {
+	public RoboResult<String, ?> onMessage(Object message) {
 		ButtonUnit.Messages myMessage = (Messages) message;
 		switch (myMessage) {
 		case DOWN:
@@ -72,11 +75,10 @@ public class LcdExampleController extends RoboUnit<String> {
 			sendLcdMessage(getContext(), AbstractDemo.CLEAR);
 			sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
 			break;
-
 		}
 		return null;
 	}
-	
+
 	private void runTest(int currentTest) {
 		LcdDemo test = TESTS[currentTest];
 		System.out.println("Running test " + test.getName());
@@ -100,11 +102,11 @@ public class LcdExampleController extends RoboUnit<String> {
 	}
 
 	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
-		ctx.getRoboUnit("controller").sendMessage(target, message);
+		ctx.getReference(target).sendMessage(message);
 	}
 
 	protected void sendLcdMessage(RoboContext ctx, String message) {
-		ctx.getRoboUnit("controller").sendMessage(target, new LcdMessage(message));
+		ctx.getReference(target).sendMessage(new LcdMessage(message));
 	}
 
 	@Override

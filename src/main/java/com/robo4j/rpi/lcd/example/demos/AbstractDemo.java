@@ -35,7 +35,7 @@ public abstract class AbstractDemo implements LcdDemo {
 	public static LcdMessage TURN_OFF = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "false");
 
 	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
-		ctx.getRoboUnit("controller").sendMessage("lcd", message);
+		ctx.getReference("lcd").sendMessage(message);
 	}
 	
 	protected void sleep(long millis) {

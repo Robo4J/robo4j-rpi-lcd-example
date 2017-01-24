@@ -43,9 +43,9 @@ public class DisplayDemo extends AbstractDemo implements LcdDemo {
 		sendLcdMessage(ctx, new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Turning off/on\ndisplay 10 times!"));
 		sleep(1000);
 		for (int i = 0; i < 10; i++) {
-			ctx.getRoboUnit("controller").sendMessage("lcd", TURN_OFF);
+			ctx.getReference("lcd").sendMessage(TURN_OFF);
 			sleep(300);
-			ctx.getRoboUnit("controller").sendMessage("lcd", TURN_ON);
+			ctx.getReference("lcd").sendMessage(TURN_ON);
 			sleep(300);
 		}
 		sendLcdMessage(ctx, CLEAR);

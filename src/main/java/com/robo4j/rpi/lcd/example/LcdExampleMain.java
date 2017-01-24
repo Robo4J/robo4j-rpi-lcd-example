@@ -61,7 +61,7 @@ public class LcdExampleMain {
 
 		System.out.println(SystemUtil.generateStateReport(system));
 		system.start();
-		system.sendMessage("lcd", new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
+		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
 		System.out.println(SystemUtil.generateStateReport(system));
 		System.out.println("Press enter to quit!");
 		System.in.read();
