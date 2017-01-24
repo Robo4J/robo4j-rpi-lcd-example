@@ -22,7 +22,7 @@ import java.io.IOException;
 
 import com.robo4j.core.RoboContext;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Color;
-import com.robo4j.rpi.lcd.LcdMessage;
+import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
  * This demo should cycle through the background colors.

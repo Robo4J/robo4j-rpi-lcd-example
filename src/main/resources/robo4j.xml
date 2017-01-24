@@ -1,6 +1,6 @@
 <robo4j>
 	<roboUnit id="lcd">
-		<class>com.robo4j.rpi.lcd.example.AdafruitLcdUnit</class>
+		<class>com.robo4j.units.rpi.lcd.AdafruitLcdUnit</class>
 		<properties>
 			<property>
 				<key>bus</key>
@@ -15,7 +15,7 @@
 	</roboUnit>
 
 	<roboUnit id="buttons">
-		<class>com.robo4j.rpi.lcd.example.ButtonUnit</class>
+		<class>com.robo4j.units.rpi.lcd.ButtonUnit</class>
 		<properties>
 			<property>
 				<key>bus</key>
@@ -34,7 +34,7 @@
 	</roboUnit>
 
 	<roboUnit id="controller">
-		<class>com.robo4j.rpi.lcd.example.example.controllers.LcdExampleController</class>
+		<class>com.robo4j.rpi.lcd.example.controllers.LcdExampleController</class>
 		<properties>
 			<property>
 				<key>target</key>

@@ -24,16 +24,16 @@ import com.robo4j.core.RoboResult;
 import com.robo4j.core.RoboUnit;
 import com.robo4j.core.logging.SimpleLoggingUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
-import com.robo4j.rpi.lcd.AdafruitLcdUnit;
-import com.robo4j.rpi.lcd.ButtonUnit;
-import com.robo4j.rpi.lcd.ButtonUnit.Messages;
 import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
 import com.robo4j.rpi.lcd.example.demos.ColorDemo;
 import com.robo4j.rpi.lcd.example.demos.DisplayDemo;
 import com.robo4j.rpi.lcd.example.demos.ExitDemo;
 import com.robo4j.rpi.lcd.example.demos.LcdDemo;
 import com.robo4j.rpi.lcd.example.demos.ScrollDemo;
-import com.robo4j.rpi.lcd.LcdMessage;
+import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
+import com.robo4j.units.rpi.lcd.ButtonUnit;
+import com.robo4j.units.rpi.lcd.LcdMessage;
+import com.robo4j.units.rpi.lcd.ButtonUnit.Messages;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit} and the {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.

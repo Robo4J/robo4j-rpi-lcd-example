@@ -21,8 +21,8 @@ package com.robo4j.rpi.lcd.example.demos;
 import java.io.IOException;
 
 import com.robo4j.core.RoboContext;
-import com.robo4j.rpi.lcd.LcdMessage;
-import com.robo4j.rpi.lcd.LcdMessageType;
+import com.robo4j.units.rpi.lcd.LcdMessage;
+import com.robo4j.units.rpi.lcd.LcdMessageType;
 
 /**
  * Scrolls the view area back and forth a few times. Check out the documentation

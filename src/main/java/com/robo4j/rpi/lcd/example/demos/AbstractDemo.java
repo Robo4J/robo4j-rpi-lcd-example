@@ -19,8 +19,8 @@
 package com.robo4j.rpi.lcd.example.demos;
 
 import com.robo4j.core.RoboContext;
-import com.robo4j.rpi.lcd.LcdMessage;
-import com.robo4j.rpi.lcd.LcdMessageType;
+import com.robo4j.units.rpi.lcd.LcdMessage;
+import com.robo4j.units.rpi.lcd.LcdMessageType;
 
 /**
  * Simply turns off and on the display a few times.
