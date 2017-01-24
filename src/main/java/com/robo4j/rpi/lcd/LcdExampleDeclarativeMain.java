@@ -22,6 +22,7 @@ import com.robo4j.core.RoboBuilder;
 import com.robo4j.core.RoboBuilderException;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.client.util.ClientClassLoader;
+import com.robo4j.core.util.SystemUtil;
 
 /**
  * Variant initialized from XML. Is the same as {@link LcdExampleMain}.
@@ -33,7 +34,9 @@ public class LcdExampleDeclarativeMain {
 	public static void main(String[] args) throws RoboBuilderException, IOException {
 		RoboBuilder builder = new RoboBuilder().add(ClientClassLoader.getInstance().getResource("robo4j.xml"));
 		RoboContext ctx = builder.build();
+		System.out.println(SystemUtil.generateStateReport(ctx));
 		ctx.start();
+		System.out.println(SystemUtil.generateStateReport(ctx));
 		ctx.sendMessage("lcd", "Robo4J: Welcome!\nPress Up/Down!");
 
 		System.out.println("Press enter to quit!");

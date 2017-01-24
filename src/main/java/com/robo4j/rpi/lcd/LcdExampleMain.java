@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.robo4j.core.RoboSystem;
+import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.controllers.LcdExampleController;
 
@@ -54,9 +55,10 @@ public class LcdExampleMain {
 		lcd.initialize(properties);
 		system.addUnits(buttons, ctrl, lcd);
 
+		System.out.println(SystemUtil.generateStateReport(system));
 		system.start();
 		system.sendMessage("lcd", new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
-
+		System.out.println(SystemUtil.generateStateReport(system));
 		System.out.println("Press enter to quit!");
 		System.in.read();
 		system.shutdown();

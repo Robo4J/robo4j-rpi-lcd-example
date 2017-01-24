@@ -96,7 +96,6 @@ public class LcdExampleController extends RoboUnit<String> {
 
 	@Override
 	public void initialize(Map<String, String> properties) throws Exception {
-		super.initialize(properties);
 		target = properties.get("target");
 	}
 
