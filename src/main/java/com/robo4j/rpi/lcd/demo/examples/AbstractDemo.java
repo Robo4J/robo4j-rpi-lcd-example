@@ -16,9 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.examples;
-
-import java.io.IOException;
+package com.robo4j.rpi.lcd.demo.examples;
 
 import com.robo4j.core.RoboContext;
 import com.robo4j.rpi.lcd.LcdMessage;
@@ -30,25 +28,21 @@ import com.robo4j.rpi.lcd.LcdMessageType;
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
-public class DisplayDemo extends AbstractDemo implements LcdDemo {
+public abstract class AbstractDemo implements LcdDemo {
+	public static LcdMessage CLEAR = new LcdMessage(LcdMessageType.CLEAR, null, null, null);
+	public static LcdMessage STOP = new LcdMessage(LcdMessageType.STOP, null, null, null);
+	public static LcdMessage TURN_ON = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "true");
+	public static LcdMessage TURN_OFF = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "false");
 
-	@Override
-	public String getName() {
-		return "Display";
+	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
+		ctx.getRoboUnit("controller").sendMessage("lcd", message);
 	}
-
-	@Override
-	public void run(RoboContext ctx) throws IOException {
-		sendLcdMessage(ctx, CLEAR);
-		sendLcdMessage(ctx, new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Turning off/on\ndisplay 10 times!"));
-		sleep(1000);
-		for (int i = 0; i < 10; i++) {
-			ctx.getRoboUnit("controller").sendMessage("lcd", TURN_OFF);
-			sleep(300);
-			ctx.getRoboUnit("controller").sendMessage("lcd", TURN_ON);
-			sleep(300);
+	
+	protected void sleep(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		sendLcdMessage(ctx, CLEAR);
-		sendLcdMessage(ctx, new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Display Demo:\nDone!           "));
 	}
 }

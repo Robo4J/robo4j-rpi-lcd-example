@@ -20,7 +20,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'robo4j-rpi-lcd-example',
                 'Implementation-Version': version,
-                'Main-Class': 'com.robo4j.rpi.lcd.LcdExampleMain'
+                'Main-Class': 'com.robo4j.rpi.lcd.demo.LcdExampleMain'
     }
     //baseName = project.name + '-all'
     baseName = 'robo4j-rpi-lcd-example'
@@ -30,7 +30,7 @@ task fatJar(type: Jar) {
 
 dependencies {
     compile "com.robo4j:robo4j-core:${robo4jVersion}"
-    compile "com.robo4j:robo4j-rpi:${robo4jVersion}"
+    compile "com.robo4j:robo4j-units-rpi:${robo4jVersion}"
     testCompile "junit:junit:${junitVersion}@jar"
     testCompile "org.hamcrest:hamcrest-all:${hamcrestAllVersion}@jar"
     testCompile "org.mockito:mockito-all:${mockitoAllVersion}@jar"

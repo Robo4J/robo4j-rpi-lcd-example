@@ -12,6 +12,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/robo4j-hw-rpi"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/robo4j-commons"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PI4J"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/robo4j-rpi"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/robo4j-units-rpi"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

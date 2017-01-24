@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
- * This LCDTest.java  is part of robo4j.
+ * This ColorDemo.java  is part of robo4j.
  * module: robo4j-hw-rpi
  *
  * robo4j is free software: you can redistribute it and/or modify
@@ -16,20 +16,42 @@
  * You should have received a copy of the GNU General Public License
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.examples;
+package com.robo4j.rpi.lcd.demo.examples;
 
 import java.io.IOException;
 
 import com.robo4j.core.RoboContext;
-
+import com.robo4j.hw.rpi.i2c.adafruitlcd.Color;
+import com.robo4j.rpi.lcd.LcdMessage;
 
 /**
- * The interface for the demos.
+ * This demo should cycle through the background colors.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
-public interface LcdDemo {
-	String getName();
-	void run(RoboContext context) throws IOException;
+public class ColorDemo extends AbstractDemo {
+
+	@Override
+	public String getName() {
+		return "Backlight";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
+	 */
+	@Override
+	public void run(RoboContext ctx) throws IOException {
+		String prefix = "Color changes:\n";
+		sendLcdMessage(ctx, CLEAR);
+		for (Color c : Color.values()) {
+			sendLcdMessage(ctx, new LcdMessage(prefix + "Color: " + c.toString() + "      ", c));
+			sleep(1000);
+		}
+		sendLcdMessage(ctx, CLEAR);
+		sendLcdMessage(ctx, new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
+	}
 }
