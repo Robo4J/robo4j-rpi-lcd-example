@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.demo.examples;
+package com.robo4j.rpi.lcd.demos;
 
 import com.robo4j.core.RoboContext;
 import com.robo4j.rpi.lcd.LcdMessage;

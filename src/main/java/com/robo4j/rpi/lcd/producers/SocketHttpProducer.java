@@ -17,7 +17,7 @@
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.robo4j.rpi.lcd.demo.producers;
+package com.robo4j.rpi.lcd.producers;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -73,13 +73,15 @@ public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements Uni
     }
 
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     protected GenericAgent createAgent(String s, AgentProducer agentProducer, AgentConsumer agentConsumer) {
         return null;
     }
 
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public Map<RoboUnitCommand, Function<ProcessAgent, AgentStatus>> initLogic() {
         this.executorForAgents.submit(() -> {
             SimpleLoggingUtil.debug(getClass(), "INIT LOGIC on PORT : " + PORT);

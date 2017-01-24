@@ -17,7 +17,7 @@
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.robo4j.rpi.lcd.demo.producers;
+package com.robo4j.rpi.lcd.producers;
 
 import com.robo4j.core.unit.GenericUnit;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;

@@ -16,24 +16,24 @@
  */
 package com.robo4j.rpi.lcd.controllers;
 
-import com.robo4j.commons.logging.SimpleLoggingUtil;
+import java.io.IOException;
+import java.util.Map;
+
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboResult;
 import com.robo4j.core.RoboUnit;
+import com.robo4j.core.logging.SimpleLoggingUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
 import com.robo4j.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.rpi.lcd.ButtonUnit;
 import com.robo4j.rpi.lcd.ButtonUnit.Messages;
 import com.robo4j.rpi.lcd.LcdMessage;
-import com.robo4j.rpi.lcd.examples.AbstractDemo;
-import com.robo4j.rpi.lcd.examples.ColorDemo;
-import com.robo4j.rpi.lcd.examples.DisplayDemo;
-import com.robo4j.rpi.lcd.examples.ExitDemo;
-import com.robo4j.rpi.lcd.examples.LcdDemo;
-import com.robo4j.rpi.lcd.examples.ScrollDemo;
-
-import java.io.IOException;
-import java.util.Map;
+import com.robo4j.rpi.lcd.demos.AbstractDemo;
+import com.robo4j.rpi.lcd.demos.ColorDemo;
+import com.robo4j.rpi.lcd.demos.DisplayDemo;
+import com.robo4j.rpi.lcd.demos.ExitDemo;
+import com.robo4j.rpi.lcd.demos.LcdDemo;
+import com.robo4j.rpi.lcd.demos.ScrollDemo;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit} and the {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
- * This ScrollTest.java  is part of robo4j.
+ * This ColorDemo.java  is part of robo4j.
  * module: robo4j-hw-rpi
  *
  * robo4j is free software: you can redistribute it and/or modify
@@ -16,46 +16,42 @@
  * You should have received a copy of the GNU General Public License
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.demo.examples;
+package com.robo4j.rpi.lcd.demos;
 
 import java.io.IOException;
 
 import com.robo4j.core.RoboContext;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.Color;
 import com.robo4j.rpi.lcd.LcdMessage;
-import com.robo4j.rpi.lcd.LcdMessageType;
 
 /**
- * Scrolls the view area back and forth a few times. Check out the documentation
- * for the HD44780 for more info on how the tiny (DDRAM) buffer is handled.
+ * This demo should cycle through the background colors.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
-public class ScrollDemo extends  AbstractDemo {
+public class ColorDemo extends AbstractDemo {
 
 	@Override
 	public String getName() {
-		return "Scroller";
+		return "Backlight";
 	}
 
-	/* (non-Javadoc)
-	 * @see com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
 	 */
 	@Override
 	public void run(RoboContext ctx) throws IOException {
-		LcdMessage left = new LcdMessage(LcdMessageType.SCROLL, null, null, "left");
-		LcdMessage right = new LcdMessage(LcdMessageType.SCROLL, null, null, "right");
-		
-		String message = "Running scroller. Be patient!\nBouncing this scroller once.";
-		sendLcdMessage(ctx, new LcdMessage(message));
-		for (int i = 0; i < 24; i++) {
-			sleep(100);
-			sendLcdMessage(ctx, left);
+		String prefix = "Color changes:\n";
+		sendLcdMessage(ctx, CLEAR);
+		for (Color c : Color.values()) {
+			sendLcdMessage(ctx, new LcdMessage(prefix + "Color: " + c.toString() + "      ", c));
+			sleep(1000);
 		}
-		for (int i = 0; i < 24; i++) {
-			sleep(100);
-			sendLcdMessage(ctx, right);
-		}
-		sendLcdMessage(ctx, new LcdMessage("Scroller Demo:  \nDone!             "));
+		sendLcdMessage(ctx, CLEAR);
+		sendLcdMessage(ctx, new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
 	}
 }
