@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
- * This DisplayDemo.java  is part of robo4j.
+ * This ColorDemo.java  is part of robo4j.
  * module: robo4j-hw-rpi
  *
  * robo4j is free software: you can redistribute it and/or modify
@@ -16,33 +16,42 @@
  * You should have received a copy of the GNU General Public License
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.demos;
+package com.robo4j.rpi.lcd.example.demos;
+
+import java.io.IOException;
 
 import com.robo4j.core.RoboContext;
+import com.robo4j.hw.rpi.i2c.adafruitlcd.Color;
 import com.robo4j.rpi.lcd.LcdMessage;
-import com.robo4j.rpi.lcd.LcdMessageType;
 
 /**
- * Simply turns off and on the display a few times.
+ * This demo should cycle through the background colors.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
-public abstract class AbstractDemo implements LcdDemo {
-	public static LcdMessage CLEAR = new LcdMessage(LcdMessageType.CLEAR, null, null, null);
-	public static LcdMessage STOP = new LcdMessage(LcdMessageType.STOP, null, null, null);
-	public static LcdMessage TURN_ON = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "true");
-	public static LcdMessage TURN_OFF = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "false");
+public class ColorDemo extends AbstractDemo {
 
-	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
-		ctx.getRoboUnit("controller").sendMessage("lcd", message);
+	@Override
+	public String getName() {
+		return "Backlight";
 	}
-	
-	protected void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
+	 */
+	@Override
+	public void run(RoboContext ctx) throws IOException {
+		String prefix = "Color changes:\n";
+		sendLcdMessage(ctx, CLEAR);
+		for (Color c : Color.values()) {
+			sendLcdMessage(ctx, new LcdMessage(prefix + "Color: " + c.toString() + "      ", c));
+			sleep(1000);
 		}
+		sendLcdMessage(ctx, CLEAR);
+		sendLcdMessage(ctx, new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
 	}
 }

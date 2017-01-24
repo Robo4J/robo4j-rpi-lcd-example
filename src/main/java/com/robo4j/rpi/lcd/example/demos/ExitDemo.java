@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
- * This LCDTest.java  is part of robo4j.
+ * This ExitTest.java  is part of robo4j.
  * module: robo4j-hw-rpi
  *
  * robo4j is free software: you can redistribute it and/or modify
@@ -16,20 +16,32 @@
  * You should have received a copy of the GNU General Public License
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.demos;
+package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
 
 import com.robo4j.core.RoboContext;
 
-
 /**
- * The interface for the demos.
+ * This one really doesn't anything but clean up and exit.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
-public interface LcdDemo {
-	String getName();
-	void run(RoboContext context) throws IOException;
+public class ExitDemo extends AbstractDemo {
+
+	@Override
+	public String getName() {
+		return "<Exit>";
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
+	 */
+	@Override
+	public void run(RoboContext ctx) throws IOException {
+		ctx.shutdown();
+	}
+
 }

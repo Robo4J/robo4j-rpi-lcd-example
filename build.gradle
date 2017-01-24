@@ -20,7 +20,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'robo4j-rpi-lcd-example',
                 'Implementation-Version': version,
-                'Main-Class': 'com.robo4j.rpi.lcd.demo.LcdExampleMain'
+                'Main-Class': 'com.robo4j.rpi.lcd.example.demo.LcdExampleMain'
     }
     //baseName = project.name + '-all'
     baseName = 'robo4j-rpi-lcd-example'

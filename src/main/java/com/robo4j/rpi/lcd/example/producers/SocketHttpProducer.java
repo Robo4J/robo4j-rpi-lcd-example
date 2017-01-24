@@ -17,7 +17,7 @@
  * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.robo4j.rpi.lcd.producers;
+package com.robo4j.rpi.lcd.example.producers;
 
 import java.io.IOException;
 import java.net.ServerSocket;

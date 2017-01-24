@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd;
+package com.robo4j.rpi.lcd.example;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,11 @@ import java.util.Map;
 import com.robo4j.core.RoboSystem;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
-import com.robo4j.rpi.lcd.controllers.LcdExampleController;
+import com.robo4j.rpi.lcd.AdafruitLcdUnit;
+import com.robo4j.rpi.lcd.ButtonUnit;
+import com.robo4j.rpi.lcd.I2CRoboUnit;
+import com.robo4j.rpi.lcd.LcdMessage;
+import com.robo4j.rpi.lcd.example.controllers.LcdExampleController;
 
 /**
  * Demo using Robo4J to send messages from the buttons on an Adafruit 2x16 LCD

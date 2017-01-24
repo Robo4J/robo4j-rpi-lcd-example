@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.controllers;
+package com.robo4j.rpi.lcd.example.controllers;
 
 import java.io.IOException;
 import java.util.Map;
@@ -27,13 +27,13 @@ import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
 import com.robo4j.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.rpi.lcd.ButtonUnit;
 import com.robo4j.rpi.lcd.ButtonUnit.Messages;
+import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
+import com.robo4j.rpi.lcd.example.demos.ColorDemo;
+import com.robo4j.rpi.lcd.example.demos.DisplayDemo;
+import com.robo4j.rpi.lcd.example.demos.ExitDemo;
+import com.robo4j.rpi.lcd.example.demos.LcdDemo;
+import com.robo4j.rpi.lcd.example.demos.ScrollDemo;
 import com.robo4j.rpi.lcd.LcdMessage;
-import com.robo4j.rpi.lcd.demos.AbstractDemo;
-import com.robo4j.rpi.lcd.demos.ColorDemo;
-import com.robo4j.rpi.lcd.demos.DisplayDemo;
-import com.robo4j.rpi.lcd.demos.ExitDemo;
-import com.robo4j.rpi.lcd.demos.LcdDemo;
-import com.robo4j.rpi.lcd.demos.ScrollDemo;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit} and the {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.
