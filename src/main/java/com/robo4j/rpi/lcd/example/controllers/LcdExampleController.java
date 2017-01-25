@@ -31,9 +31,9 @@ import com.robo4j.rpi.lcd.example.demos.ExitDemo;
 import com.robo4j.rpi.lcd.example.demos.LcdDemo;
 import com.robo4j.rpi.lcd.example.demos.ScrollDemo;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
+import com.robo4j.units.rpi.lcd.AdaruitButtonPlateEnum;
 import com.robo4j.units.rpi.lcd.ButtonUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
-import com.robo4j.units.rpi.lcd.ButtonUnit.Messages;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit} and the
@@ -55,7 +55,7 @@ public class LcdExampleController extends RoboUnit<String> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public RoboResult<String, ?> onMessage(Object message) {
-		ButtonUnit.Messages myMessage = (Messages) message;
+		AdaruitButtonPlateEnum myMessage = (AdaruitButtonPlateEnum) message;
 		switch (myMessage) {
 		case DOWN:
 			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;

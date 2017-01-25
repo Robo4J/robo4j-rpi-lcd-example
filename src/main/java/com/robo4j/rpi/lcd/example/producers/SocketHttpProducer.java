@@ -63,7 +63,7 @@ public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements Uni
         this.name = ID;
         this.active = new AtomicBoolean(false);
     }
-    
+
 
     @SuppressWarnings("rawtypes")
 	@Override
