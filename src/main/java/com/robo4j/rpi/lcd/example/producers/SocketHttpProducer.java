@@ -52,7 +52,7 @@ import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
  */
 
 @RoboUnitProducer(id = SocketHttpProducer.ID)
-public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements UnitProducer, GeneralLcdProducer {
+public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements UnitProducer {
 
     private static final int PORT = 8025;
     public final static String ID = "socket_http";
@@ -63,15 +63,7 @@ public class SocketHttpProducer extends DefaultUnit<UnitProducer> implements Uni
         this.name = ID;
         this.active = new AtomicBoolean(false);
     }
-
-    //TODO : this unit currently doesn't need reference -> will be refactored
-    @Override
-    public void setParentUnit(GenericUnit genericUnit) {
-    }
-
-    public void setLcdPlate(AdafruitLcd tmpLcd){
-    }
-
+    
 
     @SuppressWarnings("rawtypes")
 	@Override
