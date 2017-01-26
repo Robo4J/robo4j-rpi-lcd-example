@@ -14,6 +14,20 @@
 		</properties>
 	</roboUnit>
 
+	<roboUnit id="http">
+		<class>com.robo4j.core.unit.HttpUnit</class>
+		<properties>
+			<property>
+				<key>port</key>
+				<value>8025</value>
+			</property>
+			<property>
+				<key>target</key>
+				<value>controller</value>
+			</property>
+		</properties>
+	</roboUnit>
+
 	<roboUnit id="buttons">
 		<class>com.robo4j.units.rpi.lcd.ButtonUnit</class>
 		<properties>
