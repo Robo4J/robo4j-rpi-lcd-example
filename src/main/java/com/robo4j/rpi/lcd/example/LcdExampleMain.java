@@ -59,7 +59,6 @@ public class LcdExampleMain {
 		properties.put("port", PORT);
 		http.initialize(properties);
 
-
 		LcdExampleController ctrl = new LcdExampleController(system, "controller");
 		ctrl.initialize(createSingleValueProps("target", "lcd"));
 
@@ -70,14 +69,17 @@ public class LcdExampleMain {
 		lcd.initialize(properties);
 		system.addUnits(buttons, ctrl, http, lcd);
 
+		System.out.println("State before start:");
+		System.out.println(SystemUtil.generateStateReport(system));
 		system.start();
-		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
-		System.out.println(SystemUtil.generateStateReport(system));
 
+		System.out.println("State after start:");
 		System.out.println(SystemUtil.generateStateReport(system));
-		System.out.println("RoboSystem http server\nport:" + PORT + "\n");
-		System.out.println("request GET: http://<IP_ADDRESS>:"+ PORT + "?type=lcd&command=down");
-		System.out.println("request command types: up, down, select, left, right");
+		
+		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
+		System.out.println("RoboSystem http server\n\tPort:" + PORT + "\n");
+		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:"+ PORT + "?type=lcd&command=down");
+		System.out.println("\tRequest command types: up, down, select, left, right\n");
 
 		System.out.println("Press enter to quit!");
 		System.in.read();
