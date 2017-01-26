@@ -27,7 +27,7 @@
 			</property>
 		</properties>
 	</roboUnit>
-
+	
 	<roboUnit id="buttons">
 		<class>com.robo4j.units.rpi.lcd.ButtonUnit</class>
 		<properties>
