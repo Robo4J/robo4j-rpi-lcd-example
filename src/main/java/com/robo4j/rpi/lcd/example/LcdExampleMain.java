@@ -44,6 +44,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @since 22.09.2016
  */
 public class LcdExampleMain {
+	private static String PORT = "8025";
 	public static void main(String[] args) throws Exception {
 		RoboSystem system = new RoboSystem();
 
@@ -55,7 +56,7 @@ public class LcdExampleMain {
 
 		HttpUnit http = new HttpUnit(system, "http");
 		properties = createSingleValueProps("target", "controller");
-		properties.put("port", "8025");
+		properties.put("port", PORT);
 		http.initialize(properties);
 
 
@@ -69,10 +70,15 @@ public class LcdExampleMain {
 		lcd.initialize(properties);
 		system.addUnits(buttons, ctrl, http, lcd);
 
-		System.out.println(SystemUtil.generateStateReport(system));
 		system.start();
 		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
 		System.out.println(SystemUtil.generateStateReport(system));
+
+		System.out.println(SystemUtil.generateStateReport(system));
+		System.out.println("RoboSystem http server\nport:" + PORT + "\n");
+		System.out.println("request GET: http://<IP_ADDRESS>:"+ PORT + "?type=lcd&command=down");
+		System.out.println("request command types: up, down, select, left, right");
+
 		System.out.println("Press enter to quit!");
 		System.in.read();
 		system.shutdown();
