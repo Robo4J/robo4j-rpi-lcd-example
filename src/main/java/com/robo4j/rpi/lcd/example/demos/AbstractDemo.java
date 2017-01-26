@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
- * This DisplayDemo.java  is part of robo4j.
- * module: robo4j-hw-rpi
+ * This AbstractDemo.java  is part of robo4j.
+ * module: robo4j-rpi-lcd-example
  *
  * robo4j is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@ import com.robo4j.units.rpi.lcd.LcdMessageType;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
+ * @since 18.01.2017
  */
 public abstract class AbstractDemo implements LcdDemo {
 	public static LcdMessage CLEAR = new LcdMessage(LcdMessageType.CLEAR, null, null, null);

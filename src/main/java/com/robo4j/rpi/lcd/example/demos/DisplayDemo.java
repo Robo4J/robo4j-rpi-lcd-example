@@ -29,6 +29,7 @@ import com.robo4j.units.rpi.lcd.LcdMessageType;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
+ * @since 18.01.2017
  */
 public class DisplayDemo extends AbstractDemo implements LcdDemo {
 

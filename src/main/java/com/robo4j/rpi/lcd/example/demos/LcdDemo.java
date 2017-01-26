@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
+ * Copyright (C) 2016,2017. Miroslav Wengner, Marcus Hirt
  * This LCDTest.java  is part of robo4j.
  * module: robo4j-hw-rpi
  *
@@ -28,6 +28,7 @@ import com.robo4j.core.RoboContext;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
+ * @since 22.09.2016
  */
 public interface LcdDemo {
 	String getName();

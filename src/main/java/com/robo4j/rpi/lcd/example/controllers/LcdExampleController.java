@@ -1,18 +1,20 @@
 /*
- * Copyright (c) 2014, 2017, Miroslav Wengner, Marcus Hirt
- * 
- * Robo4J is free software: you can redistribute it and/or modify
+ * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
+ * This LcdExampleController.java  is part of robo4j.
+ * module: robo4j-rpi-lcd-example
+ *
+ * robo4j is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Robo4J is distributed in the hope that it will be useful,
+ * robo4j is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
+ * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.robo4j.rpi.lcd.example.controllers;
 
@@ -30,8 +32,8 @@ import com.robo4j.rpi.lcd.example.demos.DisplayDemo;
 import com.robo4j.rpi.lcd.example.demos.ExitDemo;
 import com.robo4j.rpi.lcd.example.demos.LcdDemo;
 import com.robo4j.rpi.lcd.example.demos.ScrollDemo;
+import com.robo4j.units.rpi.lcd.AdafruitButtonPlateEnum;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
-import com.robo4j.units.rpi.lcd.AdaruitButtonPlateEnum;
 import com.robo4j.units.rpi.lcd.ButtonUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
@@ -41,6 +43,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
+ * @since 22.09.2016
  */
 public class LcdExampleController extends RoboUnit<String> {
 	private static int currentTest = -1;
@@ -55,28 +58,42 @@ public class LcdExampleController extends RoboUnit<String> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public RoboResult<String, ?> onMessage(Object message) {
-		AdaruitButtonPlateEnum myMessage = (AdaruitButtonPlateEnum) message;
-		switch (myMessage) {
-		case DOWN:
-			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
-			sendLcdMessage(getContext(),
-					String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
-			break;
-		case SELECT:
-			runTest(currentTest);
-			break;
-		case UP:
-			currentTest = --currentTest < 0 ? 0 : currentTest;
-			sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-			sendLcdMessage(getContext(),
-					String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
-			break;
-		default:
-			sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-			sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
-			break;
+
+		if(message instanceof AdafruitButtonPlateEnum){
+			AdafruitButtonPlateEnum myMessage = (AdafruitButtonPlateEnum) message;
+			processAdaruitButtonMessage(myMessage);
 		}
+		if(message instanceof String){
+			AdafruitButtonPlateEnum myMessage = AdafruitButtonPlateEnum.getByText(message.toString());
+			SimpleLoggingUtil.debug(getClass(), "message text: " + message + " myMessage: " + myMessage);
+			processAdaruitButtonMessage(myMessage);
+		}
+
 		return null;
+	}
+
+	//Private Methods
+	private void processAdaruitButtonMessage(AdafruitButtonPlateEnum myMessage){
+		switch (myMessage) {
+			case DOWN:
+				currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
+				sendLcdMessage(getContext(),
+						String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+				break;
+			case SELECT:
+				runTest(currentTest);
+				break;
+			case UP:
+				currentTest = --currentTest < 0 ? 0 : currentTest;
+				sendLcdMessage(getContext(), AbstractDemo.CLEAR);
+				sendLcdMessage(getContext(),
+						String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+				break;
+			default:
+				sendLcdMessage(getContext(), AbstractDemo.CLEAR);
+				sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
+				break;
+		}
 	}
 
 	private void runTest(int currentTest) {

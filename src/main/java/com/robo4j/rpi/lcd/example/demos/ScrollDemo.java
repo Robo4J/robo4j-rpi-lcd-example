@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
- * This ScrollTest.java  is part of robo4j.
- * module: robo4j-hw-rpi
+ * Copyright (C) 2016, 2017. Miroslav Wengner, Marcus Hirt
+ * This ScrollDemo.java  is part of robo4j.
+ * module: robo4j-rpi-lcd-example
  *
  * robo4j is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ import com.robo4j.units.rpi.lcd.LcdMessageType;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
+ * @since 22.09.2016
  */
 public class ScrollDemo extends  AbstractDemo {
 

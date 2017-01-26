@@ -1,18 +1,20 @@
 /*
- * Copyright (c) 2014, 2017, Miroslav Wengner, Marcus Hirt
- * 
- * Robo4J is free software: you can redistribute it and/or modify
+ * Copyright (C) 2014-2017. Miroslav Wengner, Marcus Hirt
+ * This LcdExampleMain.java  is part of robo4j.
+ * module: robo4j-rpi-lcd-example
+ *
+ * robo4j is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Robo4J is distributed in the hope that it will be useful,
+ * robo4j is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
+ * along with robo4j .  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.robo4j.rpi.lcd.example;
 
@@ -20,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.robo4j.core.RoboSystem;
+import com.robo4j.core.unit.HttpUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controllers.LcdExampleController;
@@ -38,6 +41,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
+ * @since 22.09.2016
  */
 public class LcdExampleMain {
 	public static void main(String[] args) throws Exception {
@@ -49,6 +53,12 @@ public class LcdExampleMain {
 		properties.put(I2CRoboUnit.PROPERTY_KEY_BUS, String.valueOf(AdafruitLcd.DEFAULT_BUS));
 		buttons.initialize(properties);
 
+		HttpUnit http = new HttpUnit(system, "http");
+		properties = createSingleValueProps("target", "controller");
+		properties.put("port", "8025");
+		http.initialize(properties);
+
+
 		LcdExampleController ctrl = new LcdExampleController(system, "controller");
 		ctrl.initialize(createSingleValueProps("target", "lcd"));
 
@@ -57,7 +67,7 @@ public class LcdExampleMain {
 		properties.put(I2CRoboUnit.PROPERTY_KEY_ADDRESS, String.valueOf(AdafruitLcd.DEFAULT_ADDRESS));
 		properties.put(I2CRoboUnit.PROPERTY_KEY_BUS, String.valueOf(AdafruitLcd.DEFAULT_BUS));
 		lcd.initialize(properties);
-		system.addUnits(buttons, ctrl, lcd);
+		system.addUnits(buttons, ctrl, http, lcd);
 
 		System.out.println(SystemUtil.generateStateReport(system));
 		system.start();
