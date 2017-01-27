@@ -46,12 +46,18 @@ public class LcdExampleDeclarativeMain {
 
 		System.out.println("State after start:");
 		System.out.println(SystemUtil.generateStateReport(ctx));
-		
+
 		ctx.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
-		
+
 		RoboReference<Object> httpRef = ctx.getReference("http");
+<<<<<<< HEAD
 		System.out.println("RoboSystem http server\n\tPort:" + httpRef.getConfiguration().getInteger("port", null) + "\n");
 		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:"+  httpRef.getConfiguration().getInteger("port", null) + "?type=lcd&command=down");
+=======
+		System.out.println("RoboSystem http server\n\tPort:" + httpRef.getConfiguration().getInt("port") + "\n");
+		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:" + httpRef.getConfiguration().getInt("port")
+				+ "?type=lcd&command=down");
+>>>>>>> branch 'master' of https://github.com/Robo4J/robo4j-rpi-lcd-example.git
 		System.out.println("\tRequest command types: up, down, select, left, right\n");
 
 		System.out.println("Press enter to quit!");

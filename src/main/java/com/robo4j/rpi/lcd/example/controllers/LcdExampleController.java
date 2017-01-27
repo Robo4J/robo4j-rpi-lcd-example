@@ -60,11 +60,11 @@ public class LcdExampleController extends RoboUnit<String> {
 	@Override
 	public RoboResult<String, ?> onMessage(Object message) {
 
-		if(message instanceof AdafruitButtonPlateEnum){
+		if (message instanceof AdafruitButtonPlateEnum) {
 			AdafruitButtonPlateEnum myMessage = (AdafruitButtonPlateEnum) message;
 			processAdaruitButtonMessage(myMessage);
 		}
-		if(message instanceof String){
+		if (message instanceof String) {
 			AdafruitButtonPlateEnum myMessage = AdafruitButtonPlateEnum.getByText(message.toString());
 			SimpleLoggingUtil.debug(getClass(), "message text: " + message + " myMessage: " + myMessage);
 			processAdaruitButtonMessage(myMessage);
@@ -73,27 +73,27 @@ public class LcdExampleController extends RoboUnit<String> {
 		return null;
 	}
 
-	//Private Methods
-	private void processAdaruitButtonMessage(AdafruitButtonPlateEnum myMessage){
+	// Private Methods
+	private void processAdaruitButtonMessage(AdafruitButtonPlateEnum myMessage) {
 		switch (myMessage) {
-			case DOWN:
-				currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
-				sendLcdMessage(getContext(),
-						String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
-				break;
-			case SELECT:
-				runTest(currentTest);
-				break;
-			case UP:
-				currentTest = --currentTest < 0 ? 0 : currentTest;
-				sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-				sendLcdMessage(getContext(),
-						String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
-				break;
-			default:
-				sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-				sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
-				break;
+		case DOWN:
+			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
+			sendLcdMessage(getContext(),
+					String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+			break;
+		case SELECT:
+			runTest(currentTest);
+			break;
+		case UP:
+			currentTest = --currentTest < 0 ? 0 : currentTest;
+			sendLcdMessage(getContext(), AbstractDemo.CLEAR);
+			sendLcdMessage(getContext(),
+					String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+			break;
+		default:
+			sendLcdMessage(getContext(), AbstractDemo.CLEAR);
+			sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
+			break;
 		}
 	}
 

@@ -22,7 +22,6 @@ import java.io.IOException;
 
 import com.robo4j.core.RoboContext;
 
-
 /**
  * The interface for the demos.
  * 
@@ -32,5 +31,6 @@ import com.robo4j.core.RoboContext;
  */
 public interface LcdDemo {
 	String getName();
+
 	void run(RoboContext context) throws IOException;
 }
