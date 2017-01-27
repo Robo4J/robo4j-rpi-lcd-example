@@ -47,6 +47,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  */
 public class LcdExampleMain {
 	private static int PORT = 8025;
+
 	public static void main(String[] args) throws Exception {
 		RoboSystem system = new RoboSystem();
 
@@ -71,9 +72,9 @@ public class LcdExampleMain {
 		AdafruitLcdUnit lcd = new AdafruitLcdUnit(system, "lcd");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setInt(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
-		config.setInt(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);		
+		config.setInt(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
 		lcd.initialize(config);
-		
+
 		system.addUnits(buttons, ctrl, http, lcd);
 
 		System.out.println("State before start:");
@@ -82,10 +83,10 @@ public class LcdExampleMain {
 
 		System.out.println("State after start:");
 		System.out.println(SystemUtil.generateStateReport(system));
-		
+
 		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
 		System.out.println("RoboSystem http server\n\tPort:" + PORT + "\n");
-		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:"+ PORT + "?type=lcd&command=down");
+		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:" + PORT + "?type=lcd&command=down");
 		System.out.println("\tRequest command types: up, down, select, left, right\n");
 
 		System.out.println("Press enter to quit!");

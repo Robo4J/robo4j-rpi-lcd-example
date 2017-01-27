@@ -37,16 +37,16 @@ public abstract class AbstractDemo implements LcdDemo {
 	public static LcdMessage TURN_OFF = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "false");
 
 	private volatile RoboReference<LcdMessage> lcd;
-	
+
 	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
 		if (lcd == null) {
 			lcd = ctx.getReference("lcd");
 		}
-		if (lcd != null) {			
+		if (lcd != null) {
 			lcd.sendMessage(message);
 		}
 	}
-	
+
 	protected void sleep(long millis) {
 		try {
 			Thread.sleep(millis);

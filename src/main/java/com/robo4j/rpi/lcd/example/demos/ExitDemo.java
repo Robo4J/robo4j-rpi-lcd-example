@@ -36,9 +36,11 @@ public class ExitDemo extends AbstractDemo {
 		return "<Exit>";
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
 	 */
 	@Override
 	public void run(RoboContext ctx) throws IOException {
