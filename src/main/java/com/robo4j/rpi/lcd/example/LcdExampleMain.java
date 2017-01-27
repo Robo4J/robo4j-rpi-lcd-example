@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.robo4j.core.RoboSystem;
+import com.robo4j.core.configuration.Configuration;
+import com.robo4j.core.configuration.ConfigurationFactory;
 import com.robo4j.core.unit.HttpUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
@@ -44,29 +46,34 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @since 22.09.2016
  */
 public class LcdExampleMain {
-	private static String PORT = "8025";
+	private static int PORT = 8025;
 	public static void main(String[] args) throws Exception {
 		RoboSystem system = new RoboSystem();
 
 		ButtonUnit buttons = new ButtonUnit(system, "buttons");
-		Map<String, String> properties = createSingleValueProps("target", "controller");
-		properties.put(I2CRoboUnit.PROPERTY_KEY_ADDRESS, String.valueOf(AdafruitLcd.DEFAULT_ADDRESS));
-		properties.put(I2CRoboUnit.PROPERTY_KEY_BUS, String.valueOf(AdafruitLcd.DEFAULT_BUS));
-		buttons.initialize(properties);
+		Configuration config = ConfigurationFactory.createEmptyConfiguration();
+		config.setString("target", "controller");
+		config.setInt(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
+		config.setInt(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
+		buttons.initialize(config);
 
 		HttpUnit http = new HttpUnit(system, "http");
-		properties = createSingleValueProps("target", "controller");
-		properties.put("port", PORT);
-		http.initialize(properties);
+		config = ConfigurationFactory.createEmptyConfiguration();
+		config.setString("target", "controller");
+		config.setInt("port", PORT);
+		http.initialize(config);
 
 		LcdExampleController ctrl = new LcdExampleController(system, "controller");
-		ctrl.initialize(createSingleValueProps("target", "lcd"));
+		config = ConfigurationFactory.createEmptyConfiguration();
+		config.setString("target", "lcd");
+		ctrl.initialize(config);
 
 		AdafruitLcdUnit lcd = new AdafruitLcdUnit(system, "lcd");
-		properties = createSingleValueProps(I2CRoboUnit.PROPERTY_KEY_ADDRESS, String.valueOf(AdafruitLcd.DEFAULT_ADDRESS));
-		properties.put(I2CRoboUnit.PROPERTY_KEY_ADDRESS, String.valueOf(AdafruitLcd.DEFAULT_ADDRESS));
-		properties.put(I2CRoboUnit.PROPERTY_KEY_BUS, String.valueOf(AdafruitLcd.DEFAULT_BUS));
-		lcd.initialize(properties);
+		config = ConfigurationFactory.createEmptyConfiguration();
+		config.setInt(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
+		config.setInt(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);		
+		lcd.initialize(config);
+		
 		system.addUnits(buttons, ctrl, http, lcd);
 
 		System.out.println("State before start:");
