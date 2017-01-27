@@ -20,6 +20,7 @@ package com.robo4j.rpi.lcd.example.controllers;
 
 import java.io.IOException;
 
+import com.robo4j.core.ConfigurationException;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboResult;
 import com.robo4j.core.RoboUnit;
@@ -114,8 +115,11 @@ public class LcdExampleController extends RoboUnit<String> {
 	}
 
 	@Override
-	public void initialize(Configuration configuration) throws Exception {
-		target = configuration.getString("target");
+	public void onInitialization(Configuration configuration) throws ConfigurationException {
+		target = configuration.getString("target", null);
+		if (target == null) {
+			throw ConfigurationException.createMissingConfigNameException("target");
+		}
 	}
 
 	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {

@@ -53,14 +53,14 @@ public class LcdExampleMain {
 		ButtonUnit buttons = new ButtonUnit(system, "buttons");
 		Configuration config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
-		config.setInt(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
-		config.setInt(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
+		config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
+		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
 		buttons.initialize(config);
 
 		HttpUnit http = new HttpUnit(system, "http");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
-		config.setInt("port", PORT);
+		config.setInteger("port", PORT);
 		http.initialize(config);
 
 		LcdExampleController ctrl = new LcdExampleController(system, "controller");
@@ -70,8 +70,8 @@ public class LcdExampleMain {
 
 		AdafruitLcdUnit lcd = new AdafruitLcdUnit(system, "lcd");
 		config = ConfigurationFactory.createEmptyConfiguration();
-		config.setInt(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
-		config.setInt(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);		
+		config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
+		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);		
 		lcd.initialize(config);
 		
 		system.addUnits(buttons, ctrl, http, lcd);
