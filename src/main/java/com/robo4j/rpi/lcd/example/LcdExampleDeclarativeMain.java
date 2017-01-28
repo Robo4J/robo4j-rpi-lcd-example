@@ -50,8 +50,10 @@ public class LcdExampleDeclarativeMain {
 		ctx.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
 
 		RoboReference<Object> httpRef = ctx.getReference("http");
-		System.out.println("RoboSystem http server\n\tPort:" + httpRef.getConfiguration().getInteger("port", null) + "\n");
-		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:"+  httpRef.getConfiguration().getInteger("port", null) + "?type=lcd&command=down");
+		System.out.println(
+				"RoboSystem http server\n\tPort:" + httpRef.getConfiguration().getInteger("port", null) + "\n");
+		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:"
+				+ httpRef.getConfiguration().getInteger("port", null) + "?type=lcd&command=down");
 		System.out.println("\tRequest command types: up, down, select, left, right\n");
 
 		System.out.println("Press enter to quit!");
