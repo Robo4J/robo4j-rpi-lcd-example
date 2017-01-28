@@ -18,9 +18,6 @@
  */
 package com.robo4j.rpi.lcd.example;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.robo4j.core.RoboSystem;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
@@ -72,7 +69,7 @@ public class LcdExampleMain {
 		AdafruitLcdUnit lcd = new AdafruitLcdUnit(system, "lcd");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
-		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);		
+		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
 		lcd.initialize(config);
 
 		system.addUnits(buttons, ctrl, http, lcd);
@@ -92,11 +89,7 @@ public class LcdExampleMain {
 		System.out.println("Press enter to quit!");
 		System.in.read();
 		system.shutdown();
+
 	}
 
-	public static Map<String, String> createSingleValueProps(String key, String value) {
-		Map<String, String> properties = new HashMap<>();
-		properties.put(key, value);
-		return properties;
-	}
 }
