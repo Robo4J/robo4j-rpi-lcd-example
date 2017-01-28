@@ -20,8 +20,6 @@ package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
 
-import com.robo4j.core.RoboContext;
-
 /**
  * This one really doesn't anything but clean up and exit.
  * 
@@ -43,7 +41,7 @@ public class ExitDemo extends AbstractDemo {
 	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
 	 */
 	@Override
-	public void run(RoboContext ctx) throws IOException {
+	public void runDemo() throws IOException {
 		ctx.shutdown();
 	}
 

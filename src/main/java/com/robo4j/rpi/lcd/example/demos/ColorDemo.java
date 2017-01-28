@@ -19,8 +19,10 @@
 package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import com.robo4j.core.RoboContext;
+import com.robo4j.core.scheduler.FinalInvocationListener;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Color;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
@@ -45,14 +47,26 @@ public class ColorDemo extends AbstractDemo {
 	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
 	 */
 	@Override
-	public void run(RoboContext ctx) throws IOException {
+	public void runDemo() throws IOException {
 		String prefix = "Color changes:\n";
-		sendLcdMessage(ctx, CLEAR);
-		for (Color c : Color.values()) {
-			sendLcdMessage(ctx, new LcdMessage(prefix + "Color: " + c.toString() + "      ", c));
-			sleep(1000);
+		lcd.sendMessage(CLEAR);
+	
+		int delay = 0;	
+		int i = 0;
+		for (; i < Color.values().length - 1; i++) {
+			Color c = Color.values()[i];
+			ctx.getScheduler().schedule(lcd, getColorMessage(prefix, c), delay+=1, 1, TimeUnit.SECONDS, 1);
 		}
-		sendLcdMessage(ctx, CLEAR);
-		sendLcdMessage(ctx, new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
+		ctx.getScheduler().schedule(lcd, getColorMessage(prefix, Color.values()[i]), delay+=1, 1, TimeUnit.SECONDS, 1, new FinalInvocationListener() {
+			@Override
+			public void onFinalInvocation(RoboContext context) {
+				lcd.sendMessage(new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
+			}
+		});
+	}
+
+	private LcdMessage getColorMessage(String prefix, Color c) {
+		LcdMessage lcdMessage = new LcdMessage(prefix + "Color: " + c.toString() + "      ", c);
+		return lcdMessage;
 	}
 }

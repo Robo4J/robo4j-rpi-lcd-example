@@ -18,6 +18,8 @@
  */
 package com.robo4j.rpi.lcd.example.demos;
 
+import java.io.IOException;
+
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboReference;
 import com.robo4j.units.rpi.lcd.LcdMessage;
@@ -36,8 +38,9 @@ public abstract class AbstractDemo implements LcdDemo {
 	public static LcdMessage TURN_ON = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "true");
 	public static LcdMessage TURN_OFF = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "false");
 
-	private volatile RoboReference<LcdMessage> lcd;
-
+	protected RoboReference<LcdMessage> lcd;
+	protected RoboContext ctx;
+	
 	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
 		if (lcd == null) {
 			lcd = ctx.getReference("lcd");
@@ -54,4 +57,14 @@ public abstract class AbstractDemo implements LcdDemo {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void run(RoboContext ctx) throws IOException {
+		this.ctx = ctx;
+		lcd = ctx.getReference("lcd");
+		runDemo();
+	}
+
+	protected abstract void runDemo() throws IOException;
+
 }

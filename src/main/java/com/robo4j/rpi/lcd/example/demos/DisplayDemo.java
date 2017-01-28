@@ -19,8 +19,10 @@
 package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import com.robo4j.core.RoboContext;
+import com.robo4j.core.scheduler.FinalInvocationListener;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 import com.robo4j.units.rpi.lcd.LcdMessageType;
 
@@ -39,17 +41,17 @@ public class DisplayDemo extends AbstractDemo implements LcdDemo {
 	}
 
 	@Override
-	public void run(RoboContext ctx) throws IOException {
-		sendLcdMessage(ctx, CLEAR);
-		sendLcdMessage(ctx, new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Turning off/on\ndisplay 10 times!"));
-		sleep(1000);
-		for (int i = 0; i < 10; i++) {
-			ctx.getReference("lcd").sendMessage(TURN_OFF);
-			sleep(300);
-			ctx.getReference("lcd").sendMessage(TURN_ON);
-			sleep(300);
-		}
-		sendLcdMessage(ctx, CLEAR);
-		sendLcdMessage(ctx, new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Display Demo:\nDone!           "));
+	public void runDemo() throws IOException {		
+		lcd.sendMessage(CLEAR);
+		lcd.sendMessage(new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Turning off/on\ndisplay 10 times!"));
+		
+		ctx.getScheduler().schedule(lcd, TURN_OFF, 300, 600, TimeUnit.MILLISECONDS, 10);
+		ctx.getScheduler().schedule(lcd, TURN_ON, 600, 600, TimeUnit.MILLISECONDS, 10, new FinalInvocationListener() {			
+			@Override
+			public void onFinalInvocation(RoboContext context) {
+				lcd.sendMessage(CLEAR);
+				lcd.sendMessage(new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Display Demo:\nDone!           "));
+			}
+		});
 	}
 }

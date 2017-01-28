@@ -19,8 +19,11 @@
 package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import com.robo4j.core.RoboContext;
+import com.robo4j.core.scheduler.FinalInvocationListener;
+import com.robo4j.core.scheduler.Scheduler;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 import com.robo4j.units.rpi.lcd.LcdMessageType;
 
@@ -43,20 +46,22 @@ public class ScrollDemo extends  AbstractDemo {
 	 * @see com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
 	 */
 	@Override
-	public void run(RoboContext ctx) throws IOException {
-		LcdMessage left = new LcdMessage(LcdMessageType.SCROLL, null, null, "left");
-		LcdMessage right = new LcdMessage(LcdMessageType.SCROLL, null, null, "right");
-		
-		String message = "Running scroller. Be patient!\nBouncing this scroller once.";
-		sendLcdMessage(ctx, new LcdMessage(message));
-		for (int i = 0; i < 24; i++) {
-			sleep(100);
-			sendLcdMessage(ctx, left);
-		}
-		for (int i = 0; i < 24; i++) {
-			sleep(100);
-			sendLcdMessage(ctx, right);
-		}
-		sendLcdMessage(ctx, new LcdMessage("Scroller Demo:  \nDone!             "));
+	public void runDemo() throws IOException {
+		final LcdMessage left = new LcdMessage(LcdMessageType.SCROLL, null, null, "left");
+		final LcdMessage right = new LcdMessage(LcdMessageType.SCROLL, null, null, "right");
+		final Scheduler scheduler = ctx.getScheduler();
+		lcd.sendMessage("Running scroller. Be patient!\nBouncing this scroller once.");
+				
+		scheduler.schedule(lcd, left, 100, 100, TimeUnit.MILLISECONDS, 24, new FinalInvocationListener() {
+			@Override
+			public void onFinalInvocation(RoboContext context) {
+				scheduler.schedule(lcd, right, 100, 100, TimeUnit.MILLISECONDS, 24, new FinalInvocationListener() {
+					@Override
+					public void onFinalInvocation(RoboContext context) {
+						lcd.sendMessage("Scroller Demo:  \nDone!           ");
+					}
+				});
+			}
+		});
 	}
 }
