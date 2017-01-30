@@ -24,7 +24,7 @@ import com.robo4j.core.configuration.ConfigurationFactory;
 import com.robo4j.core.unit.HttpUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
-import com.robo4j.rpi.lcd.example.controllers.LcdExampleController;
+import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.units.rpi.lcd.ButtonUnit;
 import com.robo4j.units.rpi.lcd.I2CRoboUnit;

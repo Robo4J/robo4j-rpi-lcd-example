@@ -27,7 +27,7 @@
 	</roboUnit>
 
 	<roboUnit id="controller">
-		<class>com.robo4j.rpi.lcd.example.controllers.LcdExampleController</class>
+		<class>com.robo4j.rpi.lcd.example.controller.LcdExampleController</class>
 		<config name="com.robo4j.core.root">
 			<value name="target" type="String">lcd</value>
 		</config>
