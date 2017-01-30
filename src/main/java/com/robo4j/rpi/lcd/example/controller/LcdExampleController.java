@@ -39,7 +39,7 @@ import com.robo4j.units.rpi.lcd.ButtonUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
- * This controller binds together the standard {@link AdafruitLcdUnit} and the
+ * This controller binds together the standard {@link AdafruitLcdUnit}, {@link HttpUnit} and the
  * {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.
  * 
  * @author Marcus Hirt (@hirt)
@@ -62,19 +62,45 @@ public class LcdExampleController extends RoboUnit<String> {
 
 		if (message instanceof AdafruitButtonPlateEnum) {
 			AdafruitButtonPlateEnum myMessage = (AdafruitButtonPlateEnum) message;
-			processAdaruitButtonMessage(myMessage);
+			processAdaruitMessage(myMessage);
 		}
 		if (message instanceof String) {
 			AdafruitButtonPlateEnum myMessage = AdafruitButtonPlateEnum.getByText(message.toString());
 			SimpleLoggingUtil.debug(getClass(), "message text: " + message + " myMessage: " + myMessage);
-			processAdaruitButtonMessage(myMessage);
+			processAdaruitMessage(myMessage);
 		}
 
 		return null;
 	}
 
+	@Override
+	public void onInitialization(Configuration configuration) throws ConfigurationException {
+		target = configuration.getString("target", null);
+		if (target == null) {
+			throw ConfigurationException.createMissingConfigNameException("target");
+		}
+	}
+
+	@Override
+	public void shutdown() {
+		System.out.println("Clearing and shutting off display...");
+		sendLcdMessage(getContext(), AbstractDemo.CLEAR);
+		sendLcdMessage(getContext(), AbstractDemo.TURN_OFF);
+		sendLcdMessage(getContext(), AbstractDemo.STOP);
+		super.shutdown();
+		System.exit(0);
+	}
+
 	// Private Methods
-	private void processAdaruitButtonMessage(AdafruitButtonPlateEnum myMessage) {
+	private void sendLcdMessage(RoboContext ctx, LcdMessage message) {
+		ctx.getReference(target).sendMessage(message);
+	}
+
+	private void sendLcdMessage(RoboContext ctx, String message) {
+		ctx.getReference(target).sendMessage(new LcdMessage(message));
+	}
+
+	private void processAdaruitMessage(AdafruitButtonPlateEnum myMessage) {
 		switch (myMessage) {
 		case DOWN:
 			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
@@ -108,36 +134,11 @@ public class LcdExampleController extends RoboUnit<String> {
 	}
 
 	/**
-	 * @param e
+	 * @param e - IOException
 	 */
 	private void handleException(IOException e) {
 		SimpleLoggingUtil.error(getClass(), "Failed to run demo", e);
 	}
 
-	@Override
-	public void onInitialization(Configuration configuration) throws ConfigurationException {
-		target = configuration.getString("target", null);
-		if (target == null) {
-			throw ConfigurationException.createMissingConfigNameException("target");
-		}
-	}
-
-	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
-		ctx.getReference(target).sendMessage(message);
-	}
-
-	protected void sendLcdMessage(RoboContext ctx, String message) {
-		ctx.getReference(target).sendMessage(new LcdMessage(message));
-	}
-
-	@Override
-	public void shutdown() {
-		System.out.println("Clearing and shutting off display...");
-		sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-		sendLcdMessage(getContext(), AbstractDemo.TURN_OFF);
-		sendLcdMessage(getContext(), AbstractDemo.STOP);
-		super.shutdown();
-		System.exit(0);
-	}
 
 }
