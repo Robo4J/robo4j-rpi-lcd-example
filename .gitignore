@@ -2,3 +2,4 @@
 *.bak
 /.gradle/
 /build/
+.settings
