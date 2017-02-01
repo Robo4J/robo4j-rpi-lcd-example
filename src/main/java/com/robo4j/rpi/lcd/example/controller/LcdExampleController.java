@@ -21,6 +21,7 @@ package com.robo4j.rpi.lcd.example.controller;
 import java.io.IOException;
 
 import com.robo4j.core.ConfigurationException;
+import com.robo4j.core.LifecycleState;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboResult;
 import com.robo4j.core.RoboUnit;
@@ -83,11 +84,12 @@ public class LcdExampleController extends RoboUnit<String> {
 
 	@Override
 	public void shutdown() {
+		setState(LifecycleState.SHUTTING_DOWN);
 		System.out.println("Clearing and shutting off display...");
 		sendLcdMessage(getContext(), AbstractDemo.CLEAR);
 		sendLcdMessage(getContext(), AbstractDemo.TURN_OFF);
 		sendLcdMessage(getContext(), AbstractDemo.STOP);
-		super.shutdown();
+		setState(LifecycleState.SHUTDOWN);
 		System.exit(0);
 	}
 
