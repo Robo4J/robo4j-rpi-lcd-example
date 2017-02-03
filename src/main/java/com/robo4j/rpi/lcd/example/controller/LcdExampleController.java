@@ -40,14 +40,15 @@ import com.robo4j.units.rpi.lcd.ButtonUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
- * This controller binds together the standard {@link AdafruitLcdUnit}, {@link HttpUnit} and the
- * {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.
+ * This controller binds together the standard {@link AdafruitLcdUnit},
+ * {@link HttpUnit} and the {@link ButtonUnit} to provide a demo similar to the
+ * one in {@link Demo}.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  * @since 22.09.2016
  */
-public class LcdExampleController extends RoboUnit<String> {
+public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 	private static int currentTest = -1;
 	private final static LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
 			new ExitDemo() };
@@ -55,23 +56,6 @@ public class LcdExampleController extends RoboUnit<String> {
 
 	public LcdExampleController(RoboContext context, String id) {
 		super(context, id);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public RoboResult<String, ?> onMessage(Object message) {
-
-		if (message instanceof AdafruitButtonPlateEnum) {
-			AdafruitButtonPlateEnum myMessage = (AdafruitButtonPlateEnum) message;
-			processAdaruitMessage(myMessage);
-		}
-		if (message instanceof String) {
-			AdafruitButtonPlateEnum myMessage = AdafruitButtonPlateEnum.getByText(message.toString());
-			SimpleLoggingUtil.debug(getClass(), "message text: " + message + " myMessage: " + myMessage);
-			processAdaruitMessage(myMessage);
-		}
-
-		return null;
 	}
 
 	@Override
@@ -100,6 +84,12 @@ public class LcdExampleController extends RoboUnit<String> {
 
 	private void sendLcdMessage(RoboContext ctx, String message) {
 		ctx.getReference(target).sendMessage(new LcdMessage(message));
+	}
+
+	public RoboResult<?, AdafruitButtonPlateEnum> onMessage(AdafruitButtonPlateEnum message) {
+		AdafruitButtonPlateEnum myMessage = (AdafruitButtonPlateEnum) message;
+		processAdaruitMessage(myMessage);
+		return null;
 	}
 
 	private void processAdaruitMessage(AdafruitButtonPlateEnum myMessage) {
@@ -136,11 +126,11 @@ public class LcdExampleController extends RoboUnit<String> {
 	}
 
 	/**
-	 * @param e - IOException
+	 * @param e
+	 *            - IOException
 	 */
 	private void handleException(IOException e) {
 		SimpleLoggingUtil.error(getClass(), "Failed to run demo", e);
 	}
-
 
 }
