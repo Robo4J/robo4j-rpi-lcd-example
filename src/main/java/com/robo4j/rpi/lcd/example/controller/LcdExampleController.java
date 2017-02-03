@@ -27,7 +27,6 @@ import com.robo4j.core.RoboResult;
 import com.robo4j.core.RoboUnit;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.logging.SimpleLoggingUtil;
-import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
 import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
 import com.robo4j.rpi.lcd.example.demos.ColorDemo;
 import com.robo4j.rpi.lcd.example.demos.DisplayDemo;
