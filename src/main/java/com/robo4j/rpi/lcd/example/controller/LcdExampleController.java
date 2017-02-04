@@ -46,7 +46,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @author Miroslav Wengner (@miragemiko)
  * @since 22.09.2016
  */
-public class LcdExampleController extends RoboUnit<String> {
+public class LcdExampleController extends RoboUnit<Object> {
 	private static int currentTest = -1;
 	private final static LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
 			new ExitDemo() };

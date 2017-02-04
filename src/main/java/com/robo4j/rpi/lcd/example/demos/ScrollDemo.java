@@ -50,7 +50,7 @@ public class ScrollDemo extends  AbstractDemo {
 		final LcdMessage left = new LcdMessage(LcdMessageType.SCROLL, null, null, "left");
 		final LcdMessage right = new LcdMessage(LcdMessageType.SCROLL, null, null, "right");
 		final Scheduler scheduler = ctx.getScheduler();
-		lcd.sendMessage("Running scroller. Be patient!\nBouncing this scroller once.");
+		lcd.sendMessage(new LcdMessage("Running scroller. Be patient!\nBouncing this scroller once."));
 				
 		scheduler.schedule(lcd, left, 100, 100, TimeUnit.MILLISECONDS, 24, new FinalInvocationListener() {
 			@Override
@@ -58,7 +58,7 @@ public class ScrollDemo extends  AbstractDemo {
 				scheduler.schedule(lcd, right, 100, 100, TimeUnit.MILLISECONDS, 24, new FinalInvocationListener() {
 					@Override
 					public void onFinalInvocation(RoboContext context) {
-						lcd.sendMessage("Scroller Demo:  \nDone!           ");
+						lcd.sendMessage(new LcdMessage("Scroller Demo:  \nDone!           "));
 					}
 				});
 			}
