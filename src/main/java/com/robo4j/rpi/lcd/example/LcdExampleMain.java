@@ -21,7 +21,7 @@ package com.robo4j.rpi.lcd.example;
 import com.robo4j.core.RoboSystem;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
-import com.robo4j.core.unit.HttpUnit;
+import com.robo4j.core.unit.HttpDynamicUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
@@ -55,10 +55,16 @@ public class LcdExampleMain {
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
 		buttons.initialize(config);
 
-		HttpUnit http = new HttpUnit(system, "http");
+		HttpDynamicUnit http = new HttpDynamicUnit(system, "http");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
+		config.setInteger("pathsNumber", 1);
+		config.setString("path_0", "lcd");
+		config.setString("method_0", "GET");
+		config.setInteger("pathCommands_0", 1);
+		config.setString("commandName_0_0", "command");
+		config.setString("commandValues_0_0", "select,left,right,up,down");
 		http.initialize(config);
 
 		LcdExampleController ctrl = new LcdExampleController(system, "controller");

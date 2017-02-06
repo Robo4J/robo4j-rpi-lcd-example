@@ -1,35 +1,41 @@
 <robo4j>
-	<roboUnit id="lcd">
-		<class>com.robo4j.units.rpi.lcd.AdafruitLcdUnit</class>
-		<config name="com.robo4j.core.root">
-			<value name="bus" type="int">1</value>
-			<!-- 0x20 hex -->	
-			<value name="address" type="int">32</value>
-		</config>
-	</roboUnit>
+    <roboUnit id="lcd">
+        <class>com.robo4j.units.rpi.lcd.AdafruitLcdUnit</class>
+        <config name="com.robo4j.core.root">
+            <value name="bus" type="int">1</value>
+            <!-- 0x20 hex -->
+            <value name="address" type="int">32</value>
+        </config>
+    </roboUnit>
 
-	<roboUnit id="http">
-		<class>com.robo4j.core.unit.HttpUnit</class>
-		<config name="com.robo4j.core.root">
-			<value name="port" type="int">8025</value>
-			<value name="target" type="String">controller</value>
-		</config>
-	</roboUnit>
-	
-	<roboUnit id="buttons">
-		<class>com.robo4j.units.rpi.lcd.ButtonUnit</class>
-		<config name="com.robo4j.core.root">
-			<value name="bus" type="int">1</value>
-			<!-- 0x20 hex -->	
-			<value name="address" type="int">32</value>
-			<value name="target" type="String">controller</value>
-		</config>
-	</roboUnit>
+    <roboUnit id="http">
+        <class>com.robo4j.core.unit.HttpDynamicUnit</class>
+        <config name="com.robo4j.core.root">
+            <value name="port" type="int">8025</value>
+            <value name="pathsNumber" type="int">1</value>
+            <value name="path_0" type="String">lcd</value>
+            <value name="method_0" type="String">GET</value>
+            <value name="pathCommands_0" type="int">1</value>
+            <value name="commandName_0_0" type="String">command</value>
+            <value name="commandValues_0_0" type="String">select,left,right,up,down</value>
+            <value name="target" type="String">controller</value>
+        </config>
+    </roboUnit>
 
-	<roboUnit id="controller">
-		<class>com.robo4j.rpi.lcd.example.controller.LcdExampleController</class>
-		<config name="com.robo4j.core.root">
-			<value name="target" type="String">lcd</value>
-		</config>
-	</roboUnit>
+    <roboUnit id="buttons">
+        <class>com.robo4j.units.rpi.lcd.ButtonUnit</class>
+        <config name="com.robo4j.core.root">
+            <value name="bus" type="int">1</value>
+            <!-- 0x20 hex -->
+            <value name="address" type="int">32</value>
+            <value name="target" type="String">controller</value>
+        </config>
+    </roboUnit>
+
+    <roboUnit id="controller">
+        <class>com.robo4j.rpi.lcd.example.controller.LcdExampleController</class>
+        <config name="com.robo4j.core.root">
+            <value name="target" type="String">lcd</value>
+        </config>
+    </roboUnit>
 </robo4j>
