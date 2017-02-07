@@ -21,7 +21,7 @@ package com.robo4j.rpi.lcd.example;
 import com.robo4j.core.RoboSystem;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
-import com.robo4j.core.unit.HttpDynamicUnit;
+import com.robo4j.core.unit.HttpUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
@@ -55,7 +55,7 @@ public class LcdExampleMain {
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
 		buttons.initialize(config);
 
-		HttpDynamicUnit http = new HttpDynamicUnit(system, "http");
+		HttpUnit http = new HttpUnit(system, "http");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
@@ -89,7 +89,7 @@ public class LcdExampleMain {
 
 		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
 		System.out.println("RoboSystem http server\n\tPort:" + PORT + "\n");
-		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:" + PORT + "?type=lcd&command=down");
+		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:" + PORT + "/lcd?command=down");
 		System.out.println("\tRequest command types: up, down, select, left, right\n");
 
 		System.out.println("Press enter to quit!");
