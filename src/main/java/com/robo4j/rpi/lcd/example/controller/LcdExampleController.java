@@ -82,12 +82,19 @@ public class LcdExampleController extends RoboUnit<Object> {
 	}
 
 	@Override
-	public void shutdown() {
-		setState(LifecycleState.SHUTTING_DOWN);
+	public void stop() {
+		setState(LifecycleState.STOPPING);
 		System.out.println("Clearing and shutting off display...");
 		sendLcdMessage(getContext(), AbstractDemo.CLEAR);
 		sendLcdMessage(getContext(), AbstractDemo.TURN_OFF);
 		sendLcdMessage(getContext(), AbstractDemo.STOP);
+		setState(LifecycleState.STOPPED);
+	}
+
+	@Override
+	public void shutdown() {
+		setState(LifecycleState.SHUTTING_DOWN);
+		System.out.println("shutting off LcdExample...");
 		setState(LifecycleState.SHUTDOWN);
 		System.exit(0);
 	}
