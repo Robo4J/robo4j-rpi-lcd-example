@@ -59,12 +59,14 @@ public class LcdExampleMain {
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
-		config.setInteger("pathsNumber", 1);
-		config.setString("path_0", "lcd");
-		config.setString("method_0", "GET");
-		config.setInteger("pathCommands_0", 1);
-		config.setString("commandName_0_0", "command");
-		config.setString("commandValues_0_0", "select,left,right,up,down");
+		Configuration commands = config.createChildConfiguration("commands");
+		commands.setString("path", "lcd");
+		commands.setString("method", "GET");
+		commands.setString("up", "up");
+		commands.setString("down", "down");
+		commands.setString("left", "left");
+		commands.setString("right", "right");
+		commands.setString("select", "select");
 		http.initialize(config);
 
 		LcdExampleController ctrl = new LcdExampleController(system, "controller");
