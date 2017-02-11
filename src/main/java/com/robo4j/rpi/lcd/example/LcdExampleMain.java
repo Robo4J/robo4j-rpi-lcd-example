@@ -19,7 +19,7 @@ package com.robo4j.rpi.lcd.example;
 import com.robo4j.core.RoboSystem;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
-import com.robo4j.core.unit.HttpUnit;
+import com.robo4j.core.unit.HttpServerUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
@@ -53,7 +53,7 @@ public class LcdExampleMain {
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
 		buttons.initialize(config);
 
-		HttpUnit http = new HttpUnit(system, "http");
+		HttpServerUnit http = new HttpServerUnit(system, "http");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
