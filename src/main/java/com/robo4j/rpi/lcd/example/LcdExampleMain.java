@@ -17,6 +17,7 @@
 package com.robo4j.rpi.lcd.example;
 
 import com.robo4j.core.RoboSystem;
+import com.robo4j.core.client.util.RoboHttpUtils;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
 import com.robo4j.core.unit.HttpServerUnit;
@@ -42,6 +43,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  */
 public class LcdExampleMain {
 	private static int PORT = 8025;
+	private static String PATH = "lcd";
 
 	public static void main(String[] args) throws Exception {
 		RoboSystem system = new RoboSystem();
@@ -57,8 +59,8 @@ public class LcdExampleMain {
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
-		Configuration commands = config.createChildConfiguration("commands");
-		commands.setString("path", "lcd");
+		Configuration commands = config.createChildConfiguration(RoboHttpUtils.HTTP_COMMANDS);
+		commands.setString("path", PATH);
 		commands.setString("method", "GET");
 		commands.setString("up", "up");
 		commands.setString("down", "down");
@@ -89,7 +91,8 @@ public class LcdExampleMain {
 
 		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
 		System.out.println("RoboSystem http server\n\tPort:" + PORT + "\n");
-		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:" + PORT + "/lcd?command=down");
+		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:" + PORT + "/" + PATH + "?"
+				+ RoboHttpUtils.HTTP_COMMAND + "=down");
 		System.out.println("\tRequest command types: up, down, select, left, right\n");
 
 		System.out.println("Press enter to quit!");

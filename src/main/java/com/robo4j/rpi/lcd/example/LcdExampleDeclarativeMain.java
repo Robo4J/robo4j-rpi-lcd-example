@@ -25,6 +25,7 @@ import com.robo4j.core.RoboBuilderException;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboReference;
 import com.robo4j.core.client.util.RoboClassLoader;
+import com.robo4j.core.client.util.RoboHttpUtils;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
@@ -53,7 +54,7 @@ public class LcdExampleDeclarativeMain {
 		System.out.println(
 				"RoboSystem http server\n\tPort:" + httpRef.getConfiguration().getInteger("port", null) + "\n");
 		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:"
-				+ httpRef.getConfiguration().getInteger("port", null) + "/lcd?command=down");
+				+ httpRef.getConfiguration().getInteger("port", null) + "/lcd?"+ RoboHttpUtils.HTTP_COMMAND + "=down");
 		System.out.println("\tRequest command types: up, down, select, left, right\n");
 
 		System.out.println("Press enter to quit!");
