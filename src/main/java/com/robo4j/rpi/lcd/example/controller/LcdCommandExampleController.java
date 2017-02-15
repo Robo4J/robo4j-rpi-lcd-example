@@ -103,27 +103,27 @@ public class LcdCommandExampleController extends RoboUnit<Object> {
         switch (myMessage) {
             case RIGHT:
                 sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.RIGHT, null, null, "Right\nturn!"));
+                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Right\nturn!"));
                 sendClientMessage(getContext(), RoboHttpUtils.createGetRequest(client, clientPath.concat("command=right")));
                 break;
             case LEFT:
                 sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.LEFT, null, null, "Left\nturn!"));
+                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Left\nturn!"));
                 sendClientMessage(getContext(), RoboHttpUtils.createGetRequest(client, clientPath.concat("command=left")));
                 break;
             case UP:
                 sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.MOVE, null, null, "Move\nforward!"));
+                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Move\nforward!"));
                 sendClientMessage(getContext(), RoboHttpUtils.createGetRequest(client, clientPath.concat("command=move")));
                 break;
             case DOWN:
                 sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.BACK, null, null, "Back\nmove!"));
+                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Back\nmove!"));
                 sendClientMessage(getContext(), RoboHttpUtils.createGetRequest(client, clientPath.concat("command=back")));
                 break;
             case SELECT:
                 sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.HALT, null, null, "STOP\nno move!"));
+                sendLcdMessage(getContext(), new LcdMessage(LcdMessageType.SET_TEXT, null, null, "STOP\nno move!"));
                 sendClientMessage(getContext(), RoboHttpUtils.createGetRequest(client, clientPath.concat("command=stop")));
                 break;
             default:

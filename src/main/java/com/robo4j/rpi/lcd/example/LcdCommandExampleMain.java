@@ -25,7 +25,7 @@ import com.robo4j.core.unit.HttpClientUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdCommandExampleController;
-import com.robo4j.units.rpi.lcd.AdafruitRobotLcdUnit;
+import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.units.rpi.lcd.ButtonUnit;
 import com.robo4j.units.rpi.lcd.I2CRoboUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
@@ -64,7 +64,7 @@ public class LcdCommandExampleMain {
         config.setString("client_path", "/tank?");
         ctrl.initialize(config);
 
-        AdafruitRobotLcdUnit lcd = new AdafruitRobotLcdUnit(system, PATH);
+        AdafruitLcdUnit lcd = new AdafruitLcdUnit(system, PATH);
         config = ConfigurationFactory.createEmptyConfiguration();
         config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
         config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
