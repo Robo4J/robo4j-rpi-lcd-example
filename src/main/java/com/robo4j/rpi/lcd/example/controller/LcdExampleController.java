@@ -27,12 +27,12 @@ import com.robo4j.core.RoboResult;
 import com.robo4j.core.RoboUnit;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.logging.SimpleLoggingUtil;
-import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
 import com.robo4j.rpi.lcd.example.demos.ColorDemo;
 import com.robo4j.rpi.lcd.example.demos.DisplayDemo;
 import com.robo4j.rpi.lcd.example.demos.ExitDemo;
 import com.robo4j.rpi.lcd.example.demos.LcdDemo;
 import com.robo4j.rpi.lcd.example.demos.ScrollDemo;
+import com.robo4j.rpi.lcd.example.util.MessageUtil;
 import com.robo4j.units.rpi.lcd.AdafruitButtonPlateEnum;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.units.rpi.lcd.ButtonUnit;
@@ -85,9 +85,9 @@ public class LcdExampleController extends RoboUnit<Object> {
 	public void stop() {
 		setState(LifecycleState.STOPPING);
 		System.out.println("Clearing and shutting off display...");
-		sendLcdMessage(getContext(), AbstractDemo.CLEAR);
-		sendLcdMessage(getContext(), AbstractDemo.TURN_OFF);
-		sendLcdMessage(getContext(), AbstractDemo.STOP);
+		sendLcdMessage(getContext(), MessageUtil.CLEAR);
+		sendLcdMessage(getContext(), MessageUtil.TURN_OFF);
+		sendLcdMessage(getContext(), MessageUtil.STOP);
 		setState(LifecycleState.STOPPED);
 	}
 
@@ -120,12 +120,12 @@ public class LcdExampleController extends RoboUnit<Object> {
 			break;
 		case UP:
 			currentTest = --currentTest < 0 ? 0 : currentTest;
-			sendLcdMessage(getContext(), AbstractDemo.CLEAR);
+			sendLcdMessage(getContext(), MessageUtil.CLEAR);
 			sendLcdMessage(getContext(),
 					String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
 			break;
 		default:
-			sendLcdMessage(getContext(), AbstractDemo.CLEAR);
+			sendLcdMessage(getContext(), MessageUtil.CLEAR);
 			sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
 			break;
 		}

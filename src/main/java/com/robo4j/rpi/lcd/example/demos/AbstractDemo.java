@@ -23,7 +23,6 @@ import java.io.IOException;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboReference;
 import com.robo4j.units.rpi.lcd.LcdMessage;
-import com.robo4j.units.rpi.lcd.LcdMessageType;
 
 /**
  * Simply turns off and on the display a few times.
@@ -33,10 +32,6 @@ import com.robo4j.units.rpi.lcd.LcdMessageType;
  * @since 18.01.2017
  */
 public abstract class AbstractDemo implements LcdDemo {
-	public static LcdMessage CLEAR = new LcdMessage(LcdMessageType.CLEAR, null, null, null);
-	public static LcdMessage STOP = new LcdMessage(LcdMessageType.STOP, null, null, null);
-	public static LcdMessage TURN_ON = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "true");
-	public static LcdMessage TURN_OFF = new LcdMessage(LcdMessageType.DISPLAY_ENABLE, null, null, "false");
 
 	protected RoboReference<LcdMessage> lcd;
 	protected RoboContext ctx;
