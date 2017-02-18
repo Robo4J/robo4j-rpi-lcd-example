@@ -45,26 +45,20 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @author Miroslav Wengner (@miragemiko)
  * @since 22.09.2016
  */
-public class LcdExampleController extends RoboUnit<Object> {
+public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 	private static int currentTest = -1;
 	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
 			new ExitDemo() };
 	private String target;
 
 	public LcdExampleController(RoboContext context, String id) {
-		super(Object.class, context, id);
+		super(AdafruitButtonPlateEnum.class, context, id);
 	}
 
 	@Override
-	public void onMessage(Object message) {
-
+	public void onMessage(AdafruitButtonPlateEnum message) {
 		if (message instanceof AdafruitButtonPlateEnum) {
 			AdafruitButtonPlateEnum myMessage = (AdafruitButtonPlateEnum) message;
-			processAdaruitMessage(myMessage);
-		}
-		if (message instanceof String) {
-			AdafruitButtonPlateEnum myMessage = AdafruitButtonPlateEnum.getByText(message.toString());
-			SimpleLoggingUtil.debug(getClass(), "message text: " + message + " myMessage: " + myMessage);
 			processAdaruitMessage(myMessage);
 		}
 	}
