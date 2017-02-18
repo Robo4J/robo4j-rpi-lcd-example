@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.scheduler.FinalInvocationListener;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Color;
+import com.robo4j.rpi.lcd.example.util.MessageUtil;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
@@ -49,7 +50,7 @@ public class ColorDemo extends AbstractDemo {
 	@Override
 	public void runDemo() throws IOException {
 		String prefix = "Color changes:\n";
-		lcd.sendMessage(CLEAR);
+		lcd.sendMessage(MessageUtil.CLEAR);
 	
 		int delay = 0;	
 		int i = 0;
