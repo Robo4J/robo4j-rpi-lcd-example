@@ -19,8 +19,12 @@
 package com.robo4j.rpi.lcd.example.controller;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 
+import com.robo4j.core.AttributeDescriptor;
 import com.robo4j.core.ConfigurationException;
+import com.robo4j.core.DefaultAttributeDescriptor;
 import com.robo4j.core.LifecycleState;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboUnit;
@@ -46,9 +50,12 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @since 22.09.2016
  */
 public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
+	private static final String ATTRIBUTE_NAME_BUTTONS = "button";
 	private static int currentTest = -1;
 	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
 			new ExitDemo() };
+	public static Collection<AttributeDescriptor<?>> KNOWN_ATTRIBUTES = Collections.unmodifiableCollection(Collections
+			.singleton(DefaultAttributeDescriptor.create(AdafruitButtonPlateEnum.class, ATTRIBUTE_NAME_BUTTONS)));
 	private String target;
 
 	public LcdExampleController(RoboContext context, String id) {
@@ -57,10 +64,8 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 
 	@Override
 	public void onMessage(AdafruitButtonPlateEnum message) {
-		if (message instanceof AdafruitButtonPlateEnum) {
-			AdafruitButtonPlateEnum myMessage = (AdafruitButtonPlateEnum) message;
-			processAdaruitMessage(myMessage);
-		}
+		System.out.println(getClass().getSimpleName() + "onMessage message: " + message);
+		processAdaruitMessage(message);
 	}
 
 	@Override
@@ -87,6 +92,17 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 		System.out.println("shutting off LcdExample...");
 		setState(LifecycleState.SHUTDOWN);
 		System.exit(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <R> R getMessageAttribute(AttributeDescriptor<R> descriptor, String value) {
+		return descriptor != null ? (R) AdafruitButtonPlateEnum.getInternalByText(value) : null;
+	}
+
+	@Override
+	public Collection<AttributeDescriptor<?>> getKnownAttributes() {
+		return KNOWN_ATTRIBUTES;
 	}
 
 	// Private Methods

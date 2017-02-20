@@ -16,6 +16,7 @@
  */
 package com.robo4j.rpi.lcd.example;
 
+import com.robo4j.core.DefaultAttributeDescriptor;
 import com.robo4j.core.RoboSystem;
 import com.robo4j.core.client.util.RoboHttpUtils;
 import com.robo4j.core.configuration.Configuration;
@@ -24,6 +25,7 @@ import com.robo4j.core.unit.HttpServerUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
+import com.robo4j.units.rpi.lcd.AdafruitButtonPlateEnum;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.units.rpi.lcd.ButtonUnit;
 import com.robo4j.units.rpi.lcd.I2CRoboUnit;
@@ -59,19 +61,14 @@ public class LcdExampleMain {
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
-		Configuration commands = config.createChildConfiguration(RoboHttpUtils.HTTP_COMMANDS);
-		commands.setString("path", PATH);
-		commands.setString("method", "GET");
-		commands.setString("up", "up");
-		commands.setString("down", "down");
-		commands.setString("left", "left");
-		commands.setString("right", "right");
-		commands.setString("select", "select");
+		/* put target units and access method*/
+		Configuration targetUnits = config.createChildConfiguration("targetUnits");
+		targetUnits.setString("controller", "GET");
 		http.initialize(config);
 
 		LcdExampleController ctrl = new LcdExampleController(system, "controller");
 		config = ConfigurationFactory.createEmptyConfiguration();
-		config.setString("target", "lcd");
+		config.setString("target", PATH);
 		ctrl.initialize(config);
 
 		AdafruitLcdUnit lcd = new AdafruitLcdUnit(system, "lcd");
