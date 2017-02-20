@@ -13,13 +13,9 @@
         <config name="com.robo4j.core.root">
             <value name="port" type="int">8025</value>
             <value name="target" type="String">controller</value>
-            <commands path="lcd" method="GET">
-                <command name="up" type="String">up</command>
-                <command name="down" type="String">down</command>
-                <command name="left" type="String">left</command>
-                <command name="right" type="String">right</command>
-                <command name="select" type="String">select</command>
-            </commands>
+            <targetUnits>
+                <targetUnit name="controller" type="String">GET</targetUnit>
+            </targetUnits>
         </config>
     </roboUnit>
 
