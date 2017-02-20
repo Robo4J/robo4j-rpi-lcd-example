@@ -62,7 +62,7 @@ public class LcdExampleMain {
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
 		/* put target units and access method*/
-		Configuration targetUnits = config.createChildConfiguration("targetUnits");
+		Configuration targetUnits = config.createChildConfiguration(RoboHttpUtils.HTTP_TARGET_UNITS);
 		targetUnits.setString("controller", "GET");
 		http.initialize(config);
 
