@@ -20,7 +20,7 @@ import com.robo4j.core.RoboSystem;
 import com.robo4j.core.client.util.RoboHttpUtils;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
-import com.robo4j.core.unit.HttpServerUnit;
+import com.robo4j.core.httpunit.HttpServerUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
