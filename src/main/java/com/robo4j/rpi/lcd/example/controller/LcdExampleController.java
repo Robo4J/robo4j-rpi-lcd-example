@@ -64,7 +64,6 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 
 	@Override
 	public void onMessage(AdafruitButtonPlateEnum message) {
-		System.out.println(getClass().getSimpleName() + "onMessage message: " + message);
 		processAdaruitMessage(message);
 	}
 

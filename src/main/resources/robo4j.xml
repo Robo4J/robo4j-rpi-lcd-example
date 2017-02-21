@@ -14,7 +14,7 @@
             <value name="port" type="int">8025</value>
             <value name="target" type="String">controller</value>
             <targetUnits>
-                <targetUnit name="controller" type="String">GET</targetUnit>
+                <value name="controller" type="String">GET</value>
             </targetUnits>
         </config>
     </roboUnit>
