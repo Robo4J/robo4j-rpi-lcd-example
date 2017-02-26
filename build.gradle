@@ -28,6 +28,10 @@ task fatJar(type: Jar) {
     with jar
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = "${gradleVersion}"
+}
+
 dependencies {
     compile "com.robo4j:robo4j-core:${robo4jVersion}"
     compile "com.robo4j:robo4j-units-rpi:${robo4jVersion}"
