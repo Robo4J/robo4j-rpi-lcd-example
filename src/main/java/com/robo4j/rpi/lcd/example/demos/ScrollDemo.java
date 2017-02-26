@@ -33,17 +33,19 @@ import com.robo4j.units.rpi.lcd.LcdMessageType;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
- * @since 22.09.2016
  */
-public class ScrollDemo extends  AbstractDemo {
+public class ScrollDemo extends AbstractDemo {
 
 	@Override
 	public String getName() {
 		return "Scroller";
 	}
 
-	/* (non-Javadoc)
-	 * @see com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
 	 */
 	@Override
 	public void runDemo() throws IOException {
@@ -51,7 +53,7 @@ public class ScrollDemo extends  AbstractDemo {
 		final LcdMessage right = new LcdMessage(LcdMessageType.SCROLL, null, null, "right");
 		final Scheduler scheduler = ctx.getScheduler();
 		lcd.sendMessage(new LcdMessage("Running scroller. Be patient!\nBouncing this scroller once."));
-				
+
 		scheduler.schedule(lcd, left, 100, 100, TimeUnit.MILLISECONDS, 24, new FinalInvocationListener() {
 			@Override
 			public void onFinalInvocation(RoboContext context) {

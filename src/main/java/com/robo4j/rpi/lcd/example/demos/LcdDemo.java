@@ -27,7 +27,6 @@ import com.robo4j.core.RoboContext;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
- * @since 22.09.2016
  */
 public interface LcdDemo {
 	String getName();

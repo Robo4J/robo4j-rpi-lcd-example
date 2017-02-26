@@ -31,7 +31,6 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
- * @since 18.01.2017
  */
 public class ColorDemo extends AbstractDemo {
 
@@ -50,19 +49,20 @@ public class ColorDemo extends AbstractDemo {
 	public void runDemo() throws IOException {
 		String prefix = "Color changes:\n";
 		lcd.sendMessage(LcdMessage.MESSAGE_CLEAR);
-	
-		int delay = 0;	
+
+		int delay = 0;
 		int i = 0;
 		for (; i < Color.values().length - 1; i++) {
 			Color c = Color.values()[i];
-			ctx.getScheduler().schedule(lcd, getColorMessage(prefix, c), delay+=1, 1, TimeUnit.SECONDS, 1);
+			ctx.getScheduler().schedule(lcd, getColorMessage(prefix, c), delay += 1, 1, TimeUnit.SECONDS, 1);
 		}
-		ctx.getScheduler().schedule(lcd, getColorMessage(prefix, Color.values()[i]), delay+=1, 1, TimeUnit.SECONDS, 1, new FinalInvocationListener() {
-			@Override
-			public void onFinalInvocation(RoboContext context) {
-				lcd.sendMessage(new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
-			}
-		});
+		ctx.getScheduler().schedule(lcd, getColorMessage(prefix, Color.values()[i]), delay += 1, 1, TimeUnit.SECONDS, 1,
+				new FinalInvocationListener() {
+					@Override
+					public void onFinalInvocation(RoboContext context) {
+						lcd.sendMessage(new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
+					}
+				});
 	}
 
 	private LcdMessage getColorMessage(String prefix, Color c) {

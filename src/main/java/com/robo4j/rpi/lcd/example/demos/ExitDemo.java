@@ -25,7 +25,6 @@ import java.io.IOException;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
- * @since 18.01.2017
  */
 public class ExitDemo extends AbstractDemo {
 

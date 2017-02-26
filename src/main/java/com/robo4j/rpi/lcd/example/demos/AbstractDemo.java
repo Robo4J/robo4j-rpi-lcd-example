@@ -29,13 +29,12 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
- * @since 18.01.2017
  */
 public abstract class AbstractDemo implements LcdDemo {
 
 	protected RoboReference<LcdMessage> lcd;
 	protected RoboContext ctx;
-	
+
 	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
 		if (lcd == null) {
 			lcd = ctx.getReference("lcd");
@@ -52,7 +51,7 @@ public abstract class AbstractDemo implements LcdDemo {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void run(RoboContext ctx) throws IOException {
 		this.ctx = ctx;

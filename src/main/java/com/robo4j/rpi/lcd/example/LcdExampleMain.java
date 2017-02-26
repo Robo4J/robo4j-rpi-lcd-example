@@ -39,7 +39,6 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
- * @since 22.09.2016
  */
 public class LcdExampleMain {
 	private static int PORT = 8025;
@@ -59,7 +58,7 @@ public class LcdExampleMain {
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
-		/* put target units and access method*/
+		/* put target units and access method */
 		Configuration targetUnits = config.createChildConfiguration(RoboHttpUtils.HTTP_TARGET_UNITS);
 		targetUnits.setString("controller", "GET");
 		http.initialize(config);

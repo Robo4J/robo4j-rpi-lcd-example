@@ -33,7 +33,6 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
- * @since 22.09.2016
  */
 public class LcdExampleDeclarativeMain {
 	public static void main(String[] args) throws RoboBuilderException, IOException {

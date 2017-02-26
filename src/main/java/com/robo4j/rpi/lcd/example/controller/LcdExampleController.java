@@ -42,20 +42,21 @@ import com.robo4j.units.rpi.lcd.ButtonUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
- * This controller binds together the standard {@link AdafruitLcdUnit}, {@link HttpUnit} and the
- * {@link ButtonUnit} to provide a demo similar to the one in {@link Demo}.
+ * This controller binds together the standard {@link AdafruitLcdUnit},
+ * {@link HttpUnit} and the {@link ButtonUnit} to provide a demo similar to the
+ * one in {@link Demo}.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
- * @since 22.09.2016
  */
 public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 	private static final String ATTRIBUTE_NAME_BUTTONS = "button";
 	private static int currentTest = -1;
 	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
 			new ExitDemo() };
-	private final static Collection<AttributeDescriptor<?>> KNOWN_ATTRIBUTES = Collections.unmodifiableCollection(Collections
-			.singleton(DefaultAttributeDescriptor.create(AdafruitButtonPlateEnum.class, ATTRIBUTE_NAME_BUTTONS)));
+	private final static Collection<AttributeDescriptor<?>> KNOWN_ATTRIBUTES = Collections
+			.unmodifiableCollection(Collections.singleton(
+					DefaultAttributeDescriptor.create(AdafruitButtonPlateEnum.class, ATTRIBUTE_NAME_BUTTONS)));
 	private String target;
 
 	public LcdExampleController(RoboContext context, String id) {
@@ -147,7 +148,8 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 	}
 
 	/**
-	 * @param e - IOException
+	 * @param e
+	 *            - IOException
 	 */
 	private void handleException(IOException e) {
 		SimpleLoggingUtil.error(getClass(), "Failed to run demo", e);
