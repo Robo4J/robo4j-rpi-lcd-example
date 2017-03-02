@@ -52,6 +52,7 @@ public class DisplayDemo extends AbstractDemo implements LcdDemo {
 						lcd.sendMessage(LcdMessage.MESSAGE_CLEAR);
 						lcd.sendMessage(
 								new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Display Demo:\nDone!           "));
+						setDone();
 					}
 				});
 	}

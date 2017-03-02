@@ -61,6 +61,7 @@ public class ScrollDemo extends AbstractDemo {
 					@Override
 					public void onFinalInvocation(RoboContext context) {
 						lcd.sendMessage(new LcdMessage("Scroller Demo:  \nDone!           "));
+						setDone();
 					}
 				});
 			}

@@ -58,14 +58,22 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 			.unmodifiableCollection(Collections.singleton(
 					DefaultAttributeDescriptor.create(AdafruitButtonPlateEnum.class, ATTRIBUTE_NAME_BUTTONS)));
 	private String target;
-
+	
 	public LcdExampleController(RoboContext context, String id) {
 		super(AdafruitButtonPlateEnum.class, context, id);
 	}
 
 	@Override
-	public void onMessage(AdafruitButtonPlateEnum message) {
+	public synchronized void onMessage(AdafruitButtonPlateEnum message) {
+		if (isRunning()) {
+			System.out.println("Skipping " + message + " due to test already running!");
+			return;
+		}
 		processAdaruitMessage(message);
+	}
+
+	private boolean isRunning() {
+		return currentTest != -1 && TESTS[currentTest].isRunning(); 
 	}
 
 	@Override

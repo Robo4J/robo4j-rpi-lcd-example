@@ -61,6 +61,7 @@ public class ColorDemo extends AbstractDemo {
 					@Override
 					public void onFinalInvocation(RoboContext context) {
 						lcd.sendMessage(new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
+						setDone();
 					}
 				});
 	}

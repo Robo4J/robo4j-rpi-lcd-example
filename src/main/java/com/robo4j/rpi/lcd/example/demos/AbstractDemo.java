@@ -34,6 +34,7 @@ public abstract class AbstractDemo implements LcdDemo {
 
 	protected RoboReference<LcdMessage> lcd;
 	protected RoboContext ctx;
+	private volatile boolean isRunning;
 
 	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
 		if (lcd == null) {
@@ -54,11 +55,19 @@ public abstract class AbstractDemo implements LcdDemo {
 
 	@Override
 	public void run(RoboContext ctx) throws IOException {
+		isRunning = true;
 		this.ctx = ctx;
 		lcd = ctx.getReference("lcd");
 		runDemo();
 	}
 
+	public boolean isRunning() {
+		return isRunning;
+	}
+	
 	protected abstract void runDemo() throws IOException;
 
+	protected void setDone() {
+		isRunning = false;
+	}
 }
