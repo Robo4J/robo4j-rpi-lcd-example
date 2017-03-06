@@ -24,6 +24,7 @@ import com.robo4j.core.RoboBuilder;
 import com.robo4j.core.RoboBuilderException;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboReference;
+import com.robo4j.core.RoboUnit;
 import com.robo4j.core.client.util.RoboClassLoader;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.units.rpi.lcd.LcdMessage;
@@ -48,12 +49,9 @@ public class LcdExampleDeclarativeMain {
 
 		ctx.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
 
-		RoboReference<Object> httpRef = ctx.getReference("http");
-		System.out.println(
-				"RoboSystem http server\n\tPort:" + httpRef.getConfiguration().getInteger("port", null) + "\n");
-		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:"
-				+ httpRef.getConfiguration().getInteger("port", null) + "/controller?button=down");
-		System.out.println("\tRequest command types: up, down, select, left, right\n");
+		final RoboUnit<?> httpRef = SystemUtil.genUnitFromContext(ctx, "http");
+		final RoboUnit<?> ctrlRef = SystemUtil.genUnitFromContext(ctx, "controller");
+		System.out.println(SystemUtil.generateSocketPoint(httpRef, ctrlRef));
 
 		System.out.println("Press enter to quit!");
 		System.in.read();
