@@ -84,10 +84,7 @@ public class LcdExampleMain {
 		System.out.println(SystemUtil.generateStateReport(system));
 
 		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
-		System.out.println("RoboSystem http server\n\tPort:" + PORT + "\n");
-		System.out.println("Usage:\n\tRequest GET: http://<IP_ADDRESS>:" + PORT + "/controller?button=down");
-		System.out.println("\tRequest command types: up, down, select, left, right\n");
-
+		System.out.println(SystemUtil.generateSocketPoint(http, ctrl));
 		System.out.println("Press enter to quit!");
 		System.in.read();
 		system.shutdown();
