@@ -69,11 +69,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 			System.out.println("Skipping " + message + " due to test already running!");
 			return;
 		}
-		processAdaruitMessage(message);
-	}
-
-	private boolean isRunning() {
-		return currentTest != -1 && TESTS[currentTest].isRunning(); 
+		processAdafruitMessage(message);
 	}
 
 	@Override
@@ -102,27 +98,13 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 		System.exit(0);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <R> R getMessageAttribute(AttributeDescriptor<R> descriptor, String value) {
-		return descriptor != null ? (R) AdafruitButtonPlateEnum.getInternalByText(value) : null;
-	}
-
 	@Override
 	public Collection<AttributeDescriptor<?>> getKnownAttributes() {
 		return KNOWN_ATTRIBUTES;
 	}
 
 	// Private Methods
-	private void sendLcdMessage(RoboContext ctx, LcdMessage message) {
-		ctx.getReference(target).sendMessage(message);
-	}
-
-	private void sendLcdMessage(RoboContext ctx, String message) {
-		ctx.getReference(target).sendMessage(new LcdMessage(message));
-	}
-
-	private void processAdaruitMessage(AdafruitButtonPlateEnum myMessage) {
+	private void processAdafruitMessage(AdafruitButtonPlateEnum myMessage) {
 		switch (myMessage) {
 		case DOWN:
 			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
@@ -144,22 +126,26 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 			break;
 		}
 	}
-
+	
 	private void runTest(int currentTest) {
 		LcdDemo test = TESTS[currentTest];
 		System.out.println("Running test " + test.getName());
 		try {
 			test.run(getContext());
 		} catch (IOException e) {
-			handleException(e);
+			SimpleLoggingUtil.error(getClass(), "Failed to run demo", e);
 		}
 	}
+	
+	private boolean isRunning() {
+		return currentTest != -1 && TESTS[currentTest].isRunning(); 
+	}
 
-	/**
-	 * @param e
-	 *            - IOException
-	 */
-	private void handleException(IOException e) {
-		SimpleLoggingUtil.error(getClass(), "Failed to run demo", e);
+	private void sendLcdMessage(RoboContext ctx, LcdMessage message) {
+		ctx.getReference(target).sendMessage(message);
+	}
+
+	private void sendLcdMessage(RoboContext ctx, String message) {
+		ctx.getReference(target).sendMessage(new LcdMessage(message));
 	}
 }
