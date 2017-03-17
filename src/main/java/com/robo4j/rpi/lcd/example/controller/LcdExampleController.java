@@ -32,31 +32,31 @@ import com.robo4j.rpi.lcd.example.demos.DisplayDemo;
 import com.robo4j.rpi.lcd.example.demos.ExitDemo;
 import com.robo4j.rpi.lcd.example.demos.LcdDemo;
 import com.robo4j.rpi.lcd.example.demos.ScrollDemo;
-import com.robo4j.units.rpi.lcd.AdafruitButtonPlateEnum;
+import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
-import com.robo4j.units.rpi.lcd.ButtonUnit;
+import com.robo4j.units.rpi.lcd.AdafruitButtonUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit},
- * {@link HttpUnit} and the {@link ButtonUnit} to provide a demo similar to the
+ * {@link HttpUnit} and the {@link AdafruitButtonUnit} to provide a demo similar to the
  * one in {@link Demo}.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
-public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
+public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	private static int currentTest = -1;
 	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
 			new ExitDemo() };
 	private String target;
 	
 	public LcdExampleController(RoboContext context, String id) {
-		super(AdafruitButtonPlateEnum.class, context, id);
+		super(AdafruitButtonEnum.class, context, id);
 	}
 
 	@Override
-	public synchronized void onMessage(AdafruitButtonPlateEnum message) {
+	public synchronized void onMessage(AdafruitButtonEnum message) {
 		if (isRunning()) {
 			System.out.println("Skipping " + message + " due to test already running!");
 			return;
@@ -91,7 +91,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 	}
 
 	// Private Methods
-	private void processAdafruitMessage(AdafruitButtonPlateEnum myMessage) {
+	private void processAdafruitMessage(AdafruitButtonEnum myMessage) {
 		switch (myMessage) {
 		case DOWN:
 			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;

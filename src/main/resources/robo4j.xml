@@ -19,7 +19,7 @@
     </roboUnit>
 
     <roboUnit id="buttons">
-        <class>com.robo4j.units.rpi.lcd.ButtonUnit</class>
+        <class>com.robo4j.units.rpi.lcd.AdafruitButtonUnit</class>
         <config name="com.robo4j.core.root">
             <value name="bus" type="int">1</value>
             <value name="address" type="int">0x20</value>

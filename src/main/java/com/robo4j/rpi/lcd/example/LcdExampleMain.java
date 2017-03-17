@@ -25,7 +25,7 @@ import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
-import com.robo4j.units.rpi.lcd.ButtonUnit;
+import com.robo4j.units.rpi.lcd.AdafruitButtonUnit;
 import com.robo4j.units.rpi.lcd.I2CRoboUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
@@ -34,7 +34,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * Unit to the LCD via a controller.
  * 
  * @see AdafruitLcdUnit
- * @see ButtonUnit
+ * @see AdafruitButtonUnit
  * @see AdafruitLcd
  * 
  * @author Marcus Hirt (@hirt)
@@ -47,7 +47,7 @@ public class LcdExampleMain {
 	public static void main(String[] args) throws Exception {
 		RoboSystem system = new RoboSystem();
 
-		ButtonUnit buttons = new ButtonUnit(system, "buttons");
+		AdafruitButtonUnit buttons = new AdafruitButtonUnit(system, "buttons");
 		Configuration config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
