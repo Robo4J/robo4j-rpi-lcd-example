@@ -19,12 +19,8 @@
 package com.robo4j.rpi.lcd.example.controller;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
 
-import com.robo4j.core.AttributeDescriptor;
 import com.robo4j.core.ConfigurationException;
-import com.robo4j.core.DefaultAttributeDescriptor;
 import com.robo4j.core.LifecycleState;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboUnit;
@@ -50,12 +46,9 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @author Miroslav Wengner (@miragemiko)
  */
 public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
-	private static final String ATTRIBUTE_NAME_BUTTONS = "button";
 	private static int currentTest = -1;
 	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
 			new ExitDemo() };
-	private final static Collection<AttributeDescriptor<?>> KNOWN_ATTRIBUTES = Collections.singleton(
-					DefaultAttributeDescriptor.create(AdafruitButtonPlateEnum.class, ATTRIBUTE_NAME_BUTTONS));
 	private String target;
 	
 	public LcdExampleController(RoboContext context, String id) {
@@ -95,11 +88,6 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonPlateEnum> {
 		System.out.println("shutting off LcdExample...");
 		setState(LifecycleState.SHUTDOWN);
 		System.exit(0);
-	}
-
-	@Override
-	public Collection<AttributeDescriptor<?>> getKnownAttributes() {
-		return KNOWN_ATTRIBUTES;
 	}
 
 	// Private Methods
