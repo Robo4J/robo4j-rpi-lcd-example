@@ -3,8 +3,7 @@
         <class>com.robo4j.units.rpi.lcd.AdafruitLcdUnit</class>
         <config name="com.robo4j.core.root">
             <value name="bus" type="int">1</value>
-            <!-- 0x20 hex -->
-            <value name="address" type="int">32</value>
+            <value name="address" type="int">0x20</value>
         </config>
     </roboUnit>
 
@@ -23,8 +22,7 @@
         <class>com.robo4j.units.rpi.lcd.ButtonUnit</class>
         <config name="com.robo4j.core.root">
             <value name="bus" type="int">1</value>
-            <!-- 0x20 hex -->
-            <value name="address" type="int">32</value>
+            <value name="address" type="int">0x20</value>
             <value name="target" type="String">controller</value>
         </config>
     </roboUnit>
