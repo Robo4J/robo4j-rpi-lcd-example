@@ -12,6 +12,7 @@
         <config name="com.robo4j.core.root">
             <value name="port" type="int">8025</value>
             <value name="target" type="String">controller</value>
+            <value name="packages" type="String">com.robo4j.rpi.lcd.example.codec</value>
             <targetUnits>
                 <value name="controller" type="String">GET</value>
             </targetUnits>

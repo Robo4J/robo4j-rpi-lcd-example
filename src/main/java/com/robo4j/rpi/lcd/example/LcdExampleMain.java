@@ -58,6 +58,7 @@ public class LcdExampleMain {
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
+		config.setString("packages", "com.robo4j.rpi.lcd.example.codec");
 		/* put target units and access method */
 		Configuration targetUnits = config.createChildConfiguration(RoboHttpUtils.HTTP_TARGET_UNITS);
 		targetUnits.setString("controller", "GET");
@@ -77,14 +78,14 @@ public class LcdExampleMain {
 		system.addUnits(buttons, ctrl, http, lcd);
 
 		System.out.println("State before start:");
-		System.out.println(SystemUtil.generateStateReport(system));
+		System.out.println(SystemUtil.printStateReport(system));
 		system.start();
 
 		System.out.println("State after start:");
-		System.out.println(SystemUtil.generateStateReport(system));
+		System.out.println(SystemUtil.printStateReport(system));
 
 		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
-		System.out.println(SystemUtil.generateSocketPoint(http, ctrl));
+		System.out.println(SystemUtil.printSocketEndPoint(http, ctrl));
 		System.out.println("Press enter to quit!");
 		System.in.read();
 		system.shutdown();

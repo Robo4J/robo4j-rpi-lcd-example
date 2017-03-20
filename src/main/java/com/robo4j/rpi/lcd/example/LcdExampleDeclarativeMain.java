@@ -40,17 +40,17 @@ public class LcdExampleDeclarativeMain {
 		RoboContext ctx = builder.build();
 
 		System.out.println("State before start:");
-		System.out.println(SystemUtil.generateStateReport(ctx));
+		System.out.println(SystemUtil.printStateReport(ctx));
 		ctx.start();
 
 		System.out.println("State after start:");
-		System.out.println(SystemUtil.generateStateReport(ctx));
+		System.out.println(SystemUtil.printStateReport(ctx));
 
 		ctx.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
 
 		final RoboReference<?> httpRef = ctx.getReference("http");
 		final RoboReference<?> ctrlRef = ctx.getReference("controller");
-		System.out.println(SystemUtil.generateSocketPoint(httpRef, ctrlRef));
+		System.out.println(SystemUtil.printSocketEndPoint(httpRef, ctrlRef));
 
 		System.out.println("Press enter to quit!");
 		System.in.read();
