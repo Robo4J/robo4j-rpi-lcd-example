@@ -20,18 +20,23 @@ package com.robo4j.rpi.lcd.example.codec;
 import com.robo4j.core.httpunit.HttpDecoder;
 import com.robo4j.core.httpunit.HttpEncoder;
 import com.robo4j.core.httpunit.HttpProducer;
+import com.robo4j.core.httpunit.codec.SimpleCommand;
+import com.robo4j.core.httpunit.codec.SimpleCommandCodec;
 import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
 
 /**
+ *
  * @author Marcus Hirt (@hirt)
  * @author Miro Wengner (@miragemiko)
  */
 @HttpProducer
 public class AdafruitButtonEnumToStringCodec implements HttpDecoder<AdafruitButtonEnum>, HttpEncoder<AdafruitButtonEnum> {
+    private final SimpleCommandCodec codec = new SimpleCommandCodec();
 
     @Override
     public AdafruitButtonEnum decode(String json) {
-        return AdafruitButtonEnum.getInternalByText(json);
+        final SimpleCommand simpleCommand = codec.decode(json);
+        return AdafruitButtonEnum.getInternalByText(simpleCommand.getValue());
     }
 
     @Override
@@ -41,7 +46,8 @@ public class AdafruitButtonEnumToStringCodec implements HttpDecoder<AdafruitButt
 
     @Override
     public String encode(AdafruitButtonEnum adafruitButtonEnum) {
-        return adafruitButtonEnum.getText();
+        final SimpleCommand simpleCommand = new SimpleCommand(adafruitButtonEnum.getText());
+        return codec.encode(simpleCommand);
     }
 
     @Override
