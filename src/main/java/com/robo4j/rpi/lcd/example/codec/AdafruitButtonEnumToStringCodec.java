@@ -30,28 +30,29 @@ import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
  * @author Miro Wengner (@miragemiko)
  */
 @HttpProducer
-public class AdafruitButtonEnumToStringCodec implements HttpDecoder<AdafruitButtonEnum>, HttpEncoder<AdafruitButtonEnum> {
-    private final SimpleCommandCodec codec = new SimpleCommandCodec();
+public class AdafruitButtonEnumToStringCodec
+		implements HttpDecoder<AdafruitButtonEnum>, HttpEncoder<AdafruitButtonEnum> {
+	private final SimpleCommandCodec codec = new SimpleCommandCodec();
 
-    @Override
-    public AdafruitButtonEnum decode(String json) {
-        final SimpleCommand simpleCommand = codec.decode(json);
-        return AdafruitButtonEnum.getInternalByText(simpleCommand.getValue());
-    }
+	@Override
+	public AdafruitButtonEnum decode(String json) {
+		final SimpleCommand simpleCommand = codec.decode(json);
+		return AdafruitButtonEnum.getInternalByText(simpleCommand.getValue());
+	}
 
-    @Override
-    public Class<AdafruitButtonEnum> getDecodedClass() {
-        return AdafruitButtonEnum.class;
-    }
+	@Override
+	public Class<AdafruitButtonEnum> getDecodedClass() {
+		return AdafruitButtonEnum.class;
+	}
 
-    @Override
-    public String encode(AdafruitButtonEnum adafruitButtonEnum) {
-        final SimpleCommand simpleCommand = new SimpleCommand(adafruitButtonEnum.getText());
-        return codec.encode(simpleCommand);
-    }
+	@Override
+	public String encode(AdafruitButtonEnum adafruitButtonEnum) {
+		final SimpleCommand simpleCommand = new SimpleCommand(adafruitButtonEnum.getText());
+		return codec.encode(simpleCommand);
+	}
 
-    @Override
-    public Class<AdafruitButtonEnum> getEncodedClass() {
-        return AdafruitButtonEnum.class;
-    }
+	@Override
+	public Class<AdafruitButtonEnum> getEncodedClass() {
+		return AdafruitButtonEnum.class;
+	}
 }
