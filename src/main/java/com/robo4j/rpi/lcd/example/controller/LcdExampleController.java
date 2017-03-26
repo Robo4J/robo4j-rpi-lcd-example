@@ -33,14 +33,14 @@ import com.robo4j.rpi.lcd.example.demos.ExitDemo;
 import com.robo4j.rpi.lcd.example.demos.LcdDemo;
 import com.robo4j.rpi.lcd.example.demos.ScrollDemo;
 import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
-import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.units.rpi.lcd.AdafruitButtonUnit;
+import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit},
- * {@link HttpUnit} and the {@link AdafruitButtonUnit} to provide a demo similar to the
- * one in {@link Demo}.
+ * {@link HttpUnit} and the {@link AdafruitButtonUnit} to provide a demo similar
+ * to the one in {@link Demo}.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
@@ -50,7 +50,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
 			new ExitDemo() };
 	private String target;
-	
+
 	public LcdExampleController(RoboContext context, String id) {
 		super(AdafruitButtonEnum.class, context, id);
 	}
@@ -58,7 +58,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	@Override
 	public synchronized void onMessage(AdafruitButtonEnum message) {
 		if (isRunning()) {
-			System.out.println("Skipping " + message + " due to test already running!");
+			SimpleLoggingUtil.print(getClass(), "Skipping " + message + " due to test already running!");
 			return;
 		}
 		processAdafruitMessage(message);
@@ -75,7 +75,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	@Override
 	public void stop() {
 		setState(LifecycleState.STOPPING);
-		System.out.println("Clearing and shutting off display...");
+		SimpleLoggingUtil.print(getClass(), "Clearing and shutting off display...");
 		sendLcdMessage(getContext(), LcdMessage.MESSAGE_CLEAR);
 		sendLcdMessage(getContext(), LcdMessage.MESSAGE_TURN_OFF);
 		sendLcdMessage(getContext(), LcdMessage.MESSAGE_STOP);
@@ -85,7 +85,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	@Override
 	public void shutdown() {
 		setState(LifecycleState.SHUTTING_DOWN);
-		System.out.println("shutting off LcdExample...");
+		SimpleLoggingUtil.print(getClass(), "shutting off LcdExample...");
 		setState(LifecycleState.SHUTDOWN);
 		System.exit(0);
 	}
@@ -113,19 +113,19 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 			break;
 		}
 	}
-	
+
 	private void runTest(int currentTest) {
 		LcdDemo test = TESTS[currentTest];
-		System.out.println("Running test " + test.getName());
+		SimpleLoggingUtil.print(getClass(), "Running test " + test.getName());
 		try {
 			test.run(getContext());
 		} catch (IOException e) {
 			SimpleLoggingUtil.error(getClass(), "Failed to run demo", e);
 		}
 	}
-	
+
 	private boolean isRunning() {
-		return currentTest != -1 && TESTS[currentTest].isRunning(); 
+		return currentTest != -1 && TESTS[currentTest].isRunning();
 	}
 
 	private void sendLcdMessage(RoboContext ctx, LcdMessage message) {

@@ -35,6 +35,8 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @author Miroslav Wengner (@miragemiko)
  */
 public class LcdExampleDeclarativeMain {
+	static final String INIT_MESSAGE = "Robo4J: Welcome!\nat Javaland!";
+
 	public static void main(String[] args) throws RoboBuilderException, IOException {
 		RoboBuilder builder = new RoboBuilder().add(RoboClassLoader.getInstance().getResource("robo4j.xml"));
 		RoboContext ctx = builder.build();
@@ -46,7 +48,7 @@ public class LcdExampleDeclarativeMain {
 		System.out.println("State after start:");
 		System.out.println(SystemUtil.printStateReport(ctx));
 
-		ctx.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
+		ctx.getReference("lcd").sendMessage(new LcdMessage(INIT_MESSAGE));
 
 		final RoboReference<?> httpRef = ctx.getReference("http");
 		final RoboReference<?> ctrlRef = ctx.getReference("controller");

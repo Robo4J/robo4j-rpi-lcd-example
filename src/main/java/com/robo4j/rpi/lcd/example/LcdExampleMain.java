@@ -29,6 +29,8 @@ import com.robo4j.units.rpi.lcd.AdafruitButtonUnit;
 import com.robo4j.units.rpi.lcd.I2CRoboUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
+import static com.robo4j.rpi.lcd.example.LcdExampleDeclarativeMain.INIT_MESSAGE;
+
 /**
  * Demo using Robo4J to send messages from the buttons on an Adafruit 2x16 LCD
  * Unit to the LCD via a controller.
@@ -84,7 +86,7 @@ public class LcdExampleMain {
 		System.out.println("State after start:");
 		System.out.println(SystemUtil.printStateReport(system));
 
-		system.getReference("lcd").sendMessage(new LcdMessage("Robo4J: Welcome!\nPress Up/Down!"));
+		system.getReference("lcd").sendMessage(new LcdMessage(INIT_MESSAGE));
 		System.out.println(SystemUtil.printSocketEndPoint(http, ctrl));
 		System.out.println("Press enter to quit!");
 		System.in.read();

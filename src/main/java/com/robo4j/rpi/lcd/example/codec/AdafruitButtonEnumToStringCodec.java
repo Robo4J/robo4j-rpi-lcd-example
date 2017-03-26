@@ -37,7 +37,7 @@ public class AdafruitButtonEnumToStringCodec
 	@Override
 	public AdafruitButtonEnum decode(String json) {
 		final SimpleCommand simpleCommand = codec.decode(json);
-		return AdafruitButtonEnum.getInternalByText(simpleCommand.getValue());
+		return AdafruitButtonEnum.getByText(simpleCommand.getValue());
 	}
 
 	@Override
