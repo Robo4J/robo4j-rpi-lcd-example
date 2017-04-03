@@ -35,7 +35,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @author Miroslav Wengner (@miragemiko)
  */
 public class LcdExampleDeclarativeMain {
-	static final String INIT_MESSAGE = "Robo4J: Welcome!\nat Javaland!";
+	static final String INIT_MESSAGE = "Robo4J: Welcome!\nPress Up/Down!";
 
 	public static void main(String[] args) throws RoboBuilderException, IOException {
 		RoboBuilder builder = new RoboBuilder().add(RoboClassLoader.getInstance().getResource("robo4j.xml"));
