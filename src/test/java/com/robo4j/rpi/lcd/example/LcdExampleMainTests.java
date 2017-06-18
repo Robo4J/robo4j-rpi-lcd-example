@@ -28,6 +28,7 @@ public class LcdExampleMainTests {
 
     @Test
     public void basicTest(){
+        System.out.println("THIS IS JUST TEST");
         Assert.assertTrue(true);
     }
 }
