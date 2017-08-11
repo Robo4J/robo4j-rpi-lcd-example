@@ -16,6 +16,8 @@
  */
 package com.robo4j.rpi.lcd.example;
 
+import static com.robo4j.rpi.lcd.example.LcdExampleDeclarativeMain.INIT_MESSAGE;
+
 import com.robo4j.core.RoboSystem;
 import com.robo4j.core.client.util.RoboHttpUtils;
 import com.robo4j.core.configuration.Configuration;
@@ -24,12 +26,10 @@ import com.robo4j.core.httpunit.HttpServerUnit;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
-import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
+import com.robo4j.units.rpi.I2CRoboUnit;
 import com.robo4j.units.rpi.lcd.AdafruitButtonUnit;
-import com.robo4j.units.rpi.lcd.I2CRoboUnit;
+import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
-
-import static com.robo4j.rpi.lcd.example.LcdExampleDeclarativeMain.INIT_MESSAGE;
 
 /**
  * Demo using Robo4J to send messages from the buttons on an Adafruit 2x16 LCD
