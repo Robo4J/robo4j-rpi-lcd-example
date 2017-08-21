@@ -17,11 +17,11 @@
 
 package com.robo4j.rpi.lcd.example.codec;
 
-import com.robo4j.core.httpunit.HttpDecoder;
-import com.robo4j.core.httpunit.HttpEncoder;
-import com.robo4j.core.httpunit.HttpProducer;
-import com.robo4j.core.httpunit.codec.SimpleCommand;
-import com.robo4j.core.httpunit.codec.SimpleCommandCodec;
+import com.robo4j.core.units.httpunit.HttpDecoder;
+import com.robo4j.core.units.httpunit.HttpEncoder;
+import com.robo4j.core.units.httpunit.HttpProducer;
+import com.robo4j.core.units.httpunit.codec.SimpleCommand;
+import com.robo4j.core.units.httpunit.codec.SimpleCommandCodec;
 import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
 
 /**
