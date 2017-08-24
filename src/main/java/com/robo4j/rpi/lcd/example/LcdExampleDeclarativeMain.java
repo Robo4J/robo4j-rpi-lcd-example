@@ -24,7 +24,6 @@ import com.robo4j.core.RoboBuilder;
 import com.robo4j.core.RoboBuilderException;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboReference;
-import com.robo4j.core.client.util.RoboClassLoader;
 import com.robo4j.core.util.SystemUtil;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
@@ -38,7 +37,7 @@ public class LcdExampleDeclarativeMain {
 	static final String INIT_MESSAGE = "Robo4J: Welcome!\nPress Up/Down!";
 
 	public static void main(String[] args) throws RoboBuilderException, IOException {
-		RoboBuilder builder = new RoboBuilder().add(RoboClassLoader.getInstance().getResource("robo4j.xml"));
+		RoboBuilder builder = new RoboBuilder().add(Thread.currentThread().getContextClassLoader().getResourceAsStream("robo4j.xml"));
 		RoboContext ctx = builder.build();
 
 		System.out.println("State before start:");
