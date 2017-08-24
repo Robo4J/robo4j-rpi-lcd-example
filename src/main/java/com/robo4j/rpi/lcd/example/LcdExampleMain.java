@@ -19,11 +19,11 @@ package com.robo4j.rpi.lcd.example;
 import static com.robo4j.rpi.lcd.example.LcdExampleDeclarativeMain.INIT_MESSAGE;
 
 import com.robo4j.core.RoboSystem;
-import com.robo4j.core.client.util.RoboHttpUtils;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
-import com.robo4j.core.units.httpunit.HttpServerUnit;
 import com.robo4j.core.util.SystemUtil;
+import com.robo4j.http.client.util.RoboHttpUtils;
+import com.robo4j.http.units.HttpServerUnit;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
 import com.robo4j.units.rpi.I2CRoboUnit;
