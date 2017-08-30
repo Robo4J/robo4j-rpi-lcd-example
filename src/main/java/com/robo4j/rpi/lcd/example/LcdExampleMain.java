@@ -8,7 +8,7 @@
  *
  * Robo4J is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -18,14 +18,17 @@ package com.robo4j.rpi.lcd.example;
 
 import static com.robo4j.rpi.lcd.example.LcdExampleDeclarativeMain.INIT_MESSAGE;
 
+import java.util.Collections;
+import java.util.Map;
+
 import com.robo4j.core.RoboSystem;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
 import com.robo4j.core.util.SystemUtil;
-import com.robo4j.http.client.util.RoboHttpUtils;
-import com.robo4j.http.units.HttpServerUnit;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
+import com.robo4j.socket.http.units.HttpServerUnit;
+import com.robo4j.socket.http.util.JsonUtil;
 import com.robo4j.units.rpi.I2CRoboUnit;
 import com.robo4j.units.rpi.lcd.AdafruitButtonUnit;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
@@ -62,8 +65,8 @@ public class LcdExampleMain {
 		config.setInteger("port", PORT);
 		config.setString("packages", "com.robo4j.rpi.lcd.example.codec");
 		/* put target units and access method */
-		Configuration targetUnits = config.createChildConfiguration(RoboHttpUtils.HTTP_TARGET_UNITS);
-		targetUnits.setString("controller", "GET");
+		Map<String, Object> httpServerConfig = Collections.singletonMap("controller", "GET");
+		config.setString("targetUnits", JsonUtil.getJsonByMap(httpServerConfig));
 		http.initialize(config);
 
 		LcdExampleController ctrl = new LcdExampleController(system, "controller");

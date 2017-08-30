@@ -8,7 +8,7 @@
  *
  * Robo4J is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -17,11 +17,12 @@
 
 package com.robo4j.rpi.lcd.example.codec;
 
-import com.robo4j.http.units.HttpDecoder;
-import com.robo4j.http.units.HttpEncoder;
-import com.robo4j.http.units.HttpProducer;
-import com.robo4j.http.units.httpunit.codec.SimpleCommand;
-import com.robo4j.http.units.httpunit.codec.SimpleCommandCodec;
+
+import com.robo4j.socket.http.codec.SimpleCommand;
+import com.robo4j.socket.http.codec.SimpleCommandCodec;
+import com.robo4j.socket.http.units.HttpDecoder;
+import com.robo4j.socket.http.units.HttpEncoder;
+import com.robo4j.socket.http.units.HttpProducer;
 import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
 
 /**
