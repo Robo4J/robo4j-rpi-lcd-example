@@ -21,7 +21,8 @@ import static com.robo4j.rpi.lcd.example.LcdExampleDeclarativeMain.INIT_MESSAGE;
 import java.util.Collections;
 import java.util.Map;
 
-import com.robo4j.core.RoboSystem;
+import com.robo4j.core.RoboBuilder;
+import com.robo4j.core.RoboContext;
 import com.robo4j.core.configuration.Configuration;
 import com.robo4j.core.configuration.ConfigurationFactory;
 import com.robo4j.core.util.SystemUtil;
@@ -50,16 +51,14 @@ public class LcdExampleMain {
 	private static String PATH = "lcd";
 
 	public static void main(String[] args) throws Exception {
-		RoboSystem system = new RoboSystem();
+		final RoboBuilder builder = new RoboBuilder();
 
-		AdafruitButtonUnit buttons = new AdafruitButtonUnit(system, "buttons");
 		Configuration config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
-		buttons.initialize(config);
+		builder.add(AdafruitButtonUnit.class, config, "buttons");
 
-		HttpServerUnit http = new HttpServerUnit(system, "http");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
 		config.setInteger("port", PORT);
@@ -67,21 +66,18 @@ public class LcdExampleMain {
 		/* put target units and access method */
 		Map<String, Object> httpServerConfig = Collections.singletonMap("controller", "GET");
 		config.setString("targetUnits", JsonUtil.getJsonByMap(httpServerConfig));
-		http.initialize(config);
+		builder.add(HttpServerUnit.class, config, "http");
 
-		LcdExampleController ctrl = new LcdExampleController(system, "controller");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", PATH);
-		ctrl.initialize(config);
+		builder.add(LcdExampleController.class, config, "controller");
 
-		AdafruitLcdUnit lcd = new AdafruitLcdUnit(system, "lcd");
 		config = ConfigurationFactory.createEmptyConfiguration();
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
 		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
-		lcd.initialize(config);
+		builder.add(AdafruitLcdUnit.class, config, "lcd");
 
-		system.addUnits(buttons, ctrl, http, lcd);
-
+		RoboContext system = builder.build();
 		System.out.println("State before start:");
 		System.out.println(SystemUtil.printStateReport(system));
 		system.start();
@@ -90,7 +86,6 @@ public class LcdExampleMain {
 		System.out.println(SystemUtil.printStateReport(system));
 
 		system.getReference("lcd").sendMessage(new LcdMessage(INIT_MESSAGE));
-		System.out.println(SystemUtil.printSocketEndPoint(http, ctrl));
 		System.out.println("Press enter to quit!");
 		System.in.read();
 		system.shutdown();
