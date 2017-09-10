@@ -47,8 +47,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  */
 public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	private static int currentTest = -1;
-	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(),
-			new ExitDemo() };
+	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(), new ExitDemo() };
 	private String target;
 
 	public LcdExampleController(RoboContext context, String id) {
@@ -95,8 +94,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 		switch (myMessage) {
 		case DOWN:
 			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
-			sendLcdMessage(getContext(),
-					String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+			sendLcdMessage(getContext(), String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
 			break;
 		case SELECT:
 			runTest(currentTest);
@@ -104,8 +102,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 		case UP:
 			currentTest = --currentTest < 0 ? 0 : currentTest;
 			sendLcdMessage(getContext(), LcdMessage.MESSAGE_CLEAR);
-			sendLcdMessage(getContext(),
-					String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+			sendLcdMessage(getContext(), String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
 			break;
 		default:
 			sendLcdMessage(getContext(), LcdMessage.MESSAGE_CLEAR);

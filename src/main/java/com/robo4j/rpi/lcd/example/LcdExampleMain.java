@@ -51,7 +51,7 @@ public class LcdExampleMain {
 	private static String PATH = "lcd";
 
 	public static void main(String[] args) throws Exception {
-		final RoboBuilder builder = new RoboBuilder();
+		RoboBuilder builder = new RoboBuilder();
 
 		Configuration config = ConfigurationFactory.createEmptyConfiguration();
 		config.setString("target", "controller");
@@ -78,6 +78,7 @@ public class LcdExampleMain {
 		builder.add(AdafruitLcdUnit.class, config, "lcd");
 
 		RoboContext system = builder.build();
+
 		System.out.println("State before start:");
 		System.out.println(SystemUtil.printStateReport(system));
 		system.start();
