@@ -15,10 +15,12 @@
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.robo4j.rpi.lcd.example.demos;
+package com.robo4j.rpi.lcd.example.demos.fx;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Marcus Hirt (@hirt)
@@ -26,20 +28,20 @@ import javafx.scene.control.TextArea;
  */
 public class FxDisplayDemo implements FxLcdDemo {
 
-    private final static int REPEATING = 10;
+	private final static int REPEATING = 10;
 	private static final String[] COLORS = new String[] { "snow", "blue" };
-    private static final int DELAY = 500;
+	private static final int DELAY = 500;
 
-    private final String name = "Display";
+	private final String name = "Display";
 	private TextArea textArea;
 	private String text;
 	private Task<Void> task;
 
-    public FxDisplayDemo() {
-        text = "Turning off/on\ndisplay 10 times!";
-    }
+	public FxDisplayDemo() {
+		text = "Turning off/on\ndisplay 10 times!";
+	}
 
-    @Override
+	@Override
 	public void initiate(TextArea textArea) {
 		this.textArea = textArea;
 
@@ -47,17 +49,18 @@ public class FxDisplayDemo implements FxLcdDemo {
 			@Override
 			protected Void call() throws Exception {
 				for (int i = 0; i < REPEATING; i++) {
-					textArea.setStyle(DemoUtil.getCssBackground(COLORS[i % 2]));
+					textArea.setStyle(FxDemoUtil.getCssBackground(COLORS[i % 2]));
 					updateMessage(text);
-                    Thread.sleep(DELAY);
-                }
-                updateMessage(DemoUtil.doneMessage(name));
-                textArea.setStyle(DemoUtil.getCssBackground(COLORS[0]));
-                textArea.textProperty().unbind();
+					Thread.sleep(DELAY);
+				}
+				updateMessage(FxDemoUtil.doneMessage(name));
+				textArea.setStyle(FxDemoUtil.getCssBackground(COLORS[0]));
+				TimeUnit.MILLISECONDS.sleep(DELAY);
+				textArea.textProperty().unbind();
 				return null;
 			}
 		};
-        textArea.textProperty().bind(task.messageProperty());
+		textArea.textProperty().bind(task.messageProperty());
 	}
 
 	@Override

@@ -15,9 +15,8 @@
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.robo4j.rpi.lcd.example.demos;
+package com.robo4j.rpi.lcd.example.demos.fx;
 
-import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 import javafx.concurrent.Task;
@@ -30,7 +29,7 @@ import javafx.scene.control.TextArea;
 public class FxColorDemo implements FxLcdDemo {
 
 	private static final int DELAY = 1;
-	private static final String[] COLORS = new String[] {"red", "blue", "green", "yellow", "snow" };
+	private static final String[] COLORS = new String[] { "red", "blue", "green", "yellow", "snow" };
 	private final String name = "Color";
 	private TextArea textArea;
 	private String text;
@@ -47,12 +46,12 @@ public class FxColorDemo implements FxLcdDemo {
 			@Override
 			protected Void call() throws Exception {
 				for (int i = 0; i < COLORS.length; i++) {
-					textArea.setStyle(DemoUtil.getCssBackground(COLORS[i]));
+					textArea.setStyle(FxDemoUtil.getCssBackground(COLORS[i]));
 					updateMessage(text + ": " + COLORS[i]);
 					TimeUnit.SECONDS.sleep(DELAY);
 				}
-				updateMessage(DemoUtil.doneMessage(name));
-				TimeUnit.SECONDS.sleep(DELAY);
+				updateMessage(FxDemoUtil.doneMessage(name));
+				TimeUnit.SECONDS.sleep(200);
 				textArea.textProperty().unbind();
 				return null;
 			}

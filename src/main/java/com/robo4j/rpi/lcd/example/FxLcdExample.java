@@ -22,6 +22,7 @@ import java.net.URL;
 import com.robo4j.core.RoboBuilder;
 import com.robo4j.core.RoboContext;
 
+import com.robo4j.rpi.lcd.example.controller.LcdFxExampleController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -47,21 +48,30 @@ public class FxLcdExample extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		URL file = Thread.currentThread().getContextClassLoader().getResource(ROBO4J_CENTER_FXML);
-		RoboBuilder builder = new RoboBuilder();
-		builder.add(Thread.currentThread().getContextClassLoader().getResourceAsStream("robo4jFx.xml"));
-		roboSystem = builder.build();
-
-
 		FXMLLoader fxmlLoader = new FXMLLoader(file);
 		Pane myPane = fxmlLoader.load();
         FxLcdController controller = fxmlLoader.getController();
-        controller.init(roboSystem);
-		// controller.init(roboSystem, "http://192.168.178.67:8025/");
+
+		RoboBuilder builder = new RoboBuilder();
+		builder.add(Thread.currentThread().getContextClassLoader().getResourceAsStream("robo4jFx.xml"));
+		LcdFxExampleController fxController = new LcdFxExampleController(builder.getContext(), "controller");
+		fxController.setController(controller);
+		builder.add(fxController);
+
+		roboSystem = builder.build();
+		roboSystem.start();
+
+		controller.init(roboSystem);
 
 		stage.setScene(new Scene(myPane, 800, 526));
 		myPane.setStyle("-fx-border-color:black");
 		initializeStage(stage);
 		stage.show();
+	}
+
+	@Override
+	public void stop() throws Exception {
+		roboSystem.shutdown();
 	}
 
 	// Private Methods

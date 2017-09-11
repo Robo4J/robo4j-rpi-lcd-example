@@ -15,11 +15,12 @@
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.robo4j.rpi.lcd.example.demos;
+package com.robo4j.rpi.lcd.example.demos.fx;
 
 import java.util.concurrent.TimeUnit;
 
 import com.robo4j.rpi.lcd.example.FxLcdController;
+
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
@@ -30,9 +31,9 @@ import javafx.scene.control.TextArea;
 public class FxNotImpementedDemo implements FxLcdDemo {
 	private static final int DELAY = 500;
 	private static final String[] COLORS = new String[] { "red", "snow" };
-    private static final String text = "Not Available,"+ FxLcdController.DEFAULT_TEXT;
-    private final String name = "NotAvailable";
-    private TextArea textArea;
+	private static final String text = "Not Available," + FxLcdController.DEFAULT_TEXT;
+	private final String name = "NotAvailable";
+	private TextArea textArea;
 	private Task<Void> task;
 
 	@Override
@@ -42,12 +43,13 @@ public class FxNotImpementedDemo implements FxLcdDemo {
 		task = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
-                textArea.setStyle(DemoUtil.getCssBackground(COLORS[0]));
-                updateMessage(messages[0]);
-                TimeUnit.MILLISECONDS.sleep(DELAY);
-                updateMessage(messages[1]);
-                textArea.setStyle(DemoUtil.getCssBackground(COLORS[1]));
-                textArea.textProperty().unbind();
+				textArea.setStyle(FxDemoUtil.getCssBackground(COLORS[0]));
+				updateMessage(messages[0]);
+				TimeUnit.MILLISECONDS.sleep(DELAY);
+				updateMessage(messages[1]);
+				textArea.setStyle(FxDemoUtil.getCssBackground(COLORS[1]));
+				TimeUnit.MILLISECONDS.sleep(DELAY);
+				textArea.textProperty().unbind();
 				return null;
 			}
 		};

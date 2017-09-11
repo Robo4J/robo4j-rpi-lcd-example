@@ -18,12 +18,12 @@
 package com.robo4j.rpi.lcd.example;
 
 import com.robo4j.core.RoboContext;
-import com.robo4j.rpi.lcd.example.demos.FxColorDemo;
-import com.robo4j.rpi.lcd.example.demos.FxDisplayDemo;
-import com.robo4j.rpi.lcd.example.demos.FxExitDemo;
-import com.robo4j.rpi.lcd.example.demos.FxLcdDemo;
-import com.robo4j.rpi.lcd.example.demos.FxNotImpementedDemo;
-import com.robo4j.rpi.lcd.example.demos.FxScrollDemo;
+import com.robo4j.rpi.lcd.example.demos.fx.FxColorDemo;
+import com.robo4j.rpi.lcd.example.demos.fx.FxDisplayDemo;
+import com.robo4j.rpi.lcd.example.demos.fx.FxExitDemo;
+import com.robo4j.rpi.lcd.example.demos.fx.FxLcdDemo;
+import com.robo4j.rpi.lcd.example.demos.fx.FxNotImpementedDemo;
+import com.robo4j.rpi.lcd.example.demos.fx.FxScrollDemo;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,32 +51,28 @@ public class FxLcdController {
 
 	@FXML
 	private void selectButtonAction(ActionEvent event) {
-		FxLcdDemo demo = FX_DEMOS[currentScroll];
-		demo.initiate(lcdTA);
-		system.getScheduler().execute(demo.getTask());
+		select();
 	}
 
 	@FXML
 	private void leftButtonAction(ActionEvent event){
-		notImplementedMessage();
+		left();
 	}
 
 	@FXML
 	private void upButtonAction(ActionEvent event){
-		currentScroll--;
-		displayActiveDemo();
+		up();
 
 	}
 
 	@FXML
 	private void rightButtonAction(ActionEvent event){
-		notImplementedMessage();
+		right();
 	}
 
 	@FXML
 	private void downButtonAction(ActionEvent event){
-		currentScroll++;
-		displayActiveDemo();
+		down();
 	}
 
 	@FXML
@@ -84,6 +80,31 @@ public class FxLcdController {
 		lcdTA.setText(DEFAULT_TEXT);
 	}
 
+	public void select(){
+		FxLcdDemo demo = FX_DEMOS[currentScroll];
+		demo.initiate(lcdTA);
+		system.getScheduler().execute(demo.getTask());
+	}
+
+	public void down(){
+		currentScroll++;
+		displayActiveDemo();
+	}
+
+	public void up(){
+		currentScroll--;
+		displayActiveDemo();
+	}
+
+	public void right(){
+		notImplementedMessage();
+	}
+
+	public void left(){
+		notImplementedMessage();
+	}
+
+	//Private Methods
 	private void displayActiveDemo(){
 		if(currentScroll <= 0 ){
 			currentScroll = 0;

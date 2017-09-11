@@ -25,10 +25,4 @@
             <value name="targetUnits" type="String">{"controller":"GET"}</value>
         </config>
     </roboUnit>
-    <roboUnit id="controller">
-        <class>com.robo4j.rpi.lcd.example.controller.LcdFxExampleController</class>
-        <config name="com.robo4j.core.root">
-            <value name="target" type="String">lcd</value>
-        </config>
-    </roboUnit>
 </robo4j>

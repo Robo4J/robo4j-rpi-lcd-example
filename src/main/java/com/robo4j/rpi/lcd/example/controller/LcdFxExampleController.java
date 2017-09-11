@@ -19,8 +19,7 @@ package com.robo4j.rpi.lcd.example.controller;
 
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboUnit;
-import com.robo4j.rpi.lcd.example.demos.FxLcdDemo;
-import com.robo4j.rpi.lcd.example.demos.FxScrollDemo;
+import com.robo4j.rpi.lcd.example.FxLcdController;
 import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
 
 /**
@@ -29,12 +28,37 @@ import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
  */
 public class LcdFxExampleController extends RoboUnit<AdafruitButtonEnum> {
 
-    private static int currentTest = -1;
-    private static FxLcdDemo[] FX_DEMOS = new FxLcdDemo[]{new FxScrollDemo()};
+    private FxLcdController controller;
 
     public LcdFxExampleController(RoboContext context, String id) {
         super(AdafruitButtonEnum.class, context, id);
     }
 
+    public void setController(FxLcdController controller){
+        this.controller = controller;
+    }
 
+    @Override
+    public void onMessage(AdafruitButtonEnum message) {
+
+        switch (message){
+            case UP:
+                controller.up();
+                break;
+            case DOWN:
+                controller.down();
+                break;
+            case LEFT:
+                controller.left();
+                break;
+            case RIGHT:
+                controller.right();
+                break;
+            case SELECT:
+                controller.select();
+                break;
+
+
+        }
+    }
 }

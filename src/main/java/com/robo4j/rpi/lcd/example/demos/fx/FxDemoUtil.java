@@ -15,13 +15,13 @@
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.robo4j.rpi.lcd.example.demos;
+package com.robo4j.rpi.lcd.example.demos.fx;
 
 /**
  * @author Marcus Hirt (@hirt)
  * @author Miro Wengner (@miragemiko)
  */
-public final class DemoUtil {
+public final class FxDemoUtil {
     private static final String CSS_TEXT_AREA = "text-area-background";
 
 	static String doneMessage(String demoName) {
