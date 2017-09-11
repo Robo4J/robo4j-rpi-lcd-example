@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="526.0" minWidth="800.0" prefHeight="526.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.robo4j.rpi.lcd.example.FxLcdController">
+   <children>
+      <ImageView fx:id="rightB" fitHeight="600.0" fitWidth="800.0" layoutX="-1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@AdafruitLCD_Rpi_Kit.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="lcdTA" editable="false" layoutX="78.0" layoutY="138.0" prefColumnCount="16" prefHeight="158.0" prefRowCount="2" prefWidth="632.0" style="text-area-background: blue;" stylesheets="@rpiLcdKit.css" wrapText="true">
+         <font>
+            <Font name="Arial" size="48.0" />
+         </font></TextArea>
+      <Button fx:id="selectButton" layoutX="467.0" layoutY="437.0" mnemonicParsing="false" onAction="#selectButtonAction" prefHeight="34.0" prefWidth="36.0" style="-fx-background-radius: 20em;" text="S" />
+      <Button fx:id="leftButton" layoutX="560.0" layoutY="437.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="36.0" style="-fx-background-radius: 20em;" text="L" />
+      <Button fx:id="upButton" layoutX="654.0" layoutY="408.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="36.0" style="-fx-background-radius: 20em;" text="U" />
+      <Button fx:id="downButton" layoutX="654.0" layoutY="467.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="36.0" style="-fx-background-radius: 20em;" text="D" />
+      <Button fx:id="rightButton" layoutX="741.0" layoutY="439.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="36.0" style="-fx-background-radius: 20em;" text="R" />
+   </children>
+</Pane>
