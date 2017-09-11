@@ -17,9 +17,9 @@
 
 package com.robo4j.rpi.lcd.example.demos;
 
-import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
+import com.robo4j.rpi.lcd.example.FxLcdController;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
@@ -27,33 +27,27 @@ import javafx.scene.control.TextArea;
  * @author Marcus Hirt (@hirt)
  * @author Miro Wengner (@miragemiko)
  */
-public class FxColorDemo implements FxLcdDemo {
-
-	private static final int DELAY = 1;
-	private static final String[] COLORS = new String[] {"red", "blue", "green", "yellow", "snow" };
-	private final String name = "Color";
-	private TextArea textArea;
-	private String text;
+public class FxNotImpementedDemo implements FxLcdDemo {
+	private static final int DELAY = 500;
+	private static final String[] COLORS = new String[] { "red", "snow" };
+    private static final String text = "Not Available,"+ FxLcdController.DEFAULT_TEXT;
+    private final String name = "NotAvailable";
+    private TextArea textArea;
 	private Task<Void> task;
-
-	public FxColorDemo() {
-		text = "Changed color";
-	}
 
 	@Override
 	public void initiate(TextArea textArea) {
 		this.textArea = textArea;
+		String[] messages = text.split(",");
 		task = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
-				for (int i = 0; i < COLORS.length; i++) {
-					textArea.setStyle(DemoUtil.getCssBackground(COLORS[i]));
-					updateMessage(text + ": " + COLORS[i]);
-					TimeUnit.SECONDS.sleep(DELAY);
-				}
-				updateMessage(DemoUtil.doneMessage(name));
-				TimeUnit.SECONDS.sleep(DELAY);
-				textArea.textProperty().unbind();
+                textArea.setStyle(DemoUtil.getCssBackground(COLORS[0]));
+                updateMessage(messages[0]);
+                TimeUnit.MILLISECONDS.sleep(DELAY);
+                updateMessage(messages[1]);
+                textArea.setStyle(DemoUtil.getCssBackground(COLORS[1]));
+                textArea.textProperty().unbind();
 				return null;
 			}
 		};

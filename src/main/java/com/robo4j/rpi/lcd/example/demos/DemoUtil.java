@@ -17,16 +17,18 @@
 
 package com.robo4j.rpi.lcd.example.demos;
 
-import javafx.concurrent.Task;
-import javafx.scene.control.TextArea;
-
 /**
  * @author Marcus Hirt (@hirt)
  * @author Miro Wengner (@miragemiko)
  */
-public interface FxLcdDemo {
+public final class DemoUtil {
+    private static final String CSS_TEXT_AREA = "text-area-background";
 
-    void initiate(TextArea textArea);
-    String getName();
-    Task<Void> getTask();
+	static String doneMessage(String demoName) {
+		return "Demo: " + demoName + ", done!";
+	}
+
+    static String getCssBackground(String color) {
+        return CSS_TEXT_AREA + " : " + color + ";";
+    }
 }

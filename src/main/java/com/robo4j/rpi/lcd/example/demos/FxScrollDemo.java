@@ -27,6 +27,7 @@ import javafx.scene.control.TextArea;
  */
 public class FxScrollDemo implements FxLcdDemo{
 
+    private static final int DELAY = 200;
     private final String name = "Scroller";
     private TextArea textArea;
     private String text;
@@ -34,26 +35,27 @@ public class FxScrollDemo implements FxLcdDemo{
     private int currentScroll;
 
     public FxScrollDemo() {
+        text = "Bouncing this scroller once.";
     }
 
     @Override
-    public void initiate(TextArea textArea, String text){
-        this.text = text;
+    public void initiate(TextArea textArea){
         this.textArea = textArea;
         task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 for (int i = 0; i < 24; i++) {
-                    Thread.sleep(200);
+                    Thread.sleep(DELAY);
                     String m = scrollDisplay(Direction.LEFT);
                     updateMessage(m);
                 }
                 for (int i = 0; i < 24; i++) {
-                    Thread.sleep(100);
+                    Thread.sleep(DELAY);
                     String m = scrollDisplay(Direction.RIGHT);
                     updateMessage(m);
                 }
-                updateMessage("DONE!");
+                updateMessage(DemoUtil.doneMessage(name));
+                textArea.textProperty().unbind();
                 return null;
             }
         };

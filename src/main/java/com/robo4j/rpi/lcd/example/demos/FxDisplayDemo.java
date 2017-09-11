@@ -17,9 +17,6 @@
 
 package com.robo4j.rpi.lcd.example.demos;
 
-import java.awt.*;
-import java.util.concurrent.TimeUnit;
-
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
@@ -27,37 +24,40 @@ import javafx.scene.control.TextArea;
  * @author Marcus Hirt (@hirt)
  * @author Miro Wengner (@miragemiko)
  */
-public class FxColorDemo implements FxLcdDemo {
+public class FxDisplayDemo implements FxLcdDemo {
 
-	private static final int DELAY = 1;
-	private static final String[] COLORS = new String[] {"red", "blue", "green", "yellow", "snow" };
-	private final String name = "Color";
+    private final static int REPEATING = 10;
+	private static final String[] COLORS = new String[] { "snow", "blue" };
+    private static final int DELAY = 500;
+
+    private final String name = "Display";
 	private TextArea textArea;
 	private String text;
 	private Task<Void> task;
 
-	public FxColorDemo() {
-		text = "Changed color";
-	}
+    public FxDisplayDemo() {
+        text = "Turning off/on\ndisplay 10 times!";
+    }
 
-	@Override
+    @Override
 	public void initiate(TextArea textArea) {
 		this.textArea = textArea;
-		task = new Task<Void>() {
+
+		this.task = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
-				for (int i = 0; i < COLORS.length; i++) {
-					textArea.setStyle(DemoUtil.getCssBackground(COLORS[i]));
-					updateMessage(text + ": " + COLORS[i]);
-					TimeUnit.SECONDS.sleep(DELAY);
-				}
-				updateMessage(DemoUtil.doneMessage(name));
-				TimeUnit.SECONDS.sleep(DELAY);
-				textArea.textProperty().unbind();
+				for (int i = 0; i < REPEATING; i++) {
+					textArea.setStyle(DemoUtil.getCssBackground(COLORS[i % 2]));
+					updateMessage(text);
+                    Thread.sleep(DELAY);
+                }
+                updateMessage(DemoUtil.doneMessage(name));
+                textArea.setStyle(DemoUtil.getCssBackground(COLORS[0]));
+                textArea.textProperty().unbind();
 				return null;
 			}
 		};
-		textArea.textProperty().bind(task.messageProperty());
+        textArea.textProperty().bind(task.messageProperty());
 	}
 
 	@Override

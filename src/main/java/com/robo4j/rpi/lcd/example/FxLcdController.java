@@ -18,15 +18,15 @@
 package com.robo4j.rpi.lcd.example;
 
 import com.robo4j.core.RoboContext;
-import com.robo4j.hw.rpi.i2c.adafruitlcd.impl.RealLcd.Direction;
-
 import com.robo4j.rpi.lcd.example.demos.FxColorDemo;
+import com.robo4j.rpi.lcd.example.demos.FxDisplayDemo;
+import com.robo4j.rpi.lcd.example.demos.FxExitDemo;
 import com.robo4j.rpi.lcd.example.demos.FxLcdDemo;
+import com.robo4j.rpi.lcd.example.demos.FxNotImpementedDemo;
 import com.robo4j.rpi.lcd.example.demos.FxScrollDemo;
-import javafx.concurrent.Task;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 /**
@@ -37,24 +37,13 @@ import javafx.scene.control.TextArea;
  */
 public class FxLcdController {
 
-	private static final int DDRAM_SIZE = 40;
-	private volatile int cursorColumn;
-	private volatile int cursorRow;
-	private volatile int maskVal;
-	private final char[] FIRST_ROW = new char[DDRAM_SIZE];
-	private final char[] SECOND_ROW = new char[DDRAM_SIZE];
+	public static final String DEFAULT_TEXT = "Robo4J: Welcome!\nPress up/down...";
 	private RoboContext system;
-	private String text;
-	private int currentScroll;
-    FxLcdDemo[] FX_DEMOS = new FxLcdDemo[]{new FxScrollDemo()};
+	private int currentScroll = -1;
+	private FxLcdDemo[] FX_DEMOS = new FxLcdDemo[] { new FxScrollDemo(), new FxColorDemo(), new FxDisplayDemo(), new FxExitDemo()};
 
 	@FXML
 	private TextArea lcdTA;
-
-	@FXML
-    private Label colorLabel;
-
-	private Task<Void> task;
 
 	public void init(RoboContext system) {
 		this.system = system;
@@ -62,55 +51,52 @@ public class FxLcdController {
 
 	@FXML
 	private void selectButtonAction(ActionEvent event) {
-		text = "Bouncing this scroller once.";
-
-//        FxScrollDemo demo = new FxScrollDemo();
-//        demo.initiate(lcdTA, "Bouncing this scroller once.");
-//
-
-        FxColorDemo demo = new FxColorDemo();
-        demo.initiate(lcdTA, "COLOR demo");
-        demo.setColorLabel(colorLabel);
-
-        System.out.println("Start Thread: " + demo.getName());
-
+		FxLcdDemo demo = FX_DEMOS[currentScroll];
+		demo.initiate(lcdTA);
 		system.getScheduler().execute(demo.getTask());
 	}
 
 	@FXML
+	private void leftButtonAction(ActionEvent event){
+		notImplementedMessage();
+	}
+
+	@FXML
+	private void upButtonAction(ActionEvent event){
+		currentScroll--;
+		displayActiveDemo();
+
+	}
+
+	@FXML
+	private void rightButtonAction(ActionEvent event){
+		notImplementedMessage();
+	}
+
+	@FXML
+	private void downButtonAction(ActionEvent event){
+		currentScroll++;
+		displayActiveDemo();
+	}
+
+	@FXML
 	public void initialize() {
-		System.out.println("Initialize");
+		lcdTA.setText(DEFAULT_TEXT);
 	}
 
-	public void setText(String s) {
-		String[] str = s.split("\n");
-		for (int i = 0; i < str.length; i++) {
-			setText(i, str[i]);
+	private void displayActiveDemo(){
+		if(currentScroll <= 0 ){
+			currentScroll = 0;
+		} else if(currentScroll >= FX_DEMOS.length){
+			currentScroll = FX_DEMOS.length - 1;
 		}
+		lcdTA.setText(currentScroll + "#" + FX_DEMOS[currentScroll].getName() + "\nPress Select!");
 	}
 
-	public void setText(int row, String text) {
-		setCursorPosition(row, 0);
-		internalWrite(text);
+	private void notImplementedMessage(){
+		FxNotImpementedDemo demo = new FxNotImpementedDemo();
+		demo.initiate(lcdTA);
+		system.getScheduler().execute(demo.getTask());
+		currentScroll = 0;
 	}
-
-	public void setCursorPosition(int row, int column) {
-		cursorRow = row;
-		cursorColumn = column;
-	}
-
-	// Private Methods
-	private void internalWrite(String s) {
-		char[] buffer = cursorRow == 0 ? FIRST_ROW : SECOND_ROW;
-		for (int i = 0; i < s.length() && cursorColumn < DDRAM_SIZE; i++) {
-			buffer[cursorColumn++] = s.charAt(i);
-		}
-		text = s;
-		lcdTA.setText(createStringFromBuffers());
-	}
-
-	private String createStringFromBuffers() {
-		return String.format("%16s\n%16s", new String(FIRST_ROW), new String(SECOND_ROW));
-	}
-
 }
