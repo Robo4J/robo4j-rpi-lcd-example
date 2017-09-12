@@ -18,6 +18,7 @@
 package com.robo4j.rpi.lcd.example.demos.fx;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.robo4j.rpi.lcd.example.FxLcdController;
 
@@ -35,9 +36,11 @@ public class FxNotImpementedDemo implements FxLcdDemo {
 	private final String name = "NotAvailable";
 	private TextArea textArea;
 	private Task<Void> task;
+	private AtomicBoolean active;
 
 	@Override
-	public void initiate(TextArea textArea) {
+	public void initiate(AtomicBoolean active, TextArea textArea) {
+		this.active = active;
 		this.textArea = textArea;
 		String[] messages = text.split(",");
 		task = new Task<Void>() {
@@ -50,6 +53,7 @@ public class FxNotImpementedDemo implements FxLcdDemo {
 				textArea.setStyle(FxDemoUtil.getCssBackground(COLORS[1]));
 				TimeUnit.MILLISECONDS.sleep(DELAY);
 				textArea.textProperty().unbind();
+				active.set(false);
 				return null;
 			}
 		};

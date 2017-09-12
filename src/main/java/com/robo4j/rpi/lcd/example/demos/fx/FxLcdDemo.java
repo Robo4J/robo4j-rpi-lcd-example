@@ -20,13 +20,15 @@ package com.robo4j.rpi.lcd.example.demos.fx;
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * @author Marcus Hirt (@hirt)
  * @author Miro Wengner (@miragemiko)
  */
 public interface FxLcdDemo {
 
-	void initiate(TextArea textArea);
+	void initiate(AtomicBoolean active, TextArea textArea);
 
 	String getName();
 

@@ -18,6 +18,7 @@
 package com.robo4j.rpi.lcd.example.demos.fx;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
@@ -34,13 +35,15 @@ public class FxColorDemo implements FxLcdDemo {
 	private TextArea textArea;
 	private String text;
 	private Task<Void> task;
+	private AtomicBoolean active;
 
 	public FxColorDemo() {
 		text = "Changed color";
 	}
 
 	@Override
-	public void initiate(TextArea textArea) {
+	public void initiate(AtomicBoolean active, TextArea textArea) {
+		this.active = active;
 		this.textArea = textArea;
 		task = new Task<Void>() {
 			@Override
@@ -53,6 +56,7 @@ public class FxColorDemo implements FxLcdDemo {
 				updateMessage(FxDemoUtil.doneMessage(name));
 				TimeUnit.SECONDS.sleep(200);
 				textArea.textProperty().unbind();
+				active.set(false);
 				return null;
 			}
 		};

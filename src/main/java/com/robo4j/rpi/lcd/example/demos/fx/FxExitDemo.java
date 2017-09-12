@@ -18,6 +18,7 @@
 package com.robo4j.rpi.lcd.example.demos.fx;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
@@ -33,13 +34,14 @@ public class FxExitDemo implements FxLcdDemo {
 	private TextArea textArea;
 	private String text;
 	private Task<Void> task;
+	private AtomicBoolean active;
 
 	public FxExitDemo() {
 		text = "exit...";
 	}
 
 	@Override
-	public void initiate(TextArea textArea) {
+	public void initiate(AtomicBoolean active, TextArea textArea) {
 		this.textArea = textArea;
 
 		task = new Task<Void>() {
@@ -48,6 +50,7 @@ public class FxExitDemo implements FxLcdDemo {
 				updateMessage(text);
 				TimeUnit.SECONDS.sleep(DELAY);
 				textArea.textProperty().unbind();
+				active.set(false);
 				System.exit(0);
 				return null;
 			}

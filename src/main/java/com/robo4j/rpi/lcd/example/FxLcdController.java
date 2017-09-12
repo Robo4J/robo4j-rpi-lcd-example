@@ -29,6 +29,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  *
  *
@@ -41,6 +43,7 @@ public class FxLcdController {
 	private RoboContext system;
 	private int currentScroll = -1;
 	private FxLcdDemo[] FX_DEMOS = new FxLcdDemo[] { new FxScrollDemo(), new FxColorDemo(), new FxDisplayDemo(), new FxExitDemo()};
+	private AtomicBoolean active = new AtomicBoolean(false);
 
 	@FXML
 	private TextArea lcdTA;
@@ -81,9 +84,11 @@ public class FxLcdController {
 	}
 
 	public void select(){
-		FxLcdDemo demo = FX_DEMOS[currentScroll];
-		demo.initiate(lcdTA);
-		system.getScheduler().execute(demo.getTask());
+		if(active.compareAndSet(false, true)){
+			FxLcdDemo demo = FX_DEMOS[currentScroll];
+			demo.initiate(active, lcdTA);
+			system.getScheduler().execute(demo.getTask());
+		}
 	}
 
 	public void down(){
@@ -106,18 +111,22 @@ public class FxLcdController {
 
 	//Private Methods
 	private void displayActiveDemo(){
-		if(currentScroll <= 0 ){
-			currentScroll = 0;
-		} else if(currentScroll >= FX_DEMOS.length){
-			currentScroll = FX_DEMOS.length - 1;
+		if(!active.get()){
+			if(currentScroll <= 0 ){
+				currentScroll = 0;
+			} else if(currentScroll >= FX_DEMOS.length){
+				currentScroll = FX_DEMOS.length - 1;
+			}
+			lcdTA.setText(currentScroll + "#" + FX_DEMOS[currentScroll].getName() + "\nPress Select!");
 		}
-		lcdTA.setText(currentScroll + "#" + FX_DEMOS[currentScroll].getName() + "\nPress Select!");
 	}
 
 	private void notImplementedMessage(){
-		FxNotImpementedDemo demo = new FxNotImpementedDemo();
-		demo.initiate(lcdTA);
-		system.getScheduler().execute(demo.getTask());
-		currentScroll = 0;
+		if(active.compareAndSet(false, true)){
+			FxNotImpementedDemo demo = new FxNotImpementedDemo();
+			demo.initiate(active, lcdTA);
+			system.getScheduler().execute(demo.getTask());
+			currentScroll = 0;
+		}
 	}
 }

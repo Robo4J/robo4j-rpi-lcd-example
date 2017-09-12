@@ -21,6 +21,7 @@ import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Marcus Hirt (@hirt)
@@ -36,13 +37,15 @@ public class FxDisplayDemo implements FxLcdDemo {
 	private TextArea textArea;
 	private String text;
 	private Task<Void> task;
+	private AtomicBoolean active;
 
 	public FxDisplayDemo() {
 		text = "Turning off/on\ndisplay 10 times!";
 	}
 
 	@Override
-	public void initiate(TextArea textArea) {
+	public void initiate(AtomicBoolean active, TextArea textArea) {
+		this.active = active;
 		this.textArea = textArea;
 
 		this.task = new Task<Void>() {
@@ -57,6 +60,7 @@ public class FxDisplayDemo implements FxLcdDemo {
 				textArea.setStyle(FxDemoUtil.getCssBackground(COLORS[0]));
 				TimeUnit.MILLISECONDS.sleep(DELAY);
 				textArea.textProperty().unbind();
+				active.set(false);
 				return null;
 			}
 		};

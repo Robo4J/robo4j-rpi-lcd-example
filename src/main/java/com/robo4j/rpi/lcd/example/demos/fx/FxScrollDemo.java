@@ -18,6 +18,7 @@
 package com.robo4j.rpi.lcd.example.demos.fx;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.robo4j.hw.rpi.i2c.adafruitlcd.impl.RealLcd.Direction;
 
@@ -36,13 +37,15 @@ public class FxScrollDemo implements FxLcdDemo {
 	private String text;
 	private Task<Void> task;
 	private int currentScroll;
+	private AtomicBoolean active;
 
 	public FxScrollDemo() {
 		text = "Bouncing this scroller once.";
 	}
 
 	@Override
-	public void initiate(TextArea textArea) {
+	public void initiate(AtomicBoolean active, TextArea textArea) {
+		this.active = active;
 		this.textArea = textArea;
 		task = new Task<Void>() {
 			@Override
@@ -61,6 +64,7 @@ public class FxScrollDemo implements FxLcdDemo {
 				updateMessage(FxDemoUtil.doneMessage(name));
 				TimeUnit.MILLISECONDS.sleep(DELAY);
 				textArea.textProperty().unbind();
+				active.set(false);
 				return null;
 			}
 		};
