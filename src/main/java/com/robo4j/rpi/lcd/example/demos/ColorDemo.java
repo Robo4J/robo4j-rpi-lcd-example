@@ -52,14 +52,14 @@ public class ColorDemo extends AbstractDemo {
 				new FinalInvocationListener() {
 					@Override
 					public void onFinalInvocation(RoboContext context) {
-						lcd.sendMessage(new LcdMessage("Backlight Demo: \nDone!           ", Color.ON));
+						lcd.sendMessage(new LcdMessage("Backlight Demo:\nDone!", Color.ON));
 						setDone();
 					}
 				});
 	}
 
 	private LcdMessage getColorMessage(String prefix, Color c) {
-		LcdMessage lcdMessage = new LcdMessage(prefix + "Color: " + c.toString() + "      ", c);
+		LcdMessage lcdMessage = new LcdMessage(prefix + "Color: " + c.toString(), c);
 		return lcdMessage;
 	}
 }

@@ -53,7 +53,7 @@ public class ScrollDemo extends AbstractDemo {
 				scheduler.schedule(lcd, right, 100, 100, TimeUnit.MILLISECONDS, 24, new FinalInvocationListener() {
 					@Override
 					public void onFinalInvocation(RoboContext context) {
-						lcd.sendMessage(new LcdMessage("Scroller Demo:  \nDone!           "));
+						lcd.sendMessage(new LcdMessage("Scroller Demo:\nDone!"));
 						setDone();
 					}
 				});

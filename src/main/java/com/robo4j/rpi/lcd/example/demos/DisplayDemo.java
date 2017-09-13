@@ -49,7 +49,7 @@ public class DisplayDemo extends AbstractDemo implements LcdDemo {
 					public void onFinalInvocation(RoboContext context) {
 						lcd.sendMessage(LcdMessage.MESSAGE_CLEAR);
 						lcd.sendMessage(
-								new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Display Demo:\nDone!           "));
+								new LcdMessage(LcdMessageType.SET_TEXT, null, null, "Display Demo:\nDone!"));
 						setDone();
 					}
 				});
