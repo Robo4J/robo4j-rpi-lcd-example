@@ -21,6 +21,7 @@ package com.robo4j.rpi.lcd.example.controller;
 import java.io.IOException;
 
 import com.robo4j.core.ConfigurationException;
+import com.robo4j.core.CriticalSectionTrait;
 import com.robo4j.core.LifecycleState;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.RoboUnit;
@@ -45,6 +46,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
  */
+@CriticalSectionTrait
 public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	private static int currentTest = -1;
 	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(), new ExitDemo() };
@@ -55,7 +57,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	}
 
 	@Override
-	public synchronized void onMessage(AdafruitButtonEnum message) {
+	public void onMessage(AdafruitButtonEnum message) {
 		if (isRunning()) {
 			SimpleLoggingUtil.print(getClass(), "Skipping " + message + " due to test already running!");
 			return;
