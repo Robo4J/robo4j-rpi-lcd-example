@@ -87,9 +87,10 @@ public class LcdExampleMain {
 		System.out.println(SystemUtil.printStateReport(system));
 
 		system.getReference("lcd").sendMessage(new LcdMessage(INIT_MESSAGE));
-		System.out.println(SystemUtil.printSocketEndPoint(system.getReference("http"), system.getReference("controller")));
 		System.out.println("Press enter to quit!");
 		System.in.read();
 		system.shutdown();
+
 	}
+
 }
