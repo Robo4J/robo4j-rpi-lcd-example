@@ -96,7 +96,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 		switch (myMessage) {
 		case DOWN:
 			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
-			sendLcdMessage(getContext(), String.format("#%d:%s     \nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+			sendLcdMessage(getContext(), String.format("#%d:%s\nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
 			break;
 		case SELECT:
 			runTest(currentTest);

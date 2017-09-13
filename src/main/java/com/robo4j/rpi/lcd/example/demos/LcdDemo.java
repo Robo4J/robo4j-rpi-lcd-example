@@ -27,7 +27,25 @@ import com.robo4j.core.RoboContext;
  * @author Miroslav Wengner (@miragemiko)
  */
 public interface LcdDemo {
+	/**
+	 * The name of the demo. Keep it shorter than 13 characters.
+	 * 
+	 * @return the name of the demo.
+	 */
 	String getName();
+
+	/**
+	 * Runs the demo.
+	 * 
+	 * @param context
+	 *            the RoboContext.
+	 * 
+	 * @throws IOException
+	 */
 	void run(RoboContext context) throws IOException;
+
+	/**
+	 * @return true if the demo is still running.
+	 */
 	boolean isRunning();
 }

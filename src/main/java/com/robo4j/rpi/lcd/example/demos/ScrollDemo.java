@@ -40,12 +40,6 @@ public class ScrollDemo extends AbstractDemo {
 		return "Scroller";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
-	 */
 	@Override
 	public void runDemo() throws IOException {
 		final LcdMessage left = new LcdMessage(LcdMessageType.SCROLL, null, null, "left");

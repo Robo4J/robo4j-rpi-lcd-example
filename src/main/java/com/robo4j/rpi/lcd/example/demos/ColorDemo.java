@@ -37,12 +37,6 @@ public class ColorDemo extends AbstractDemo {
 		return "Backlight";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
-	 */
 	@Override
 	public void runDemo() throws IOException {
 		String prefix = "Color changes:\n";
