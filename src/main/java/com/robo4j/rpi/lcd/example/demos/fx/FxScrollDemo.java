@@ -62,7 +62,7 @@ public class FxScrollDemo implements FxLcdDemo {
 					updateMessage(m);
 				}
 				updateMessage(FxDemoUtil.doneMessage(name));
-				TimeUnit.MILLISECONDS.sleep(DELAY);
+				TimeUnit.MILLISECONDS.sleep(FxDemoUtil.UNBIND_DELAY);
 				textArea.textProperty().unbind();
 				active.set(false);
 				return null;

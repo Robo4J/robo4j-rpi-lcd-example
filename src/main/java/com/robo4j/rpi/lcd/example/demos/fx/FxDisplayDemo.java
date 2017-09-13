@@ -58,7 +58,7 @@ public class FxDisplayDemo implements FxLcdDemo {
 				}
 				updateMessage(FxDemoUtil.doneMessage(name));
 				textArea.setStyle(FxDemoUtil.getCssBackground(COLORS[0]));
-				TimeUnit.MILLISECONDS.sleep(DELAY);
+				TimeUnit.MILLISECONDS.sleep(FxDemoUtil.UNBIND_DELAY);
 				textArea.textProperty().unbind();
 				active.set(false);
 				return null;

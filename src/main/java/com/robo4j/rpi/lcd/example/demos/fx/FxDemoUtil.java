@@ -24,6 +24,8 @@ package com.robo4j.rpi.lcd.example.demos.fx;
 public final class FxDemoUtil {
     private static final String CSS_TEXT_AREA = "text-area-background";
 
+    static int UNBIND_DELAY = 500;
+
 	static String doneMessage(String demoName) {
 		return "Demo: " + demoName + ", done!";
 	}

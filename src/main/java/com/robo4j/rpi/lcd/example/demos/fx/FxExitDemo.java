@@ -48,7 +48,7 @@ public class FxExitDemo implements FxLcdDemo {
 			@Override
 			protected Void call() throws Exception {
 				updateMessage(text);
-				TimeUnit.SECONDS.sleep(DELAY);
+				TimeUnit.MILLISECONDS.sleep(FxDemoUtil.UNBIND_DELAY);
 				textArea.textProperty().unbind();
 				active.set(false);
 				System.exit(0);

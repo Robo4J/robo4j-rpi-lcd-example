@@ -54,7 +54,7 @@ public class FxColorDemo implements FxLcdDemo {
 					TimeUnit.SECONDS.sleep(DELAY);
 				}
 				updateMessage(FxDemoUtil.doneMessage(name));
-				TimeUnit.SECONDS.sleep(200);
+				TimeUnit.MILLISECONDS.sleep(FxDemoUtil.UNBIND_DELAY);
 				textArea.textProperty().unbind();
 				active.set(false);
 				return null;
