@@ -14,23 +14,34 @@
  * You should have received a copy of the GNU General Public License
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.robo4j.rpi.lcd.example.demos;
 
-package com.robo4j.rpi.lcd.example.demos.fx;
+import java.io.IOException;
 
-import javafx.concurrent.Task;
-import javafx.scene.control.TextArea;
-
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
 
 /**
+ * This one really doesn't anything but clean up and exit.
+ * 
  * @author Marcus Hirt (@hirt)
- * @author Miro Wengner (@miragemiko)
+ * @author Miroslav Wengner (@miragemiko)
  */
-public interface FxLcdDemo {
+public class ExitDemo extends AbstractDemo {
 
-	void initiate(AtomicBoolean active, TextArea textArea);
+	@Override
+	public String getName() {
+		return "<Exit>";
+	}
 
-	String getName();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.robo4j.rasp.lcd.examples.LCDTest#run(com.robo4j.core.RoboContext)
+	 */
+	@Override
+	public void runDemo() throws IOException {
+		ctx.shutdown();
+	}
 
-	Task<Void> getTask();
 }

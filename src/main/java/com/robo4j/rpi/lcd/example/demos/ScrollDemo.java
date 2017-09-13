@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.example.demos.swing;
+package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import com.robo4j.core.RoboContext;
 import com.robo4j.core.scheduler.FinalInvocationListener;
 import com.robo4j.core.scheduler.Scheduler;
-import com.robo4j.rpi.lcd.example.demos.swing.AbstractDemo;
+import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 import com.robo4j.units.rpi.lcd.LcdMessageType;
 

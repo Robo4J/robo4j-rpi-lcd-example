@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Robo4J. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.robo4j.rpi.lcd.example.demos.swing;
+package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
 
