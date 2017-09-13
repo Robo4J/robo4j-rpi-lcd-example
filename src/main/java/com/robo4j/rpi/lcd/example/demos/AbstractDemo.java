@@ -23,7 +23,7 @@ import com.robo4j.core.RoboReference;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
- * Super class for the demos.
+ * Superclass for the demos.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
