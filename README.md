@@ -23,7 +23,7 @@ The Robo4j framework uses [Gradle][] to build. The easiest way to run the exampl
 
 ## Requirements
 * [Java JDK 8][]
-* [Robo4j.io][] :: version: alpha-0.3
+* [Robo4j.io][], version alpha-0.3
 
 ## Staying in Touch
 The official twitter account:
