@@ -1,14 +1,15 @@
 ## Robo4J-rpi-lcd-example
 Robo4J RasbpberryPi LCD Demo example
 
-Example using Robo4J to send messages between the buttons and LCD in an Adafruit 2x16 LCD shield, as well as sending messages to the LCD over a REST API.
+Example using Robo4J to send messages between the buttons and LCD in an Adafruit 2x16 LCD shield.
 
-The internal sever is accessible on the port 8025 and supports POST requests (no authentication required).
+The LCD can also be controlled using REST.
 
-example : <ROBO4J_IP>:8025
+The internal sever is accessible on port 8025 and supports POST requests (no authentication required).
+
+Example: <ROBO4J_IP>:8025
 
 POST request: 
-
 { 
   "commands" : [
      {"name"  : "up",
@@ -17,19 +18,19 @@ POST request:
   ]
 }
 
-POST response: No Information about POST
-
 ## Building from Source
-The Robo4j framework uses [Gradle][] to build.
-It's required to create fatJar file and run.
+The Robo4j framework uses [Gradle][] to build. The easiest way to run the example is to create the fatJar and run it.
 
 ## Requirements
 * [Java JDK 8][]
 * [Robo4j.io][] :: version: alpha-0.3
 
 ## Staying in Touch
-Follow [@robo4j][] or authors: [@miragemiko][] , [@hirt][]
-on Twitter. In-depth articles can be found at [Robo4j.io][] or [miragemiko blog][]
+Follow [@robo4j][] or authors: [@miragemiko][] , [@hirt][] on Twitter. 
+In-depth articles can be found at the following blogs:
+* [Robo4j.io][]
+* [miragemiko blog][]
+* [Marcus' blog][]
 
 ## License
 The Robo4j.io Framework is released under version 3.0 of the [General Public License][].
@@ -42,5 +43,4 @@ The Robo4j.io Framework is released under version 3.0 of the [General Public Lic
 [@hirt]: https://twitter.com/hirt
 [Gradle]: http://gradle.org
 [Java JDK 8]: http://www.oracle.com/technetwork/java/javase/downloads
-[Git]: http://help.github.com/set-up-git-redirect
-[Robo4j documentation]: http://www.robo4j.io/p/documentation.html
+[Marcus' blog]: http://hirt.se/blogs
