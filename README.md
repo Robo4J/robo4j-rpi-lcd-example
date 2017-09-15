@@ -5,19 +5,19 @@ Example using Robo4J to send messages between the buttons and LCD in an Adafruit
 
 The internal sever is accessible on the port 8025 and supports POST requests (no authentication required).
 
-example : <ROBO4J_IP>:8025
+default available HTTP request types
 
-POST request: 
+GET:<br>
+http://<IP>:8025/<br>
+http://<IP>:8025/controller<br>
 
-{ 
-  "commands" : [
-     {"name"  : "up",
-     "target" : "lcd"
-     }
-  ]
-}
-
-POST response: No Information about POST
+POST:<br>
+http://<IP>:8025/controller<br>
+{<br> 
+  "value":"down"<br>
+}<br>
+#####possible values: up, down, select <br>
+example response: AdaruitButtonPlateEnum{button=DOWN, name='D'}
 
 ## Building from Source
 The Robo4j framework uses [Gradle][] to build.
