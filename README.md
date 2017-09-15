@@ -26,11 +26,19 @@ The Robo4j framework uses [Gradle][] to build. The easiest way to run the exampl
 * [Robo4j.io][] :: version: alpha-0.3
 
 ## Staying in Touch
-Follow [@robo4j][] or authors: [@miragemiko][] , [@hirt][] on Twitter. 
-In-depth articles can be found at the following blogs:
+The official twitter account:
+* [@robo4j][]
+
+Author's twitter accounts:
+* [@hirt][] 
+* [@miragemiko][]
+ 
+The official blog:
 * [Robo4j.io][]
-* [miragemiko blog][]
+
+Author's blogs:
 * [Marcus' blog][]
+* [miragemiko blog][]
 
 ## License
 The Robo4j.io Framework is released under version 3.0 of the [General Public License][].
