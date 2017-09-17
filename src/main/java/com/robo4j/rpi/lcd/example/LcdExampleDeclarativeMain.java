@@ -37,7 +37,7 @@ public class LcdExampleDeclarativeMain {
 	static final String INIT_MESSAGE = "Robo4J: Welcome!\nPress Up/Down!";
 
 	public static void main(String[] args) throws RoboBuilderException, IOException {
-		RoboBuilder builder = new RoboBuilder().add(Thread.currentThread().getContextClassLoader().getResourceAsStream("robo4j.xml"));
+		RoboBuilder builder = new RoboBuilder().add(LcdExampleDeclarativeMain.class.getClassLoader().getResourceAsStream("robo4j.xml"));
 		RoboContext ctx = builder.build();
 
 		System.out.println("State before start:");
