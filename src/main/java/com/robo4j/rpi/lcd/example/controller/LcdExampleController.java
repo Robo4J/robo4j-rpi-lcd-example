@@ -48,8 +48,8 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  */
 @CriticalSectionTrait
 public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
-	private static int currentTest = -1;
-	private static final LcdDemo[] TESTS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(), new ExitDemo() };
+	private static int currentDemo = -1;
+	private static final LcdDemo[] DEMOS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(), new ExitDemo() };
 	private String target;
 
 	public LcdExampleController(RoboContext context, String id) {
@@ -95,23 +95,31 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	private void processAdafruitMessage(AdafruitButtonEnum myMessage) {
 		switch (myMessage) {
 		case DOWN:
-			currentTest = ++currentTest > (TESTS.length - 1) ? TESTS.length - 1 : currentTest;
-			sendLcdMessage(getContext(), String.format("#%d:%s\nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+			moveToNextDemo();
 			break;
 		case UP:
-			currentTest = --currentTest < 0 ? 0 : currentTest;
-			sendLcdMessage(getContext(), String.format("#%d:%s\nPress Sel to run!", currentTest, TESTS[currentTest].getName()));
+			moveToPreviousDemo();
 			break;
 		case SELECT:
-			runTest(currentTest);
+			runDemo();
 			break;
 		default:
 			sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
 		}
 	}
 
-	private void runTest(int currentTest) {
-		LcdDemo test = TESTS[currentTest];
+	private void moveToPreviousDemo() {
+		currentDemo = --currentDemo < 0 ? 0 : currentDemo;
+		sendLcdMessage(getContext(), String.format("#%d:%s\nPress Sel to run!", currentDemo, DEMOS[currentDemo].getName()));
+	}
+
+	private void moveToNextDemo() {
+		currentDemo = ++currentDemo > (DEMOS.length - 1) ? DEMOS.length - 1 : currentDemo;
+		sendLcdMessage(getContext(), String.format("#%d:%s\nPress Sel to run!", currentDemo, DEMOS[currentDemo].getName()));
+	}
+
+	private void runDemo() {
+		LcdDemo test = DEMOS[currentDemo];
 		SimpleLoggingUtil.print(getClass(), "Running test " + test.getName());
 		try {
 			test.run(getContext());
@@ -121,7 +129,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 	}
 
 	private boolean isDemoRunning() {
-		return currentTest != -1 && TESTS[currentTest].isRunning();
+		return currentDemo != -1 && DEMOS[currentDemo].isRunning();
 	}
 
 	private void sendLcdMessage(RoboContext ctx, LcdMessage message) {
