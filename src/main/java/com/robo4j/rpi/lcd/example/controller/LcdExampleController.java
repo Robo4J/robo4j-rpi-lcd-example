@@ -58,11 +58,11 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 
 	@Override
 	public void onMessage(AdafruitButtonEnum message) {
-		if (isRunning()) {
+		if (!isDemoRunning()) {
+			processAdafruitMessage(message);
+		} else {
 			SimpleLoggingUtil.print(getClass(), "Skipping " + message + " due to test already running!");
-			return;
 		}
-		processAdafruitMessage(message);
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 		}
 	}
 
-	private boolean isRunning() {
+	private boolean isDemoRunning() {
 		return currentTest != -1 && TESTS[currentTest].isRunning();
 	}
 
