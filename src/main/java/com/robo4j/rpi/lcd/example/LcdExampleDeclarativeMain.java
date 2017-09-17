@@ -20,12 +20,12 @@ package com.robo4j.rpi.lcd.example;
 
 import java.io.IOException;
 
-import com.robo4j.core.RoboBuilder;
-import com.robo4j.core.RoboBuilderException;
-import com.robo4j.core.RoboContext;
-import com.robo4j.core.RoboReference;
-import com.robo4j.core.util.SystemUtil;
+import com.robo4j.RoboBuilder;
+import com.robo4j.RoboBuilderException;
+import com.robo4j.RoboContext;
+import com.robo4j.RoboReference;
 import com.robo4j.units.rpi.lcd.LcdMessage;
+import com.robo4j.util.SystemUtil;
 
 /**
  * Variant initialized from XML. Is the same as {@link LcdExampleMain}.

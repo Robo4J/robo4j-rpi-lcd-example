@@ -19,10 +19,10 @@ package com.robo4j.rpi.lcd.example.demos;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import com.robo4j.core.RoboContext;
-import com.robo4j.core.scheduler.FinalInvocationListener;
-import com.robo4j.core.scheduler.Scheduler;
+import com.robo4j.RoboContext;
 import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
+import com.robo4j.scheduler.FinalInvocationListener;
+import com.robo4j.scheduler.Scheduler;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 import com.robo4j.units.rpi.lcd.LcdMessageType;
 

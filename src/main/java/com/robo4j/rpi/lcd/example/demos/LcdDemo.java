@@ -18,7 +18,7 @@ package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
 
-import com.robo4j.core.RoboContext;
+import com.robo4j.RoboContext;
 
 /**
  * The interface for the demos.

@@ -20,14 +20,14 @@ package com.robo4j.rpi.lcd.example.controller;
 
 import java.io.IOException;
 
-import com.robo4j.core.ConfigurationException;
-import com.robo4j.core.CriticalSectionTrait;
-import com.robo4j.core.LifecycleState;
-import com.robo4j.core.RoboContext;
-import com.robo4j.core.RoboUnit;
-import com.robo4j.core.configuration.Configuration;
-import com.robo4j.core.logging.SimpleLoggingUtil;
+import com.robo4j.ConfigurationException;
+import com.robo4j.CriticalSectionTrait;
+import com.robo4j.LifecycleState;
+import com.robo4j.RoboContext;
+import com.robo4j.RoboUnit;
+import com.robo4j.configuration.Configuration;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
+import com.robo4j.logging.SimpleLoggingUtil;
 import com.robo4j.rpi.lcd.example.demos.ColorDemo;
 import com.robo4j.rpi.lcd.example.demos.DisplayDemo;
 import com.robo4j.rpi.lcd.example.demos.ExitDemo;

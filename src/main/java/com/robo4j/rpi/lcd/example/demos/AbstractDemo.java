@@ -18,8 +18,8 @@ package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
 
-import com.robo4j.core.RoboContext;
-import com.robo4j.core.RoboReference;
+import com.robo4j.RoboContext;
+import com.robo4j.RoboReference;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
