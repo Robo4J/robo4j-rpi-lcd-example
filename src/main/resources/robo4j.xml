@@ -9,7 +9,7 @@
 
     <roboUnit id="http">
         <class>com.robo4j.socket.http.units.HttpServerUnit</class>
-        <config name="com.robo4j.core.root">
+        <config name="com.robo4j.root">
             <value name="port" type="int">8025</value>
             <value name="target" type="String">controller</value>
             <value name="packages" type="String">com.robo4j.rpi.lcd.example.codec</value>
@@ -19,7 +19,7 @@
 
     <roboUnit id="buttons">
         <class>com.robo4j.units.rpi.lcd.AdafruitButtonUnit</class>
-        <config name="com.robo4j.core.root">
+        <config name="com.robo4j.root">
             <value name="bus" type="int">1</value>
             <value name="address" type="int">0x20</value>
             <value name="target" type="String">controller</value>
@@ -28,7 +28,7 @@
 
     <roboUnit id="controller">
         <class>com.robo4j.rpi.lcd.example.controller.LcdExampleController</class>
-        <config name="com.robo4j.core.root">
+        <config name="com.robo4j.root">
             <value name="target" type="String">lcd</value>
         </config>
     </roboUnit>
