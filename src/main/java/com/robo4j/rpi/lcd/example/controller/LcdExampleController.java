@@ -107,7 +107,6 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 			break;
 		default:
 			sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
-			break;
 		}
 	}
 
