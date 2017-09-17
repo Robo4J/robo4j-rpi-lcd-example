@@ -1,7 +1,7 @@
 <robo4j>
     <roboUnit id="lcd">
         <class>com.robo4j.units.rpi.lcd.AdafruitLcdUnit</class>
-        <config name="com.robo4j.core.root">
+        <config name="com.robo4j.root">
             <value name="bus" type="int">1</value>
             <value name="address" type="int">0x20</value>
         </config>
