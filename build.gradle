@@ -13,6 +13,7 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     mavenLocal()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 //create a single Jar with all dependencies
@@ -28,11 +29,13 @@ task fatJar(type: Jar) {
     with jar
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = "${gradleVersion}"
-}
-
 dependencies {
     compile "com.robo4j:robo4j-core:${robo4jVersion}"
+    compile "com.robo4j:robo4j-hw-rpi:${robo4jVersion}"
     compile "com.robo4j:robo4j-units-rpi:${robo4jVersion}"
+    compile "com.robo4j:robo4j-socket-http:${robo4jVersion}"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "${gradleVersion}"
 }

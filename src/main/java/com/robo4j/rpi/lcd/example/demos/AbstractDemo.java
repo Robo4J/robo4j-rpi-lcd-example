@@ -34,35 +34,21 @@ public abstract class AbstractDemo implements LcdDemo {
 	protected RoboContext ctx;
 	private volatile boolean isRunning;
 
-	protected void sendLcdMessage(RoboContext ctx, LcdMessage message) {
-		if (lcd == null) {
-			lcd = ctx.getReference("lcd");
-		}
-		if (lcd != null) {
-			lcd.sendMessage(message);
-		}
-	}
-
-	protected void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public AbstractDemo(RoboContext ctx, RoboReference<LcdMessage> lcd) {
+		this.ctx = ctx;
+		this.lcd = lcd;
 	}
 
 	@Override
-	public void run(RoboContext ctx) throws IOException {
+	public void run() throws IOException {
 		isRunning = true;
-		this.ctx = ctx;
-		lcd = ctx.getReference("lcd");
 		runDemo();
 	}
 
 	public boolean isRunning() {
 		return isRunning;
 	}
-	
+
 	protected abstract void runDemo() throws IOException;
 
 	protected void setDone() {

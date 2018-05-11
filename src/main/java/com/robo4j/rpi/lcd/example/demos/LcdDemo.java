@@ -18,8 +18,6 @@ package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
 
-import com.robo4j.RoboContext;
-
 /**
  * The interface for the demos.
  * 
@@ -35,14 +33,11 @@ public interface LcdDemo {
 	String getName();
 
 	/**
-	 * Runs the demo.
-	 * 
-	 * @param context
-	 *            the RoboContext.
-	 * 
+	 *
 	 * @throws IOException
+	 *             exception
 	 */
-	void run(RoboContext context) throws IOException;
+	void run() throws IOException;
 
 	/**
 	 * @return true if the demo is still running.

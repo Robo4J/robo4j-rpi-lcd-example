@@ -21,7 +21,7 @@ println "configure $project"
 
 ext {
     robo4jVersion = "alpha-0.3"
-    gradleVersion = "3.4"
+    gradleVersion = "4.7"
     pi4jVersion = "1.1"
     junitVersion = "4.12"
     hamcrestAllVersion = "1.3"

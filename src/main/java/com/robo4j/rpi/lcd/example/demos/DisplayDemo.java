@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import com.robo4j.RoboContext;
+import com.robo4j.RoboReference;
 import com.robo4j.scheduler.FinalInvocationListener;
 import com.robo4j.units.rpi.lcd.LcdMessage;
 import com.robo4j.units.rpi.lcd.LcdMessageType;
@@ -31,6 +32,10 @@ import com.robo4j.units.rpi.lcd.LcdMessageType;
  * @author Miroslav Wengner (@miragemiko)
  */
 public class DisplayDemo extends AbstractDemo implements LcdDemo {
+
+	public DisplayDemo(RoboContext ctx, RoboReference<LcdMessage> lcd) {
+		super(ctx, lcd);
+	}
 
 	@Override
 	public String getName() {

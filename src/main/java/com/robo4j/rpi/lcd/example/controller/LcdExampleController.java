@@ -24,6 +24,7 @@ import com.robo4j.ConfigurationException;
 import com.robo4j.CriticalSectionTrait;
 import com.robo4j.LifecycleState;
 import com.robo4j.RoboContext;
+import com.robo4j.RoboReference;
 import com.robo4j.RoboUnit;
 import com.robo4j.configuration.Configuration;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
@@ -40,7 +41,7 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit},
- * {@link HttpUnit} and the {@link AdafruitButtonUnit} to provide a demo similar
+ * {@link com.robo4j.socket.http.units.HttpServerUnit} and the {@link AdafruitButtonUnit} to provide a demo similar
  * to the one in {@link Demo}.
  * 
  * @author Marcus Hirt (@hirt)
@@ -48,9 +49,11 @@ import com.robo4j.units.rpi.lcd.LcdMessage;
  */
 @CriticalSectionTrait
 public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
+	public static final String PROPERTY_TARGET = "target";
 	private static int currentDemo = -1;
-	private static final LcdDemo[] DEMOS = new LcdDemo[] { new ScrollDemo(), new ColorDemo(), new DisplayDemo(), new ExitDemo() };
+	private RoboReference<LcdMessage> targetLcd;
 	private String target;
+	private LcdDemo[] demos;
 
 	public LcdExampleController(RoboContext context, String id) {
 		super(AdafruitButtonEnum.class, context, id);
@@ -67,19 +70,27 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 
 	@Override
 	public void onInitialization(Configuration configuration) throws ConfigurationException {
-		target = configuration.getString("target", null);
+		target = configuration.getString(PROPERTY_TARGET, null);
 		if (target == null) {
-			throw ConfigurationException.createMissingConfigNameException("target");
+			throw ConfigurationException.createMissingConfigNameException(PROPERTY_TARGET);
 		}
+	}
+
+	@Override
+	public void start() {
+		RoboContext ctx = getContext();
+		targetLcd = ctx.getReference(target);
+		demos = new LcdDemo[] { new ScrollDemo(ctx, targetLcd), new ColorDemo(ctx, targetLcd),
+				new DisplayDemo(ctx, targetLcd), new ExitDemo(ctx, targetLcd) };
 	}
 
 	@Override
 	public void stop() {
 		setState(LifecycleState.STOPPING);
 		SimpleLoggingUtil.print(getClass(), "Clearing and shutting off display...");
-		sendLcdMessage(getContext(), LcdMessage.MESSAGE_CLEAR);
-		sendLcdMessage(getContext(), LcdMessage.MESSAGE_TURN_OFF);
-		sendLcdMessage(getContext(), LcdMessage.MESSAGE_STOP);
+		sendLcdMessageString(LcdMessage.MESSAGE_CLEAR);
+		sendLcdMessageString(LcdMessage.MESSAGE_TURN_OFF);
+		sendLcdMessageString(LcdMessage.MESSAGE_STOP);
 		setState(LifecycleState.STOPPED);
 	}
 
@@ -104,39 +115,39 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 			runDemo();
 			break;
 		default:
-			sendLcdMessage(getContext(), String.format("Button %s\nis not in use...", myMessage));
+			sendLcdMessageString(String.format("Button %s\nis not in use...", myMessage));
 		}
 	}
 
 	private void moveToPreviousDemo() {
 		currentDemo = --currentDemo < 0 ? 0 : currentDemo;
-		sendLcdMessage(getContext(), String.format("#%d:%s\nPress Sel to run!", currentDemo, DEMOS[currentDemo].getName()));
+		sendLcdMessageString(String.format("#%d:%s\nPress Sel to run!", currentDemo, demos[currentDemo].getName()));
 	}
 
 	private void moveToNextDemo() {
-		currentDemo = ++currentDemo > (DEMOS.length - 1) ? DEMOS.length - 1 : currentDemo;
-		sendLcdMessage(getContext(), String.format("#%d:%s\nPress Sel to run!", currentDemo, DEMOS[currentDemo].getName()));
+		currentDemo = ++currentDemo > (demos.length - 1) ? demos.length - 1 : currentDemo;
+		sendLcdMessageString(String.format("#%d:%s\nPress Sel to run!", currentDemo, demos[currentDemo].getName()));
 	}
 
 	private void runDemo() {
-		LcdDemo test = DEMOS[currentDemo];
+		LcdDemo test = demos[currentDemo];
 		SimpleLoggingUtil.print(getClass(), "Running test " + test.getName());
 		try {
-			test.run(getContext());
+			test.run();
 		} catch (IOException e) {
 			SimpleLoggingUtil.error(getClass(), "Failed to run demo", e);
 		}
 	}
 
 	private boolean isDemoRunning() {
-		return currentDemo != -1 && DEMOS[currentDemo].isRunning();
+		return currentDemo != -1 && demos[currentDemo].isRunning();
 	}
 
-	private void sendLcdMessage(RoboContext ctx, LcdMessage message) {
-		ctx.getReference(target).sendMessage(message);
+	private void sendLcdMessageString(LcdMessage message) {
+		targetLcd.sendMessage(message);
 	}
 
-	private void sendLcdMessage(RoboContext ctx, String message) {
-		ctx.getReference(target).sendMessage(new LcdMessage(message));
+	private void sendLcdMessageString(String message) {
+		targetLcd.sendMessage(new LcdMessage(message));
 	}
 }

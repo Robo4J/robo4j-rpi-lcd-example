@@ -18,7 +18,10 @@ package com.robo4j.rpi.lcd.example.demos;
 
 import java.io.IOException;
 
+import com.robo4j.RoboContext;
+import com.robo4j.RoboReference;
 import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
+import com.robo4j.units.rpi.lcd.LcdMessage;
 
 /**
  * This one really doesn't anything but clean up and exit.
@@ -27,6 +30,10 @@ import com.robo4j.rpi.lcd.example.demos.AbstractDemo;
  * @author Miroslav Wengner (@miragemiko)
  */
 public class ExitDemo extends AbstractDemo {
+
+	public ExitDemo(RoboContext ctx, RoboReference<LcdMessage> lcd) {
+		super(ctx, lcd);
+	}
 
 	@Override
 	public String getName() {

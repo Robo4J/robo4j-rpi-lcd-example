@@ -13,7 +13,7 @@
             <value name="port" type="int">8025</value>
             <value name="target" type="String">controller</value>
             <value name="packages" type="String">com.robo4j.rpi.lcd.example.codec</value>
-            <value name="targetUnits" type="String">{"controller":"GET"}</value>
+            <value name="unitPathsConfig" type="String">[{"roboUnit":"controller","method":"POST"}]</value>
         </config>
     </roboUnit>
 
