@@ -29,20 +29,22 @@ import com.robo4j.RoboUnit;
 import com.robo4j.configuration.Configuration;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.Demo;
 import com.robo4j.logging.SimpleLoggingUtil;
-import com.robo4j.rpi.lcd.example.demos.ColorDemo;
-import com.robo4j.rpi.lcd.example.demos.DisplayDemo;
-import com.robo4j.rpi.lcd.example.demos.ExitDemo;
-import com.robo4j.rpi.lcd.example.demos.LcdDemo;
-import com.robo4j.rpi.lcd.example.demos.ScrollDemo;
+import com.robo4j.scheduler.Scheduler;
 import com.robo4j.units.rpi.lcd.AdafruitButtonEnum;
 import com.robo4j.units.rpi.lcd.AdafruitButtonUnit;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
+import com.robo4j.units.rpi.lcd.ColorDemo;
+import com.robo4j.units.rpi.lcd.DisplayDemo;
+import com.robo4j.units.rpi.lcd.ExitDemo;
+import com.robo4j.units.rpi.lcd.LcdDemo;
 import com.robo4j.units.rpi.lcd.LcdMessage;
+import com.robo4j.units.rpi.lcd.ScrollDemo;
 
 /**
  * This controller binds together the standard {@link AdafruitLcdUnit},
- * {@link com.robo4j.socket.http.units.HttpServerUnit} and the {@link AdafruitButtonUnit} to provide a demo similar
- * to the one in {@link Demo}.
+ * {@link com.robo4j.socket.http.units.HttpServerUnit} and the
+ * {@link AdafruitButtonUnit} to provide a demo similar to the one in
+ * {@link Demo}.
  * 
  * @author Marcus Hirt (@hirt)
  * @author Miroslav Wengner (@miragemiko)
@@ -78,10 +80,10 @@ public class LcdExampleController extends RoboUnit<AdafruitButtonEnum> {
 
 	@Override
 	public void start() {
-		RoboContext ctx = getContext();
-		targetLcd = ctx.getReference(target);
-		demos = new LcdDemo[] { new ScrollDemo(ctx, targetLcd), new ColorDemo(ctx, targetLcd),
-				new DisplayDemo(ctx, targetLcd), new ExitDemo(ctx, targetLcd) };
+		Scheduler scheduler = getContext().getScheduler();
+		targetLcd = getContext().getReference(target);
+		demos = new LcdDemo[] { new ScrollDemo(scheduler, targetLcd), new ColorDemo(scheduler, targetLcd),
+				new DisplayDemo(scheduler, targetLcd), new ExitDemo(getContext(), targetLcd) };
 	}
 
 	@Override
