@@ -18,10 +18,6 @@ package com.robo4j.rpi.lcd.example;
 
 import static com.robo4j.rpi.lcd.example.LcdExampleDeclarativeMain.INIT_MESSAGE;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.robo4j.RoboBuilder;
 import com.robo4j.RoboContext;
 import com.robo4j.configuration.Configuration;
@@ -29,12 +25,10 @@ import com.robo4j.configuration.ConfigurationFactory;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
 import com.robo4j.socket.http.units.HttpServerUnit;
-import com.robo4j.socket.http.util.JsonUtil;
 import com.robo4j.units.rpi.I2CRoboUnit;
 import com.robo4j.units.rpi.lcd.AdafruitButtonUnit;
 import com.robo4j.units.rpi.lcd.AdafruitLcdUnit;
 import com.robo4j.units.rpi.lcd.LcdMessage;
-import com.robo4j.util.PropertyMapBuilder;
 import com.robo4j.util.SystemUtil;
 
 /**
