@@ -21,7 +21,7 @@ import static com.robo4j.rpi.lcd.example.LcdExampleDeclarativeMain.INIT_MESSAGE;
 import com.robo4j.RoboBuilder;
 import com.robo4j.RoboContext;
 import com.robo4j.configuration.Configuration;
-import com.robo4j.configuration.ConfigurationFactory;
+import com.robo4j.configuration.ConfigurationBuilder;
 import com.robo4j.hw.rpi.i2c.adafruitlcd.AdafruitLcd;
 import com.robo4j.rpi.lcd.example.controller.LcdExampleController;
 import com.robo4j.socket.http.units.HttpServerUnit;
@@ -45,43 +45,31 @@ import com.robo4j.util.SystemUtil;
 public class LcdExampleMain {
 
 	public static void main(String[] args) throws Exception {
-
 		// basic configuration
 		final int port = 8025;
 		final String lcdUnitName = "lcd";
 
 		final RoboBuilder roboBuilder = new RoboBuilder();
 
-		// create empty configuration
-		Configuration config = ConfigurationFactory.createEmptyConfiguration();
-
 		// Adafruit: button plate Controller
-		config.setString("target", "controller");
-		config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
-		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
+		Configuration config = new ConfigurationBuilder().addString("target", "controller")
+				.addInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS)
+				.addInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS).build();
 		roboBuilder.add(AdafruitButtonUnit.class, config, "buttons");
 
 		// Adafruit: lcd controller
-		config = ConfigurationFactory.createEmptyConfiguration();
-		config.setInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS);
-		config.setInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS);
+		config = new ConfigurationBuilder().addInteger(I2CRoboUnit.PROPERTY_KEY_ADDRESS, AdafruitLcd.DEFAULT_ADDRESS)
+				.addInteger(I2CRoboUnit.PROPERTY_KEY_BUS, AdafruitLcd.DEFAULT_BUS).build();
 		roboBuilder.add(AdafruitLcdUnit.class, config, lcdUnitName);
 
 		// Robo4J: lcd example controller
-		config = ConfigurationFactory.createEmptyConfiguration();
-		config.setString("target", lcdUnitName);
+		config = new ConfigurationBuilder().addString("target", lcdUnitName).build();
 		roboBuilder.add(LcdExampleController.class, config, "controller");
 
 		// Robo4J: Http end-point
-		config = ConfigurationFactory.createEmptyConfiguration();
-		String endPointName = "controller";
-		config.setString("target", endPointName);
-		config.setInteger("port", port);
-		config.setString("packages", "com.robo4j.rpi.lcd.example.codec");
-		/* put target units and access method */
-
-		String httpServerConfig = "[{\"roboUnit\":\"controller\",\"method\":\"POST\"}]";
-		config.setString("unitPathsConfig", httpServerConfig);
+		config = new ConfigurationBuilder().addString("target", "controller").addInteger("port", port)
+				.addString("packages", "com.robo4j.rpi.lcd.example.codec")
+				.addString("unitPathsConfig", "[{\"roboUnit\":\"controller\",\"method\":\"POST\"}]").build();
 		roboBuilder.add(HttpServerUnit.class, config, "http");
 
 		// Robo4J: build system
@@ -100,5 +88,4 @@ public class LcdExampleMain {
 		System.in.read();
 		roboSystem.shutdown();
 	}
-
 }
