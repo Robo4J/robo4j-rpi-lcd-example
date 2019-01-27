@@ -19,7 +19,31 @@ POST request:
 }
 
 ## Building from Source
-The Robo4j framework uses [Gradle][] to build. The easiest way to run the example is to create the fatJar and run it.
+The Robo4j framework uses [Gradle][] to build. The easiest way is to simply build a fat jar.
+
+```bash
+./gradlew :fatJar
+```
+
+## Running 
+The built fat jar can simply be run with java -jar. Just make sure you have all the required libraries on the path. 
+The example can be run on all platforms where Swing is available by setting the system property com.robo4j.hw.rpi.i2c.adafruitlcd.mock to true.
+
+For example:
+
+```bash
+java -Dcom.robo4j.hw.rpi.i2c.adafruitlcd.mock=true -jar build/libs/robo4j-rpi-lcd-example-0.5-SNAPSHOT.jar
+```
+
+Or, on a Raspberry Pi with the necessary hardware connected:
+
+```bash
+java -cp $ROBO4J_PATH:build/libs/robo4j-rpi-lcd-example-0.5-SNAPSHOT.jar com.robo4j.rpi.lcd.example.LcdExampleMain
+```
+
+
+
+The easiest way to run the example is to create the fatJar and run it.
 
 ## Requirements
 * [Java JDK 8][]

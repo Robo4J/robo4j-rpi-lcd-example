@@ -34,7 +34,3 @@ dependencies {
     compile "com.robo4j:robo4j-units-rpi:${robo4jVersion}"
     compile "com.robo4j:robo4j-socket-http:${robo4jVersion}"
 }
-
-task wrapper(type: Wrapper) {
-    gradleVersion = "${gradleVersion}"
-}
